@@ -1,11 +1,10 @@
-
-
+import { Route, Routes } from "react-router-dom";
 function App() {
-
-  return (
-    <>
-    </>
-  )
+  return <>
+    <Routes>
+     {/* <Route path={true} element={<Home />} /> */}
+    </Routes>
+  </>;
 }
 
-export default App
+export default App;
