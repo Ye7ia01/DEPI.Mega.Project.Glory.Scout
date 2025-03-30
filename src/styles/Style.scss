@@ -1,0 +1,25 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+  }
+  :root {
+    --primary-color: #33ff33;
+    --dark-color: #1a1a1a;
+    --white-color: #ffffff;
+    --blue-color: #4262ff;
+    --lime-green: #b6ff1c;
+    --dark-blue-gray: #222232;
+    --charcoal-gray: #1c1c1c;
+    --pure-black: #000000;
+    --Size-h1: 48px;
+    --Size-paragraph: 18px;
+    --line-height: 24px;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: var(--pure-black);
+  }
