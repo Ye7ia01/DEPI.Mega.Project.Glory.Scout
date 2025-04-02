@@ -1,20 +1,19 @@
-import {useContext, useState} from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import {AuthContext, AuthProvider} from "./context/AuthContext.jsx";
-
-import './App.css'
+import { Route, Routes } from "react-router-dom";
 import {AuthenticatedNavBar} from "./components/AuthenticatedNavBar.jsx";
+import {AuthenticatedSideBar} from "./components/AuthenticatedSideBar.jsx";
+import {Col, Container, Row} from "react-bootstrap";
 
 function App() {
-    const [count, setCount] = useState(0)
 
     return (
         <AuthProvider>
+            <Routes>
+            </Routes>
             <AuthenticatedNavBar/>
 
         </AuthProvider>
     )
 }
 
-export default App
+export default App;
