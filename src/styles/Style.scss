@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Open+Sans:wght@400;700&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Inter:wght@400;700;900&family=Open+Sans:wght@400;700&display=swap');
 * {
   margin: 0;
   padding: 0;
@@ -29,9 +28,36 @@ body {
   background-color: var(--pure-black);
 }
 
+.logo-text-header {
+  color: var(--white-color);
+  font-weight: 900;
+  font-style: italic;
+  font-size: 20px;
+  line-height: 100%;
+
+}
+
+.logo-text {
+  color: #19E237;
+  font-family: 'Inter', sans-serif;
+  font-weight: 800;
+  font-style: italic;
+  font-size: 12px;
+
+}
+
+.upper-nav-bar {
+  background-color: #111111;
+  flex-wrap: nowrap;
+  //display: flex;
+  //align-items: center;
+  //justify-content: space-between;
+  //padding: 0 20px;
+}
+
 .nav-bar {
   background-color: var(--pure-black);
-  width:300px;
+  width: 300px;
 }
 
 // Inactive Icons
@@ -149,10 +175,58 @@ body {
   color: #A5A5A5;
 }
 
-@media (max-width: 1199px) { .nav-bar { width: 300px !important; } }
-@media (max-width: 991px) { .nav-bar { width: 200px !important; } }
-@media (max-width: 767px) { .nav-bar { width: 200px !important; } }
-@media (max-width: 575px) { .nav-bar { width: 200px !important; } }
+@media (max-width: 1199px) {
+  .nav-bar {
+    width: 300px !important;
+  }
+  .sidebar{
+    transform: translateX(0);
+  }
+
+}
+
+//@media (max-width: 991px) {
+//  .sidebar{
+//    transform: translateX(0);
+//  }
+//}
+//
+//@media (max-width: 767px) {
+//  .nav-bar {
+//    width: 200px !important;
+//  }
+//  .sidebar{
+//    transform: translateX(-100%);
+//  }
+//
+//
+//}
+//
+//@media (max-width: 575px) {
+//  .nav-bar {
+//    width: 200px !important;
+//  }
+//  .sidebar{
+//    transform: translateX(-100%);
+//  }
+//
+//}
+
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 250px;
+  background-color: var(--dark-color);
+  transition: transform 0.3s ease-in-out;
+  transform: translateX(-200%); /* Hide by default */
+}
+
+.sidebar.collapsed {
+  transform: translateX(0); /* Show when collapsed class is added */
+}
 
 
 

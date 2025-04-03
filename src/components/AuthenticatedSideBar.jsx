@@ -1,4 +1,4 @@
-﻿import {Image, Nav, Navbar} from "react-bootstrap";
+﻿import {Button, Image, Nav, Navbar} from "react-bootstrap";
 import Brand from '../assets/Brand.svg'
 import Contact from '../assets/contactIcon.svg'
 import FAQ from '../assets/FaqIcon.svg'
@@ -9,19 +9,31 @@ import Settings from '../assets/settingsIcon.svg'
 import Banner from '../assets/Banner.svg'
 import {FaBars, FaHome, FaEnvelope, FaQuestionCircle, FaPhoneAlt, FaUser, FaCog} from "react-icons/fa";
 import {useState} from "react";
+import {NavbarLogo} from "./NavbarLogo.jsx";
 
 
-export const AuthenticatedSideBar = () => {
+export const AuthenticatedSideBar = ({collapsed, setCollapsed}) => {
 
     const [visible, setVisible] = useState(true)
     const [activePage, setActivePage] = useState('home')
-    console.log("Active Page: ",activePage)
+    console.log("Collapsed: ", collapsed)
+    console.log("Active Page: ", activePage)
+
+
 
     return (
-
+    <>
+        { collapsed && (
         <Navbar variant="dark" className="d-flex flex-column ps-lg-5 ps-sm-1 ps-md-1 align-items-start h-100 nav-bar"
-                     style={{ minHeight:'100vh'}}>
-
+                style={{minHeight: '100vh'}}>
+            <Navbar.Brand href="#home">
+                <div className='d-flex align-items-center'>
+                    <NavbarLogo/>
+                    <Button variant="outline-secondary" onClick={() => setCollapsed(!collapsed)}>
+                        <FaBars/>
+                    </Button>
+                </div>
+            </Navbar.Brand>
             <Nav className="d-flex flex-column justify-content-evenly flex-grow-1">
                 <p className="side-bar-text">Main Menu</p>
 
@@ -34,7 +46,7 @@ export const AuthenticatedSideBar = () => {
                                width='28px'
                                height='29.51px'
                         />
-                      <span className={`side-bar-items active ${activePage === 'home' ? 'active' : ''}`}>Home</span>
+                        <span className={`side-bar-items active ${activePage === 'home' ? 'active' : ''}`}>Home</span>
                     </Nav.Link>
                 </Nav.Item>
 
@@ -103,18 +115,20 @@ export const AuthenticatedSideBar = () => {
                         <span className='side-bar-items'>Settings</span>
                     </Nav.Link>
                 </Nav.Item>
-                <Nav.Item class=''>
+                <Nav.Item>
                     <Nav.Link className='ps-0 w-100'>
                         <Image
                             src={Banner}
                             className='w-100'
-                            style={{height:'213px'}}
+                            style={{height: '213px'}}
                         />
                     </Nav.Link>
 
                 </Nav.Item>
             </Nav>
-         </Navbar>
-
+        </Navbar>
+    )
+}
+    </>
     )
 }
