@@ -238,12 +238,13 @@ const Contact = () => {
                 </li>
               </ul>
 
-              <div className="row d-flex flex-wrap justify-content-between p-5">
+              <div className="row d-flex  justify-content-between p-5 discover-container">
+
                 <div className="col-sm-12 col-md-6 col-lg-6 card">
                   <div className="text-container2">
-                    <h2>
+                    <p className="title">
                       123 GloryScout Plaza, Gamal Abdel Nasser Street, Mansoura
-                    </h2>
+                    </p>
                     <p>
                       Our main headquarters serve as the heart of GloryScout.
                       Located in the bustling city center of Mansoura, this is
@@ -275,9 +276,9 @@ const Contact = () => {
 
                 <div className="col-sm-12 col-md-6 col-lg-6 card">
                   <div className="text-container2">
-                    <h2>
+                  <p className="title">
                       123 GloryScout Plaza, Gamal Abdel Nasser Street, Mansoura
-                    </h2>
+                    </p>
                     <p>
                       Our main headquarters serve as the heart of GloryScout.
                       Located in the bustling city center of Mansoura, this is
@@ -360,8 +361,8 @@ const Contact = () => {
             </div>
             <div className="row">
               <div className="col-sm-12 col-md-6 col-lg-6 p-3">
-                <h2 className="pt-4">Explore GloryScout World</h2>
-                <p>
+                <p className="pt-4 title">Explore GloryScout World</p>
+                <p className="gallery-desc">
                   Step inside the world of GloryScout, where professionalism
                   meets passion, and expertise meets the love of football. Our
                   gallery offers a glimpse into our team, workspaces, and the
