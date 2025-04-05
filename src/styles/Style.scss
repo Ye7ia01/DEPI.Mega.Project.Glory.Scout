@@ -52,6 +52,11 @@ body {
 }
 
 .side-bar {
+  position: fixed;
+  left:0;
+  top:0;
+  height: 100%;
+  z-index: 999;
   background-color: var(--pure-black);
   width: 250px;
 }
@@ -123,17 +128,17 @@ body {
 }
 
 
-.sidebar {
-  height: 100%;
-  width: 250px;
-  background-color: var(--dark-color);
-  transition: transform 0.3s ease-in-out;
-  transform: translateX(-200%); /* Hide by default */
-}
-
-.sidebar.collapsed {
-  transform: translateX(0); /* Show when collapsed class is added */
-}
+//.sidebar {
+//  height: 100%;
+//  width: 250px;
+//  background-color: var(--dark-color);
+//  transition: transform 0.3s ease-in-out;
+//  transform: translateX(-200%); /* Hide by default */
+//}
+//
+//.sidebar.collapsed {
+//  transform: translateX(0); /* Show when collapsed class is added */
+//}
 
 .user-data {
   font-size: 12px;

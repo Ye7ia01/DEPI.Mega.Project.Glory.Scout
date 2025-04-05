@@ -23,11 +23,10 @@ import Gift from '../assets/gift.svg'
 import {AuthenticatedSideBar} from "./AuthenticatedSideBar.jsx";
 import {NavbarLogo} from "./NavbarLogo.jsx";
 
-export const AuthenticatedNavBar = () => {
+export const AuthenticatedNavBar = ({collapsed, setCollapsed}) => {
 
     const {user} = useContext(AuthContext)
     const [searchVisible, setSearchVisible] = useState(false)
-    const [collapsed, setCollapsed] = useState(false)
 
     useEffect(() => {
     const handleResize = () => {
@@ -52,7 +51,7 @@ export const AuthenticatedNavBar = () => {
 
     return (
         <>
-            <Navbar expand={false} className='upper-nav-bar pt-0 pb-0'>
+            <Navbar expand={false} className='upper-nav-bar pt-0 pb-0' >
 
                 <Container fluid>
                     <div className='d-flex flex-row'>
@@ -182,9 +181,16 @@ export const AuthenticatedNavBar = () => {
                     )
                 }
             </Navbar>
-            <div className={`sidebar ${collapsed ? 'collapsed' : ''}`}>
-                <AuthenticatedSideBar />
-            </div>
+            {
+                collapsed && (
+                    <div className='side-bar'>
+                        <AuthenticatedSideBar collapsed={collapsed} setCollapsed={setCollapsed}/>
+                    </div>
+                )
+            }
+            {/*<div className={`sidebar ${collapsed ? 'collapsed' : ''}`}>*/}
+            {/*    <AuthenticatedSideBar />*/}
+            {/*</div>*/}
         </>
     )
 }

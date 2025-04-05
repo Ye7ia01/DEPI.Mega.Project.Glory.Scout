@@ -8,11 +8,14 @@ import {useState} from "react";
 import Contact from "./components/Contact";
 
 function App() {
+
+    const [collapsed, setCollapsed] = useState(false)
+
     return (
         <AuthProvider>
             <Routes>
             </Routes>
-            <AuthenticatedNavBar />
+            <AuthenticatedNavBar collapsed={collapsed} setCollapsed={setCollapsed}/>
             <Contact/>
 
         </AuthProvider>

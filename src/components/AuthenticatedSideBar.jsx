@@ -21,9 +21,18 @@ export const AuthenticatedSideBar = ({collapsed, setCollapsed}) => {
 
     return (
     <>
-        <Navbar variant="dark" className="d-flex flex-column ps-4 align-items-start h-100 side-bar"
-                style={{minHeight: '100vh'}}>
+        {
+            collapsed && (
+        <Navbar variant="dark" className="d-flex flex-column ps-4 align-items-start side-bar"
+                >
+
             <Nav className="d-flex flex-column justify-content-evenly">
+                <div className='d-flex flex-row'>
+                    <NavbarLogo/>
+                    <Button className='bg-transparent border-0' onClick={() => setCollapsed(!collapsed)}>
+                        <FaBars/>
+                    </Button>
+                </div>
                 <p className="side-bar-text mt-3">Main Menu</p>
                 <Nav.Item>
                     <Nav.Link href="#" className="d-flex align-items-center ps-0 " onClick={
@@ -117,6 +126,8 @@ export const AuthenticatedSideBar = ({collapsed, setCollapsed}) => {
                 </Nav.Item>
             </Nav>
         </Navbar>
+            )
+        }
     </>
     )
 }
