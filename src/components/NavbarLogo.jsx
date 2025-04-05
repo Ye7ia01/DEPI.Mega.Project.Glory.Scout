@@ -3,12 +3,13 @@ import Brand from "../assets/logo.svg";
 
 export const NavbarLogo = () => {
     return (
-        <div className='d-flex align-items-center'>
+        <div className='d-flex align-items-center d-none d-sm-inline-flex d-md-inline-flex d-lg-inline-flex'>
             <Image
                 src={Brand}
                 width='80'
                 height='80'
                 alt=''
+                className='img-fluid'
             />
             <div className="d-flex flex-column">
                 <h1 className='logo-text-header m-0'>Glory</h1>

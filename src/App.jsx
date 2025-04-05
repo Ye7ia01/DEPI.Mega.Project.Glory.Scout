@@ -7,12 +7,11 @@ import collapse from "bootstrap/js/src/collapse.js";
 import {useState} from "react";
 
 function App() {
-    const [collapsed, setCollapsed] = useState(false)
     return (
         <AuthProvider>
             <Routes>
             </Routes>
-            <AuthenticatedNavBar collapsed={collapsed} setCollapsed={setCollapsed}/>
+            <AuthenticatedNavBar />
 
         </AuthProvider>
     )
