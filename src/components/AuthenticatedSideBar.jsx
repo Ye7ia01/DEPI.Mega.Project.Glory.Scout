@@ -36,7 +36,7 @@ export const AuthenticatedSideBar = ({collapsed, setCollapsed}) => {
                 </div>
                 <p className="side-bar-text mt-3">Main Menu</p>
                 <Nav.Item>
-                    <NavLink to="/" className="d-flex align-items-center ps-0 text-decoration-none" onClick={
+                    <NavLink href to="/" className="d-flex align-items-center ps-0 text-decoration-none" onClick={
                         () => setActivePage('home')
                     }>
                         <Image className={`me-3 svg-icon img-fluid ${activePage === 'home' ? 'svg-icon-active' : ''}`}
