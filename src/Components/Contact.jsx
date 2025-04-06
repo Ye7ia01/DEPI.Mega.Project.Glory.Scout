@@ -92,7 +92,7 @@ const Contact = () => {
               </p>
             </div>
 
-            <div className="contact-form">
+            <form className="contact-form">
               <div className="row p-5 g-3">
                 <div className="col-sm-12 col-md-6 col-lg-4 ">
                   <label htmlFor="first-name" className="form-label">
@@ -197,7 +197,7 @@ const Contact = () => {
                   </div>
                 </div>
               </div>
-            </div>
+            </form>
           </section>
 
           {/*========== discover our office location ========== */}
