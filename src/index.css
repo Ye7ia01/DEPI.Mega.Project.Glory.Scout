@@ -53,6 +53,7 @@ html,body,#root{
   border-radius: 10px;
   color: var(--abslout-white);
   position: relative;
+  height: 150px;
 }
 
 
@@ -80,6 +81,11 @@ html,body,#root{
   background-color: #1A1A1A;
   font-size: 14px;
   padding: 15px;
+}
+
+#contact-home-page  .contact-form .form-control::placeholder{
+  color: var(--abslout-white);
+  opacity: .5;
 }
 #contact-home-page  .contact-form .form-control:focus{
  box-shadow: none;
