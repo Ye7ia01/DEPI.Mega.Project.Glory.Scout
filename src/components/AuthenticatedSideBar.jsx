@@ -11,6 +11,7 @@ import {FaBars, FaHome, FaEnvelope, FaQuestionCircle, FaPhoneAlt, FaUser, FaCog}
 import {useState} from "react";
 import {NavbarLogo} from "./NavbarLogo.jsx";
 import '../styles/Style.scss'
+import { NavLink } from "react-router";
 
 
 export const AuthenticatedSideBar = ({collapsed, setCollapsed}) => {
@@ -35,7 +36,7 @@ export const AuthenticatedSideBar = ({collapsed, setCollapsed}) => {
                 </div>
                 <p className="side-bar-text mt-3">Main Menu</p>
                 <Nav.Item>
-                    <Nav.Link href="#" className="d-flex align-items-center ps-0 " onClick={
+                    <NavLink to="/" className="d-flex align-items-center ps-0 text-decoration-none" onClick={
                         () => setActivePage('home')
                     }>
                         <Image className={`me-3 svg-icon img-fluid ${activePage === 'home' ? 'svg-icon-active' : ''}`}
@@ -44,11 +45,11 @@ export const AuthenticatedSideBar = ({collapsed, setCollapsed}) => {
                                height='20px'
                         />
                         <span className={`side-bar-items ${activePage === 'home' ? 'active' : ''}`}>Home</span>
-                    </Nav.Link>
+                    </NavLink>
                 </Nav.Item>
 
                 <Nav.Item className="">
-                    <Nav.Link href="#" className="d-flex align-items-center ps-0" onClick={
+                    <NavLink to="/email" className="d-flex align-items-center ps-0 text-decoration-none" onClick={
                         () => setActivePage('email')
                     }>
                         <Image
@@ -58,24 +59,25 @@ export const AuthenticatedSideBar = ({collapsed, setCollapsed}) => {
                                className={`me-3 svg-icon img-fluid ${activePage === 'email' ? 'svg-icon-active' : ''}`}
                         />
                         <span className={`side-bar-items ${activePage === 'email' ? 'active' : ''}`}>Email</span>
-                    </Nav.Link>
+                    </NavLink>
                 </Nav.Item>
 
                 <Nav.Item className="">
-                    <Nav.Link href="#" className="d-flex align-items-center ps-0" onClick={
+                    <NavLink to="/faq" className="d-flex align-items-center ps-0  text-decoration-none" onClick={
                         () => setActivePage('faq')
                     }>
                         <Image className={`me-3 svg-icon img-fluid ${activePage === 'faq' ? 'svg-icon-active' : ''}`}
                                src={FAQ}
                                width='20px'
                                height='20px'
+                               
                         />
                         <span className={`side-bar-items ${activePage === 'faq' ? 'active' : ''}`}>FAQ</span>
-                    </Nav.Link>
+                    </NavLink>
                 </Nav.Item>
 
                 <Nav.Item className="">
-                    <Nav.Link href="#" className="d-flex align-items-center ps-0" onClick={
+                    <NavLink to="/contact" className="d-flex align-items-center ps-0 text-decoration-none" onClick={
                         () => setActivePage('contact')
                     }>
                       <Image className={`me-3 svg-icon img-fluid ${activePage === 'contact' ? 'svg-icon-active' : ''}`}
@@ -85,11 +87,11 @@ export const AuthenticatedSideBar = ({collapsed, setCollapsed}) => {
                       />
 
                         <span className={`side-bar-items ${activePage === 'contact' ? 'active' : ''}`}>Contact Us</span>
-                    </Nav.Link>
+                    </NavLink>
                 </Nav.Item>
 
                 <Nav.Item className="">
-                    <Nav.Link href="#" className="d-flex align-items-center ps-0" onClick={
+                    <NavLink to="/player" className="d-flex align-items-center ps-0 text-decoration-none" onClick={
                         () => setActivePage('players')
                     }>
                         <Image className={`me-3 svg-icon img-fluid ${activePage === 'players' ? 'svg-icon-active' : ''}`}
@@ -99,11 +101,11 @@ export const AuthenticatedSideBar = ({collapsed, setCollapsed}) => {
 
                         />
                         <span className={`side-bar-items ${activePage === 'players' ? 'active' : ''}`}>Players</span>
-                    </Nav.Link>
+                    </NavLink>
                 </Nav.Item>
 
                 <Nav.Item className="">
-                    <Nav.Link href="#" className="d-flex align-items-center ps-0" onClick={
+                    <NavLink to="/settings" className="d-flex align-items-center ps-0 text-decoration-none" onClick={
                         () => setActivePage('settings')
                     }>
                         <Image className={`me-3 svg-icon img-fluid ${activePage === 'settings' ? 'svg-icon-active' : ''}`}
@@ -112,16 +114,16 @@ export const AuthenticatedSideBar = ({collapsed, setCollapsed}) => {
                                height='20px'
                         />
                         <span className={`side-bar-items ${activePage === 'settings' ? 'active' : ''}`}>Settings</span>
-                    </Nav.Link>
+                    </NavLink>
                 </Nav.Item>
                 <Nav.Item>
-                    <Nav.Link className='ps-0 w-100'>
+                    <NavLink className='ps-0 w-100'>
                         <Image
                             src={Banner}
                             className='w-100'
                             style={{height: '213px'}}
                         />
-                    </Nav.Link>
+                    </NavLink>
 
                 </Nav.Item>
             </Nav>
