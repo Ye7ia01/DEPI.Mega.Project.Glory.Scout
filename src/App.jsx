@@ -5,9 +5,9 @@ import { AuthenticatedSideBar } from "./components/AuthenticatedSideBar.jsx";
 import { Col, Container, Row } from "react-bootstrap";
 import collapse from "bootstrap/js/src/collapse.js";
 import { useState } from "react";
-import Contact from "./components/Contact";
 import Home from "./Components/Home/Home.jsx";
 import About from "./Components/About/About.jsx";
+import Contact from "./Components/Contact.jsx";
 
 function App() {
   const [collapsed, setCollapsed] = useState(false);
