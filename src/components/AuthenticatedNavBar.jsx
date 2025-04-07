@@ -23,29 +23,42 @@ import Gift from '../assets/gift.svg'
 import {AuthenticatedSideBar} from "./AuthenticatedSideBar.jsx";
 import {NavbarLogo} from "./NavbarLogo.jsx";
 
+/**
+ * AuthenticatedNavBar component
+ *
+ * This component renders a navigation bar for authenticated users.
+ * It includes a logo, a search bar, notification icons, and a user profile dropdown.
+ * The sidebar can be toggled using the collapse button.
+ *
+ * @param {Object} props - The component props
+ * @param {boolean} props.collapsed - Indicates whether the sidebar is collapsed
+ * @param {Function} props.setCollapsed - Function to toggle the collapsed state
+ * @returns {JSX.Element} The rendered component
+ */
 export const AuthenticatedNavBar = ({collapsed, setCollapsed}) => {
 
+    // Get the current user from the AuthContext
     const {user} = useContext(AuthContext)
+    // State to manage the visibility of the search bar on smaller screens
     const [searchVisible, setSearchVisible] = useState(false)
 
+    // Effect to handle window resize and hide the search bar on larger screens
     useEffect(() => {
-    const handleResize = () => {
-        if (window.innerWidth > 768) {
-            setSearchVisible(false)
+        const handleResize = () => {
+            if (window.innerWidth > 768) {
+                setSearchVisible(false)
+            }
         }
-    }
 
-    window.addEventListener('resize', handleResize)
+        window.addEventListener('resize', handleResize)
 
-    // Initial check
-    handleResize()
+        // Initial check
+        handleResize()
 
-    return () => {
-        window.removeEventListener('resize', handleResize)
-    }
-}, [])
-
-
+        return () => {
+            window.removeEventListener('resize', handleResize)
+        }
+    }, [])
 
     console.log("Search VIsible : ",searchVisible)
 
@@ -83,7 +96,6 @@ export const AuthenticatedNavBar = ({collapsed, setCollapsed}) => {
                             </Col>
                         </Row>
                     </Form>
-
 
                     {/*Nav Icons*/}
                     <Nav className="d-flex flex-row evenly">
@@ -130,7 +142,6 @@ export const AuthenticatedNavBar = ({collapsed, setCollapsed}) => {
                             </Nav.Link>
                         </Nav.Item>
                     </Nav>
-
 
                     {/*Nav Profile and Dropdown*/}
                     <div className="d-flex justify-content-center">
@@ -188,9 +199,7 @@ export const AuthenticatedNavBar = ({collapsed, setCollapsed}) => {
                     </div>
                 )
             }
-            {/*<div className={`sidebar ${collapsed ? 'collapsed' : ''}`}>*/}
-            {/*    <AuthenticatedSideBar />*/}
-            {/*</div>*/}
+
         </>
     )
 }

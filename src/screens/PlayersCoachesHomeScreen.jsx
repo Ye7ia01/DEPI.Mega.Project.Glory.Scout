@@ -35,8 +35,6 @@ export const PlayersCoachesHomeScreen = ({dataType}) => {
 
     return (
         <div className='players-home-screen'>
-            {/* Navigation bar component */}
-            <AuthenticatedNavBar collapsed={collapsed} setCollapsed={setCollapsed}/>
 
             {/* Header section */}
             <div className='d-flex align-items-center justify-content-between flex-wrap players-header-div'>

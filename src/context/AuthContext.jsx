@@ -3,14 +3,26 @@ import axios from "axios";
 
 export const AuthContext = createContext({})
 
+/**
+ * AuthProvider component
+ *
+ * This component provides authentication context to its children.
+ * It manages the authentication state, including user information,
+ * loading state, and error messages.
+ *
+ * @param {Object} props - The component props
+ * @param {React.ReactNode} props.children - The child components
+ * @returns {JSX.Element} The rendered component
+ */
 export const AuthProvider = ({children}) => {
 
+    // Demo user object for development mode
     const demoUser = {
         token: "demoToken",
         username: "Demo",
         id: 1,
         accessLevel: 1,
-        user_type: 1, // 1 player , 2 coach
+        user_type: 2, // 1 player, 2 coach
         info: {
             id: 1,
             name: "Demo Full Name",
@@ -18,37 +30,41 @@ export const AuthProvider = ({children}) => {
             email: "demo@gmail.com",
             mobile: ""
         }
-
     }
-    const [ authLoading, setAuthLoading] = useState(false);
-    const [ authenticated, setAuthenticated] = useState(false);
-    const [ authError, setAuthError ] = useState(false);
-    const [ authMessage, setAuthMessage] = useState("");
-    const [ user, setUser] = useState(demoUser);
+
+    // State to manage authentication loading state
+    const [authLoading, setAuthLoading] = useState(false);
+    // State to manage authentication status
+    const [authenticated, setAuthenticated] = useState(false);
+    // State to manage authentication error state
+    const [authError, setAuthError] = useState(false);
+    // State to manage authentication error message
+    const [authMessage, setAuthMessage] = useState("");
+    // State to manage user information
+    const [user, setUser] = useState(demoUser);
+    // State to manage development mode
     const [devMode, setDevMode] = useState(true)
 
+    // Effect to check local storage for user information on component mount
     useEffect(() => {
         setAuthLoading(true);
-        const effect = async () =>  {
+        const effect = async () => {
             let json = await localStorage.getItem('user');
             console.log(json)
             let userObject = JSON.parse(json ?? '{}');
-            if(userObject?.token)
-            {
+            if (userObject?.token) {
                 setUser(userObject);
                 setAuthenticated(true);
                 setAuthLoading(false);
                 console.log(authenticated);
-                //readJsonFile();
                 return;
             }
-            if(devMode) {
+            if (devMode) {
                 console.info("Dev Mode Detected")
                 setUser(demoUser)
                 setAuthenticated(true)
                 setAuthLoading(false)
                 console.info("Authenticated Demo User in Dev Mode")
-
             }
             setAuthLoading(false);
             console.log(authenticated);
@@ -56,19 +72,25 @@ export const AuthProvider = ({children}) => {
         effect();
     }, []);
 
-    useEffect( () => {
-        if(user)
-        {
-            console.log("User in UseEffect   : ",user)
+    // Effect to log user information when it changes
+    useEffect(() => {
+        if (user) {
+            console.log("User in UseEffect   : ", user)
         }
-    },[user])
+    }, [user])
 
-
+    /**
+     * Function to handle user login
+     *
+     * @param {string} username - The username
+     * @param {string} password - The password
+     * @returns {Promise<void>}
+     */
     const loginAsync = async (username, password) => {
         setAuthLoading(true);
         setAuthError(false);
 
-        axios.post('https://elkadysolutions.com/api/Authentication/Login', {
+        axios.post('https://mydomain.com/api/Authentication/Login', {
             username, password
         }, {
             headers: {
@@ -100,7 +122,6 @@ export const AuthProvider = ({children}) => {
                     email: data?.info?.email,
                     mobile: data?.info?.mobile
                 }
-
             };
             setUser(userObj);
             const setStorage = async () => {
@@ -113,10 +134,8 @@ export const AuthProvider = ({children}) => {
                         setAuthenticated(true);
                     });
                 });
-
             }
             setStorage();
-
         }).catch(err => {
             console.log(JSON.stringify(err));
             setAuthError(true);
@@ -124,10 +143,14 @@ export const AuthProvider = ({children}) => {
             setAuthMessage(JSON.stringify(err) ?? "Error, Cannot Sign In");
             setAuthLoading(false);
         })
-
     }
 
-    const logoutAsync = async() => {
+    /**
+     * Function to handle user logout
+     *
+     * @returns {Promise<void>}
+     */
+    const logoutAsync = async () => {
         setAuthLoading(true);
         setAuthError(false);
         setUser({});
@@ -136,9 +159,7 @@ export const AuthProvider = ({children}) => {
         setAuthLoading(false);
     }
 
-
     return <AuthContext.Provider value={{loginAsync, authLoading, user, authenticated, authError, authMessage, logoutAsync}}>
         {children}
     </AuthContext.Provider>
 }
-
