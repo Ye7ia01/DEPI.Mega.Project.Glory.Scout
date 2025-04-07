@@ -10,7 +10,7 @@ export const AuthProvider = ({children}) => {
         username: "Demo",
         id: 1,
         accessLevel: 1,
-        user_type: 1,
+        user_type: 1, // 1 player , 2 coach
         info: {
             id: 1,
             name: "Demo Full Name",

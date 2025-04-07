@@ -6,17 +6,18 @@ import {Col, Container, Row} from "react-bootstrap";
 import collapse from "bootstrap/js/src/collapse.js";
 import {useState} from "react";
 import Contact from "./components/Contact";
+import {PlayersCoachesHomeScreen} from "./screens/PlayersCoachesHomeScreen.jsx";
 
 function App() {
 
-    const [collapsed, setCollapsed] = useState(false)
+
 
     return (
         <AuthProvider>
             <Routes>
             </Routes>
-            <AuthenticatedNavBar collapsed={collapsed} setCollapsed={setCollapsed}/>
-            <Contact/>
+            <PlayersCoachesHomeScreen dataType={'coaches'}/>
+            {/*<Contact/>*/}
 
         </AuthProvider>
     )
