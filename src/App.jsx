@@ -6,6 +6,7 @@ import {Col, Container, Row} from "react-bootstrap";
 import collapse from "bootstrap/js/src/collapse.js";
 import {useState} from "react";
 import Contact from "./components/Contact";
+import FAQ from "./Components/FAQ.jsx";
 
 function App() {
 
@@ -16,7 +17,9 @@ function App() {
             <Routes>
             </Routes>
             <AuthenticatedNavBar collapsed={collapsed} setCollapsed={setCollapsed}/>
+            <FAQ/>
             <Contact/>
+            
 
         </AuthProvider>
     )
