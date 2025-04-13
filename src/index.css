@@ -1,54 +1,53 @@
-
 /*========= global style  =========== */
 
-html,body,#root{
+html,
+body,
+#root {
   height: 100%;
   font-family: Inter, sans-serif;
-  --main-color:#3AFF33;
-  --abslout-white:#FFFFFF;
-  background-color: #111;
+  --main-color: #3aff33;
+  --abslout-white: #ffffff;
+  background-color: #000000;
 }
-
-
-
 /* ========= contact page style ======== */
 
-#contact-home-page{
+#contact-home-page {
   height: 100%;
 }
 
-#contact-home-page .text-container{
+#contact-home-page .text-container {
   display: flex;
   flex-direction: column;
   width: 80%;
-  height:100%;
+  height: 100%;
   margin-block: 50px;
 }
-#contact-home-page .text-container h2{
-  color:var(--abslout-white);
+#contact-home-page .text-container h2 {
+  color: var(--abslout-white);
 }
 
-#contact-home-page .text-container .glory, #contact-home-page .contactForm-container span,
-#contact-home-page .discover-location .locations-info span ,
-#contact-home-page .CTA span
-{
+#contact-home-page .text-container .glory,
+#contact-home-page .contactForm-container span,
+#contact-home-page .discover-location .locations-info span,
+#contact-home-page .CTA span {
   color: var(--main-color);
 }
 
-#contact-home-page .text-container p , .contactForm-container h2{
+#contact-home-page .text-container p,
+.contactForm-container h2 {
   color: #999999;
   padding: 10px;
 }
-#contact-home-page .contact-info{
+#contact-home-page .contact-info {
   margin-top: 50px;
   padding: 16px;
-  background-color: #1A1A1A;
-  box-shadow: 0 0 10px #4D4D4D;
+  background-color: #1a1a1a;
+  box-shadow: 0 0 10px #4d4d4d;
   text-align: center;
 }
 
-#contact-home-page .contact-info .details{
-  background-color:#262626 ;
+#contact-home-page .contact-info .details {
+  background-color: #262626;
   padding: 20px;
   border-radius: 10px;
   color: var(--abslout-white);
@@ -56,31 +55,35 @@ html,body,#root{
   height: 150px;
 }
 
-
-#contact-home-page .contact-info .details .arrow-icon{
+#contact-home-page .contact-info .details .arrow-icon {
   position: absolute;
-  top:20px;
+  top: 20px;
   right: 20px;
 }
 
-#contact-home-page .contactForm-container{
+#contact-home-page .contactForm-container {
   margin-block: 50px;
 }
 
-#contact-home-page .contact-form{
-  border: 1px solid #4D4D4D;
+#contact-home-page .contact-form {
+  border: 1px solid #4d4d4d;
   border-radius: 10px;
 }
 
-#contact-home-page  .contact-form .form-label{
-  color: #FFFFFF;
+#contact-home-page .contact-form .form-label {
+  color: #ffffff;
   font-size: 14px;
 }
 
-#contact-home-page  .contact-form .form-control {
-  background-color: #1A1A1A;
+#contact-home-page .contact-form .form-control {
+  background-color: #1a1a1a;
   font-size: 14px;
   padding: 15px;
+}
+
+#contact-home-page .contact-form .form-control:focus {
+  box-shadow: none;
+  border: none;
 }
 
 #contact-home-page  .contact-form .form-control::placeholder{
@@ -90,129 +93,119 @@ html,body,#root{
 #contact-home-page  .contact-form .form-control:focus{
  box-shadow: none;
  border: none;
+
 }
 
-#contact-home-page  .contact-form .checkbox-btn{
+#contact-home-page .contact-form .checkbox-btn {
   width: 24px;
   height: 24px;
-
 }
 
-#contact-home-page  .contact-form  .contact-btn{
+#contact-home-page .contact-form .contact-btn {
   background-color: var(--main-color);
 }
 
-
-#contact-home-page .discover-location .locations{
-  background-color: #1A1A1A;
+#contact-home-page .discover-location .locations {
+  background-color: #1a1a1a;
   border-radius: 8px;
   padding: 5px;
-
 }
-#contact-home-page .discover-location .locations .nav-link{
+#contact-home-page .discover-location .locations .nav-link {
   color: var(--abslout-white);
-  width:124.3px;
+  width: 124.3px;
   height: 49px;
   border-radius: 8px;
-  border: 1px solid #4D4D4D;
+  border: 1px solid #4d4d4d;
   padding: 14px 20px;
   margin-right: 5px;
   text-align: center;
 }
-#contact-home-page .discover-location .locations .nav-link.active{
+#contact-home-page .discover-location .locations .nav-link.active {
   background-color: var(--main-color);
 }
 
-#contact-home-page .discover-location .locations .card{
+#contact-home-page .discover-location .locations .card {
   background-color: #141414;
   border: 1px solid #262626;
   border-radius: 8px;
-  padding:20px;
- max-width: 48%;
+  padding: 20px;
+  max-width: 48%;
   flex: 1;
 }
 
-
-
-#contact-home-page .discover-location .locations .card  .btn-container{
+#contact-home-page .discover-location .locations .card .btn-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
 }
-#contact-home-page .discover-location .locations button{
-  background-color: #1A1A1A;
+#contact-home-page .discover-location .locations button {
+  background-color: #1a1a1a;
   color: var(--abslout-white);
- font-size: 14px;
- font-weight: 500;
- padding:5px;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 5px;
 }
 
 #contact-home-page .discover-location .locations .card .dir-btn,
-#contact-home-page .CTA button
-{
+#contact-home-page .CTA button {
   margin-block: 20px;
   background-color: var(--main-color);
   color: #262626;
 }
 
-#contact-home-page .discover-location .text-container2 .title , 
-#contact-home-page .gallery .title{
+#contact-home-page .discover-location .text-container2 .title,
+#contact-home-page .gallery .title {
   font-size: 30px;
   font-weight: bold;
   color: var(--abslout-white);
 }
 
-#contact-home-page .gallery{
+#contact-home-page .gallery {
   background-image: url(./assets/gallery-bg.png);
   background-size: cover;
   background-position: center;
-  background-color: #1A1A1A;
+  background-color: #1a1a1a;
   width: 100%;
   margin-block: 50px;
   border-radius: 8px;
 }
 
-
-#contact-home-page .gallery p{
+#contact-home-page .gallery p {
   font-weight: 600;
   padding: 5px;
-  color:#4D4D4D;
+  color: #4d4d4d;
 }
-#contact-home-page .CTA{
+#contact-home-page .CTA {
   width: 100%;
   background-image: url(./assets/CTA-bg.png);
   background-size: cover;
   background-position: center;
   background-color: #111;
-  border: 1px solid #4D4D4D;
+  border: 1px solid #4d4d4d;
   border-radius: 8px;
   padding: 20px;
-  
 }
 
-
-/*==========  media query ========== */
-@media (max-width: 991.98px) { 
+/*========== contact us page  media query ========== */
+@media (max-width: 991.98px) {
   #contact-home-page .discover-location .locations .btn-container {
     flex-direction: column;
     align-items: center;
     gap: 10px;
   }
 
-  #contact-home-page .discover-location .text-container2 .title , 
-  #contact-home-page .gallery .title{
+  #contact-home-page .discover-location .text-container2 .title,
+  #contact-home-page .gallery .title {
     font-size: 20px;
     font-weight: 500;
-   
   }
-
 }
 @media (max-width: 768px) {
   #contact-home-page .text-container {
-    width: 90%; 
-    padding: 20px; 
-    text-align: center; 
+    width: 90%;
+    padding: 20px;
+    text-align: center;
   }
 
   #contact-home-page .contact-info {
@@ -220,20 +213,19 @@ html,body,#root{
   }
 
   #contact-home-page .discover-location .locations .card {
-    width: 100%; 
+    width: 100%;
     flex-direction: column;
     padding: 10px;
   }
 
-  #contact-home-page .discover-location .text-container2 .title , 
-#contact-home-page .gallery .title{
-  font-size: 20px;
-  font-weight: 500;
- 
-}
-#contact-home-page .discover-location .text-container2 p{
-  padding: 10px;
-}
+  #contact-home-page .discover-location .text-container2 .title,
+  #contact-home-page .gallery .title {
+    font-size: 20px;
+    font-weight: 500;
+  }
+  #contact-home-page .discover-location .text-container2 p {
+    padding: 10px;
+  }
 
   #contact-home-page .discover-location .locations .btn-container {
     flex-direction: column;
@@ -246,67 +238,75 @@ html,body,#root{
     padding: 10px;
   }
 
-  #contact-home-page .gallery p{
+  #contact-home-page .gallery p {
     font-weight: 400;
     padding: 0px;
-    
   }
-
-
 }
 
 @media (max-width: 575.98px) {
-  #contact-home-page .discover-location .locations .discover-container{
+  #contact-home-page .discover-location .locations .discover-container {
     flex-direction: column;
     gap: 10px;
   }
 
-  #contact-home-page .discover-location .locations .discover-container .card{
-   max-width:100% !important;
-  
+  #contact-home-page .discover-location .locations .discover-container .card {
+    max-width: 100% !important;
   }
 }
 
-/*====================== FAQ page style =================== */
 
+/*================= FAQ page styles =========== */
 .FAQ-section{
-  background-color:#141414;
-  height: 100vh;
+  min-height: 100vh;
+  background-color: #141414;
   width: 80%;
-  margin: 0 auto;
-  padding: 20px;
-}
-
-.FAQ-section .form-container{
-  width: 95%;
   margin: auto;
-  margin-top: 120px;
-  background-image:url(./assets/FAQ-bg.png) ;
-  background-size: cover;
-  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+.FAQ-section .form-container{
+ background-image: url(./assets/FAQ-form-bg.png);
+ background-size: cover;
+ background-repeat: no-repeat;
+ background-color: #111;
+ width: 90%;
+ margin: auto;
+ padding: 20px;
+ border-radius: 10px;
+ color: var(--abslout-white);
+ gap: 20px;
 }
 
 .FAQ-section .form-container .title{
   font-size: 40px;
-  color: var(--abslout-white);  
   text-align: center;
-  margin-top: 50px;
-}
-.FAQ-section .form-container p{
-  color: var(--abslout-white);
-  padding: 15px;
 }
 
-.FAQ-section .form-container textarea{
- min-height:100px ;
+.FAQ-section .form-container  textarea{
+  min-height: 120px;
   resize: none;
 }
-
-.FAQ-section .form-container button{
+.FAQ-section .form-container  button{
   background-color: var(--main-color);
-  padding: 5px 35px;
-  margin: 40px auto;
+  padding: 5px 40px ;
+  margin: 10px auto;
   display: block;
-  font-weight: bold;
+  border-radius:50px;
+}
 
+/*================== FAQ page media query ============ */
+
+@media (max-width: 768px){
+  .FAQ-section .form-container .row{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .FAQ-section .form-container .title{
+    font-size: 30px;
+  }
 }
