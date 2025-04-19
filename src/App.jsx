@@ -28,6 +28,7 @@ function App() {
         <Route path="/player" element={<PlayersCoachesHomeScreen dataType={'players'}/>}/>
         <Route path="/coach" element={<PlayersCoachesHomeScreen dataType={'coaches'}/>}/>
         <Route path="/player-profile" element={<PlayerProfile dataType={'players'}/>}/>
+        <Route path="/coach-profile" element={<PlayerProfile dataType={'coaches'}/>}/>
       </Routes>
       
     </AuthProvider>
