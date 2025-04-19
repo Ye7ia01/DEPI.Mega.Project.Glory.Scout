@@ -11,6 +11,8 @@ import threeimage from "../Components/Pictures/liverpool.png";
 import fourimage from "../Components/Pictures/idezia.png";
 import Contractwithsomeone from "../Components/Pictures/Contractwithsomeone.png";
 import Coching from "../Components/Pictures/Coching.png";
+
+
 export const LogoImage = [
   {
     id: 1,
@@ -122,3 +124,4 @@ export const MissionVision = [
     image: Coching,
   },
 ];
+

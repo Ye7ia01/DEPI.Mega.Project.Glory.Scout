@@ -22,6 +22,7 @@ import Folder from '../assets/folder.svg'
 import Gift from '../assets/gift.svg'
 import {AuthenticatedSideBar} from "./AuthenticatedSideBar.jsx";
 import {NavbarLogo} from "./NavbarLogo.jsx";
+import { Link } from "react-router";
 
 /**
  * AuthenticatedNavBar component
@@ -161,7 +162,7 @@ export const AuthenticatedNavBar = ({collapsed, setCollapsed}) => {
                             </Dropdown.Toggle>
 
                             <Dropdown.Menu>
-                                <Dropdown.Item href="#">Profile</Dropdown.Item>
+                                <Dropdown.Item as={Link} to={"/player-profile"}>Profile</Dropdown.Item>
                                 <Dropdown.Item href="#">Logout</Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>

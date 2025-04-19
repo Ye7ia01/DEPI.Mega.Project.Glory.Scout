@@ -11,6 +11,7 @@ import About from "./Components/About/About.jsx";
 import {PlayersCoachesCard} from "./components/PlayersCoachesCard.jsx";
 import {PlayersCoachesHomeScreen} from "./screens/PlayersCoachesHomeScreen.jsx";
 import FAQ from "./Components/FAQ.jsx";
+import PlayerProfile from "./Components/PlayerProfile.jsx";
 
 function App() {
   const [collapsed, setCollapsed] = useState(false);
@@ -26,6 +27,7 @@ function App() {
         <Route path="/FAQ" element={<FAQ/>}/>
         <Route path="/player" element={<PlayersCoachesHomeScreen dataType={'players'}/>}/>
         <Route path="/coach" element={<PlayersCoachesHomeScreen dataType={'coaches'}/>}/>
+        <Route path="/player-profile" element={<PlayerProfile dataType={'players'}/>}/>
       </Routes>
       
     </AuthProvider>

@@ -1,6 +1,6 @@
 import {AuthenticatedNavBar} from "../components/AuthenticatedNavBar.jsx";
 import {useEffect, useState} from "react";
-import getPlayers from '../api/players/players.js';
+import getPlayers from '../API/players/players.js';
 import getCoaches from '../api/coaches/coaches.js'
 import {PlayersCoachesCard} from '../components/PlayersCoachesCard.jsx';
 import {Button, Image} from "react-bootstrap";

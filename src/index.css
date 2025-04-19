@@ -297,7 +297,7 @@ body,
   border-radius:50px;
 }
 
-/*================== FAQ page media query ============ */
+
 
 @media (max-width: 768px){
   .FAQ-section .form-container .row{
@@ -310,3 +310,77 @@ body,
     font-size: 30px;
   }
 }
+
+/*============= Player profile page style ========= */
+
+.profile-container{
+  min-height: 100vh;
+  width: 70%;
+  background-color: #141414;
+  margin: 0  0 0 250px;
+}
+.profile-container  .edit-btn{
+  padding: 4px 40px;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 14px;
+}
+.profile-container  .request-btn{
+  padding: 4px 15px;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 14px;
+ 
+}
+@media (max-width: 991.98px) {
+
+  .profile-container .request-btn,
+  .profile-container .edit-btn {
+    padding: 4px 30px;
+    font-size: 14px;
+    font-weight: bold;
+    width: 100%; 
+  }
+
+}
+
+@media (max-width: 881px) {
+  .profile-container .request-btn {
+    padding: 4px 25px !important;
+    width: 100% !important;
+    font-size: 14px !important;
+  }
+}
+@media (max-width: 768px ){
+  .profile-container .info {
+    width: 50%;
+    margin-top: 20px;
+  }
+  .profile-container .bio p{
+    padding: 10px;
+    font-size: 14px;
+    width: 90%;
+
+  }
+
+  
+  .profile-container  .edit-btn{
+    padding: 4px 20px;
+   margin-bottom: 15px;
+   width: 100%;
+  }
+  .profile-container  .request-btn{
+    padding: 2px 15px;
+    width: 100%;
+    margin-bottom: 15px;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .profile-container .bio p{
+    padding: 2px;
+    width: 100% !important;
+
+  }
+}
+
