@@ -124,12 +124,12 @@ body,
   background-color: var(--main-color);
 }
 
-#contact-home-page .discover-location .locations .card {
+#contact-home-page .discover-location  .card {
   background-color: #141414;
   border: 1px solid #262626;
   border-radius: 8px;
   padding: 20px;
-  max-width: 48%;
+  width: 47%;
   flex: 1;
 }
 
@@ -207,6 +207,12 @@ body,
     padding: 20px;
     text-align: center;
   }
+  .discover-location .locations .discover-container{
+    flex-direction: column;
+  }
+  .discover-location .locations .discover-container .card{
+    width: 100%;
+  }
 
   #contact-home-page .contact-info {
     padding: 10px;
@@ -252,6 +258,20 @@ body,
 
   #contact-home-page .discover-location .locations .discover-container .card {
     max-width: 100% !important;
+  }
+}
+@media(max-width:588px){
+  #contact-home-page .text-container .main-text{
+    padding: 5px;
+    text-align: start;
+  }
+  
+}
+
+@media(max-width:450px){
+  #contact-home-page .text-container .main-text{
+    padding: 5px;
+    text-align: start;
   }
 }
 
@@ -352,6 +372,10 @@ body,
   }
 }
 @media (max-width: 768px ){
+  .profile-container{
+    width: 80%;
+    margin:auto;
+  }
   .profile-container .info {
     width: 50%;
     margin-top: 20px;
@@ -362,8 +386,6 @@ body,
     width: 90%;
 
   }
-
-  
   .profile-container  .edit-btn{
     padding: 4px 20px;
    margin-bottom: 15px;
@@ -377,10 +399,12 @@ body,
 }
 
 @media (max-width: 575.98px) {
+  .profile-container .info {
+   width: 80%;
+  }
   .profile-container .bio p{
     padding: 2px;
     width: 100% !important;
-
   }
 }
 

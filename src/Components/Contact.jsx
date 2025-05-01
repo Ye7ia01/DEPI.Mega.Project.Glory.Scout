@@ -23,7 +23,7 @@ const Contact = () => {
           <h2>
             Get in Touch with <span className="glory"> GloryScout</span>
           </h2>
-          <p>
+          <p className="main-text">
             Welcome to GloryScout's Contact Us page. We're here to assist you
             with any inquiries, requests, or feedback you may have. Whether
             you're a player looking to showcase your skills, a coach searching
@@ -81,7 +81,7 @@ const Contact = () => {
               <h2>
                 Let's <span>Connect</span>
               </h2>
-              <p>
+              <p className="main-text">
                 We're excited to connect with you and learn more about your
                 football journey. Use the form below to get in touch with
                 GloryScout. Whether you're a player looking to showcase your
@@ -207,7 +207,7 @@ const Contact = () => {
               <h2>
                 Discover Our <span>Office Locations</span>
               </h2>
-              <p>
+              <p className="main-text">
                 GloryScout is here to serve you across multiple locations.
                 Whether you're a player looking to showcase your skills, a coach
                 searching for talent, or a club interested in scouting, we have
@@ -238,14 +238,14 @@ const Contact = () => {
                 </li>
               </ul>
 
-              <div className="row d-flex  justify-content-between p-5 discover-container">
+              <div className="row d-flex  justify-content-between gap-4 p-5 discover-container">
 
                 <div className="col-sm-12 col-md-6 col-lg-6 card">
                   <div className="text-container2">
                     <p className="title">
                       123 GloryScout Plaza, Gamal Abdel Nasser Street, Mansoura
                     </p>
-                    <p>
+                    <p className="main-text">
                       Our main headquarters serve as the heart of GloryScout.
                       Located in the bustling city center of Mansoura, this is
                       where our core team of experts operates, driving the
@@ -279,7 +279,7 @@ const Contact = () => {
                   <p className="title">
                       123 GloryScout Plaza, Gamal Abdel Nasser Street, Mansoura
                     </p>
-                    <p>
+                    <p className="main-text">
                       Our main headquarters serve as the heart of GloryScout.
                       Located in the bustling city center of Mansoura, this is
                       where our core team of experts operates, driving the
@@ -362,7 +362,7 @@ const Contact = () => {
             <div className="row">
               <div className="col-sm-12 col-md-6 col-lg-6 p-3">
                 <p className="pt-4 title">Explore GloryScout World</p>
-                <p className="gallery-desc">
+                <p className="gallery-desc main-text">
                   Step inside the world of GloryScout, where professionalism
                   meets passion, and expertise meets the love of football. Our
                   gallery offers a glimpse into our team, workspaces, and the
@@ -384,7 +384,7 @@ const Contact = () => {
                 <h2>
                   Start Your <span>Football Journey Today</span>
                 </h2>
-                <p>
+                <p className="main-text">
                   Your dream football career is just a click away. Whether
                   you're a player looking to showcase your skills, a coach
                   searching for talent, or a club aiming to discover the next
