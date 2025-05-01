@@ -1,6 +1,7 @@
 import React from "react";
 import MissionVisionSection from "./MissionVisionSection/MissionVisionSection";
 import StyleHomePage from "../../styles/StyleHomePage.module.css";
+
 const About = () => {
   return (
     <div>
@@ -34,6 +35,7 @@ const About = () => {
         </div>
       </div>
       <MissionVisionSection />
+
     </div>
   );
 };

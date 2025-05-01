@@ -3,7 +3,7 @@ import Brand from "../assets/logo.svg";
 
 export const NavbarLogo = () => {
     return (
-        <div className='d-flex align-items-center d-none d-sm-inline-flex d-md-inline-flex d-lg-inline-flex'>
+        <div className='d-flex align-items-center d-none d-sm-inline-flex d-md-inline-flex d-lg-inline-flex logo-info'>
             <Image
                 src={Brand}
                 width='80'

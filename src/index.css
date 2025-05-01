@@ -86,14 +86,13 @@ body,
   border: none;
 }
 
-#contact-home-page  .contact-form .form-control::placeholder{
+#contact-home-page .contact-form .form-control::placeholder {
   color: var(--abslout-white);
-  opacity: .5;
+  opacity: 0.5;
 }
-#contact-home-page  .contact-form .form-control:focus{
- box-shadow: none;
- border: none;
-
+#contact-home-page .contact-form .form-control:focus {
+  box-shadow: none;
+  border: none;
 }
 
 #contact-home-page .contact-form .checkbox-btn {
@@ -124,7 +123,7 @@ body,
   background-color: var(--main-color);
 }
 
-#contact-home-page .discover-location  .card {
+#contact-home-page .discover-location .card {
   background-color: #141414;
   border: 1px solid #262626;
   border-radius: 8px;
@@ -207,10 +206,10 @@ body,
     padding: 20px;
     text-align: center;
   }
-  .discover-location .locations .discover-container{
+  .discover-location .locations .discover-container {
     flex-direction: column;
   }
-  .discover-location .locations .discover-container .card{
+  .discover-location .locations .discover-container .card {
     width: 100%;
   }
 
@@ -260,24 +259,22 @@ body,
     max-width: 100% !important;
   }
 }
-@media(max-width:588px){
-  #contact-home-page .text-container .main-text{
-    padding: 5px;
-    text-align: start;
-  }
-  
-}
-
-@media(max-width:450px){
-  #contact-home-page .text-container .main-text{
+@media (max-width: 588px) {
+  #contact-home-page .text-container .main-text {
     padding: 5px;
     text-align: start;
   }
 }
 
+@media (max-width: 450px) {
+  #contact-home-page .text-container .main-text {
+    padding: 5px;
+    text-align: start;
+  }
+}
 
 /*================= FAQ page styles =========== */
-.FAQ-section{
+.FAQ-section {
   min-height: 100vh;
   background-color: #141414;
   width: 80%;
@@ -285,83 +282,77 @@ body,
   display: flex;
   align-items: center;
   justify-content: center;
-
 }
-.FAQ-section .form-container{
- background-image: url(./assets/FAQ-form-bg.png);
- background-size: cover;
- background-repeat: no-repeat;
- background-color: #111;
- width: 90%;
- margin: auto;
- padding: 20px;
- border-radius: 10px;
- color: var(--abslout-white);
- gap: 20px;
+.FAQ-section .form-container {
+  background-image: url(./assets/FAQ-form-bg.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: #111;
+  width: 90%;
+  margin: auto;
+  padding: 20px;
+  border-radius: 10px;
+  color: var(--abslout-white);
+  gap: 20px;
 }
 
-.FAQ-section .form-container .title{
+.FAQ-section .form-container .title {
   font-size: 40px;
   text-align: center;
 }
 
-.FAQ-section .form-container  textarea{
+.FAQ-section .form-container textarea {
   min-height: 120px;
   resize: none;
 }
-.FAQ-section .form-container  button{
+.FAQ-section .form-container button {
   background-color: var(--main-color);
-  padding: 5px 40px ;
+  padding: 5px 40px;
   margin: 10px auto;
   display: block;
-  border-radius:50px;
+  border-radius: 50px;
 }
 
-
-
-@media (max-width: 768px){
-  .FAQ-section .form-container .row{
+@media (max-width: 768px) {
+  .FAQ-section .form-container .row {
     display: flex;
     flex-direction: column;
     gap: 20px;
   }
 
-  .FAQ-section .form-container .title{
+  .FAQ-section .form-container .title {
     font-size: 30px;
   }
 }
 
 /*============= Player profile page style ========= */
 
-.profile-container{
+.profile-container {
   min-height: 100vh;
   width: 70%;
   background-color: #141414;
-  margin: 0  0 0 250px;
+  margin: 0 0 0 250px;
 }
-.profile-container  .edit-btn{
+.profile-container .edit-btn {
   padding: 4px 40px;
   border-radius: 5px;
   font-weight: bold;
   font-size: 14px;
 }
-.profile-container  .request-btn{
+.profile-container .request-btn {
   padding: 4px 15px;
   border-radius: 5px;
   font-weight: bold;
   font-size: 14px;
- 
 }
 @media (max-width: 991.98px) {
-
   .profile-container .request-btn,
   .profile-container .edit-btn {
     padding: 4px 30px;
     font-size: 14px;
     font-weight: bold;
-    width: 100%; 
+    width: 100%;
   }
-
 }
 
 @media (max-width: 881px) {
@@ -371,27 +362,26 @@ body,
     font-size: 14px !important;
   }
 }
-@media (max-width: 768px ){
-  .profile-container{
+@media (max-width: 768px) {
+  .profile-container {
     width: 80%;
-    margin:auto;
+    margin: auto;
   }
   .profile-container .info {
     width: 50%;
     margin-top: 20px;
   }
-  .profile-container .bio p{
+  .profile-container .bio p {
     padding: 10px;
     font-size: 14px;
     width: 90%;
-
   }
-  .profile-container  .edit-btn{
+  .profile-container .edit-btn {
     padding: 4px 20px;
-   margin-bottom: 15px;
-   width: 100%;
+    margin-bottom: 15px;
+    width: 100%;
   }
-  .profile-container  .request-btn{
+  .profile-container .request-btn {
     padding: 2px 15px;
     width: 100%;
     margin-bottom: 15px;
@@ -400,11 +390,91 @@ body,
 
 @media (max-width: 575.98px) {
   .profile-container .info {
-   width: 80%;
+    width: 80%;
   }
-  .profile-container .bio p{
+  .profile-container .bio p {
     padding: 2px;
     width: 100% !important;
   }
 }
 
+/*============= Second Footer style ========= */
+.second-footer {
+  height: auto;
+  width: 80%;
+  margin: auto;
+  padding-bottom: 50px;
+  background-color: #141414;
+}
+.second-footer .contact-links{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color:#E4E4E7;
+}
+.second-footer .contact-links ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.second-footer .contact-links ul li a{
+  text-decoration: none;
+  color:#E4E4E7;
+}
+.second-footer .copyright{
+  width: 80%;
+  margin:30px auto;
+  padding: 15px; 
+  border-radius: 100px;
+  background-color: #1A1A1A;
+  display: flex;
+  justify-content: space-between;
+}
+.second-footer .copyright .icons-container{
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.second-footer .copyright .icons-container .icons{
+  width: 25px;
+  height: 25px;
+  text-align: center;
+  background-color: var(--main-color);
+  border-radius: 100%;
+}
+.second-footer .copyright span{
+  color: var(--abslout-white);
+}
+
+@media (max-width:960px){
+  .second-footer .copyright {
+   gap: 10px;
+   width: 90%;
+  }
+}
+@media (max-width:854px){
+  .second-footer .copyright span{
+    font-size: 14px;
+  }
+}
+@media (max-width:756px){
+  .second-footer{
+    padding-top: 50px;
+  }
+  .second-footer .contact-links ul li a, .second-footer .contact-links span{
+    font-size: 14px;
+  }
+}
+@media (max-width:656px){
+ 
+  .second-footer .contact-links .contact-info ,.second-footer .copyright{
+    flex-direction: column;
+    align-items: center;
+  }
+}
+@media (max-width:575px){
+  .second-footer .logo-info{
+    display: flex !important;
+  }
+}
