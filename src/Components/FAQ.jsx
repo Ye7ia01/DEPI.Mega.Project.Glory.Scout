@@ -64,7 +64,7 @@ const FAQ = () => {
           </div>
         </div>
       </section>
-      <SecondFooter />
+      <SecondFooter backgroundColor={'#141414'} width={'80%'}/>
     </>
   );
 };

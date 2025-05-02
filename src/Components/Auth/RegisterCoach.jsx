@@ -3,6 +3,7 @@ import axios from "axios";
 import { Link } from "react-router";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import SecondFooter from "../SecondFooter";
 
 const RegisterCoach = () => {
   const validationSchema = Yup.object({
@@ -50,7 +51,8 @@ const RegisterCoach = () => {
   };
 
   return (
-    <div>
+    <>
+     <div>
       <div className="register-coach">
         <div className="container-coach">
           <div className="bg"></div>
@@ -159,6 +161,9 @@ const RegisterCoach = () => {
         </div>
       </div>
     </div>
+
+    <SecondFooter width={'90%'} backgroundColor={'#000000'}/>
+    </>
   );
 };
 

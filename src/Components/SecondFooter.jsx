@@ -10,10 +10,10 @@ import { FaFacebook } from "react-icons/fa6";
 import { FaTwitter } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa6";
 
-const SecondFooter = () => {
+const SecondFooter = ({width, backgroundColor}) => {
   return (
     <>
-      <footer className="second-footer">
+      <footer className="second-footer" style={{backgroundColor: `${backgroundColor}`, width: `${width}`}}>
         <div className="contact-links">
           <NavbarLogo />
           <ul>

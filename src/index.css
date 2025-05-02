@@ -404,7 +404,7 @@ body,
   width: 80%;
   margin: auto;
   padding-bottom: 50px;
-  background-color: #141414;
+  /* background-color: #141414; */
 }
 .second-footer .contact-links{
   display: flex;
