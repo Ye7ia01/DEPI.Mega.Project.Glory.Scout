@@ -345,6 +345,9 @@ body,
   font-weight: bold;
   font-size: 14px;
 }
+.profile-container .edit-btn:hover,.profile-container .request-btn:hover{
+  background-color: #e65100;
+}
 @media (max-width: 991.98px) {
   .profile-container .request-btn,
   .profile-container .edit-btn {

@@ -7,6 +7,8 @@ import PlayerImg2 from "../assets/playerImg2.png";
 import PlayerImg3 from "../assets/PlayerImg3.png";
 import PlayerImg4 from "../assets/PlayerImg4.png";
 import PlayerImg5 from "../assets/PlayerImg5.png";
+import { Button, Container } from "@mui/material";
+import { Link } from "react-router";
 
 const PlayerProfile = () => {
   const PlayerImgs = [
@@ -128,6 +130,7 @@ const PlayerProfile = () => {
         <div className="col-sm-12 col-md-4 mb-2 ">
           <button className="request-btn w-100">Request Details</button>
         </div>
+
         <div className="col-sm-12 col-md-4 mb-2 d-flex justify-content-center align-items-center">
           <IoMdPersonAdd
             style={{
@@ -140,6 +143,24 @@ const PlayerProfile = () => {
             }}
           />
         </div>
+
+        <Container sx={{ mt: 3 }}>
+          <Link to="/upload" style={{ textDecoration: "none" }}>
+            <Button
+              variant="contained"
+              sx={{
+                backgroundColor: "#fff",
+                color: "#141414",
+                fontWeight: "bold",
+                "&:hover": {
+                  backgroundColor: "#e65100",
+                },
+              }}
+            >
+              Add Your Skills
+            </Button>
+          </Link>
+        </Container>
 
         <div>
           <MdOutlineWindow style={{ width: 50, height: 100 }} />
