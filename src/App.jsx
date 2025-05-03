@@ -10,6 +10,7 @@ import { PlayersCoachesHomeScreen } from "./screens/PlayersCoachesHomeScreen.jsx
 import FAQ from "./Components/FAQ.jsx";
 import PlayerProfile from "./Components/PlayerProfile.jsx";
 import PublicNavbar from "./Components/PublicNavbar.jsx";
+import Footer from "./Components/Footer.jsx";
 
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
         <Route path="/coach-profile" element={<PlayerProfile dataType="coaches" />} />
     
       </Routes>
+      <Footer />
     </AuthProvider>
   );
 }
