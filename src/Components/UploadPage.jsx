@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Container,
   Box,
@@ -10,117 +10,123 @@ import {
   TextField,
 } from "@mui/material";
 import axios from "axios";
-import { AuthContext } from "../context/AuthContext";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const UploadPage = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const token= " eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJQbGF5ZXIiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJlbWFuQHlhaG9vLmNvbSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJFbWFuLWhhc2FuaWVuIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiJlNGE4OTlmZS1hZGMwLTRjOTUtNzg3NC0wOGRkODljNThkNzQiLCJleHAiOjE3NTAxMTE2NzEsImlzcyI6IlNlY3VyZUFwaSIsImF1ZCI6IlNlY3VyZUFwaVVzZXIifQ.VYqusqtRe1KxTM4hfIeJuWx-cIzzb0oooTrg9C7V2gc"
+  const userId = JSON.parse(atob(token.split('.')[1]))?.nameidentifier;
+
+  const post = location.state?.post;
+  const isEditing = !!post;
+
   const [file, setFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
-  const [description, setDescription] = useState("");
-  const token =''
+  const [description, setDescription] = useState(post?.description || "");
   const [snackbar, setSnackbar] = useState({
     open: false,
     message: "",
     severity: "success",
   });
 
+  useEffect(() => {
+    if (isEditing && post.fileUrl) {
+      setPreviewUrl(post.fileUrl);
+    }
+  }, [isEditing, post]);
+
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
     setFile(selectedFile);
-    if (selectedFile) {
-      setPreviewUrl(URL.createObjectURL(selectedFile));
-    } else {
-      setPreviewUrl(null);
-    }
+    setPreviewUrl(selectedFile ? URL.createObjectURL(selectedFile) : null);
   };
 
-  const handleUpload = async () => {
-    if (!file) {
-      setSnackbar({
-        open: true,
-        message: "Please select a file to upload.",
-        severity: "error",
-      });
-      return;
+  const handleSubmit = async () => {
+    const formData = new FormData();
+
+    if (isEditing) {
+      formData.append("PostId", post.id);
+    } else {
+      formData.append("UserId", userId); 
     }
 
-    const formData = new FormData();
-    formData.append("UserId", "123e4567-e89b-12d3-a456-426614174000"); 
-    formData.append("Description", description); 
-    formData.append("file", file); 
-       
-       
+    formData.append("Description", description);
+    if (file) {
+      formData.append("file", file);
+    }
+
     try {
-      const res = await axios.post(
-        "http://glory-scout.tryasp.net/api/UserProfile/create-post",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            "Authorization": `Bearer ${token}`,
-          },
-        }
-      );
-     
-      
+      const url = isEditing
+        ? `http://glory-scout.tryasp.net/api/UserProfile/update-post/${post.id}`
+        : `http://glory-scout.tryasp.net/api/UserProfile/create-post`;
+
+      const method = isEditing ? "put" : "post";
+
+      const res = await axios[method](url, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token} `,
+        },
+      });
 
       if (res.status === 200) {
-        console.log(formData);
-        console.log(res);
-        
+        setFile(null);
+        setPreviewUrl(null);
+        setDescription("");
         setSnackbar({
           open: true,
-          message: "File uploaded successfully!",
+          message: isEditing ? "Post updated successfully!" : "Post created successfully!",
           severity: "success",
         });
+
+       navigate("/player-profile", { state: { newPostAdded: true } });
       } else {
         setSnackbar({
           open: true,
-          message: "Upload failed.",
+          message: "Failed to process the request.",
           severity: "error",
         });
       }
     } catch (err) {
-      console.error("Upload error:", err.response?.data || err.message);
+      console.error(err);
       setSnackbar({
         open: true,
-        message: "Server error. Please try again.",
+        message: "Server error. Please try again later.",
         severity: "error",
       });
     }
   };
 
   const renderPreview = () => {
-    if (!previewUrl || !file) return null;
+    if (!previewUrl) return null;
 
-    const type = file.type;
-    if (type.startsWith("image/")) {
+    if (file?.type?.startsWith("image/") || previewUrl.match(/\.(jpeg|jpg|png|gif)$/)) {
       return (
         <Box mt={2}>
-          <Typography variant="subtitle1">Image Preview:</Typography>
-          <img
-            src={previewUrl}
-            alt="Preview"
-            style={{ maxWidth: "100%", borderRadius: 8 }}
-          />
+          <Typography variant="subtitle1">Preview:</Typography>
+          <img src={previewUrl} alt="Preview" style={{ maxWidth: "100%", borderRadius: 8 }} />
         </Box>
       );
-    } else if (type.startsWith("video/")) {
+    }
+
+    if (file?.type?.startsWith("video/") || previewUrl.match(/\.(mp4|webm|ogg)$/)) {
       return (
         <Box mt={2}>
-          <Typography variant="subtitle1">Video Preview:</Typography>
+          <Typography variant="subtitle1">Preview:</Typography>
           <video controls width="100%" style={{ borderRadius: 8 }}>
-            <source src={previewUrl} type={type} />
+            <source src={previewUrl} />
             Your browser does not support the video tag.
           </video>
         </Box>
       );
-    } else {
-      return (
-        <Typography mt={2} color="warning.main">
-          Preview not available for this file type.
-        </Typography>
-      );
     }
+
+    return (
+      <Typography mt={2} color="warning.main">
+        Preview not available.
+      </Typography>
+    );
   };
 
   return (
@@ -136,12 +142,11 @@ const UploadPage = () => {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          justifyContent: "center",
           boxShadow: 3,
         }}
       >
         <Typography variant="h5" sx={{ mb: 3, fontWeight: "bold" }}>
-          Upload an Image or Video
+          {isEditing ? "Edit Post" : "Create New Post"}
         </Typography>
 
         <Input
@@ -160,7 +165,7 @@ const UploadPage = () => {
         <TextField
           multiline
           rows={4}
-          placeholder="Write a short description "
+          placeholder="Enter post description"
           variant="outlined"
           fullWidth
           value={description}
@@ -168,12 +173,11 @@ const UploadPage = () => {
           sx={{
             mb: 2,
             backgroundColor: "#1e1e1e",
-            input: { color: "#fff" },
             textarea: { color: "#fff" },
-            label: { color: "#aaa" },
+            "& .MuiInputBase-input": { color: "#fff" },
+            "& .MuiInputLabel-root": { color: "#aaa" },
             borderRadius: 1,
           }}
-       
         />
 
         <Button
@@ -188,9 +192,9 @@ const UploadPage = () => {
             py: 1,
             fontWeight: "bold",
           }}
-          onClick={handleUpload}
+          onClick={handleSubmit}
         >
-          Upload
+          {isEditing ? "Save Changes" : "Upload Post"}
         </Button>
 
         {renderPreview()}
@@ -213,3 +217,4 @@ const UploadPage = () => {
 };
 
 export default UploadPage;
+

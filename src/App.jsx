@@ -11,6 +11,7 @@ import PlayerProfile from "./Components/PlayerProfile.jsx";
 import PublicNavbar from "./Components/PublicNavbar.jsx";
 import RegisterCoach from "./Components/Auth/RegisterCoach.jsx";
 import UploadPage from "./Components/UploadPage.jsx";
+import PlayerPosts from "./Components/PlayerPosts.jsx";
 
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
         <Route path="/player-profile" element={<PlayerProfile dataType="players" />} />
         <Route path="/coach-profile" element={<PlayerProfile dataType="coaches" />} />
         <Route path="/upload" element={<UploadPage/>}/>
+        {/* <Route path="/player-posts" element={<PlayerPosts/>}/> */}
     
       </Routes>
     </AuthProvider>
