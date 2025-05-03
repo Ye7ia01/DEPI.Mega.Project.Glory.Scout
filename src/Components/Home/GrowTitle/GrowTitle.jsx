@@ -2,7 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import arrow from "../../Pictures/arrow.png";
 import FIFa2020 from "../../Pictures/2022.png";
+<<<<<<< HEAD
 import Football from "../../Pictures/football.png";
+=======
+import Football from "../../Pictures/Football.png";
+>>>>>>> 73ccfc4255da19328b7e39ec3a1400268ebf3251
 import FIFA from "../../Pictures/fifa.png";
 const GrowTitle = () => {
   return (

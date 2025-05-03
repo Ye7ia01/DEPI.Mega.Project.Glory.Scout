@@ -15,7 +15,6 @@ import {
 import {AuthContext} from "../context/AuthContext.jsx";
 import {FaSearch, FaBell, FaGift, FaCheck, FaFolder, FaBars} from "react-icons/fa"
 import profileImage from "../assets/default_user.png";
-import Brand from "../assets/logo.svg";
 import Notification from '../assets/notification.svg'
 import Check from '../assets/check.svg'
 import Folder from '../assets/folder.svg'
