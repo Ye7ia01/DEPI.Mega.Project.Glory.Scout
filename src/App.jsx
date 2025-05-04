@@ -10,6 +10,8 @@ import FAQ from "./Components/FAQ.jsx";
 import PlayerProfile from "./Components/PlayerProfile.jsx";
 import PublicNavbar from "./Components/PublicNavbar.jsx";
 import RegisterCoach from "./Components/Auth/RegisterCoach.jsx";
+import RegisterPlayers from "./Components/Auth/RegisterPlayers.jsx";
+import { Toaster } from "react-hot-toast";
 
 
 function App() {
@@ -19,6 +21,7 @@ function App() {
 
   return (
     <AuthProvider>
+      <Toaster/>
       {user ? (
         <AuthenticatedNavBar collapsed={collapsed} setCollapsed={setCollapsed} />
       ) : (
@@ -31,7 +34,7 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/faq" element={<FAQ />} />
         <Route path="/signup" element={<RegisterCoach />} />
-        <Route path="/registerplayers" element={<RegisterCoach />} />
+        <Route path="/registerplayers" element={<RegisterPlayers />} />
         <Route path="/player" element={<PlayersCoachesHomeScreen dataType="players" />} />
         <Route path="/coach" element={<PlayersCoachesHomeScreen dataType="coaches" />} />
         <Route path="/player-profile" element={<PlayerProfile dataType="players" />} />

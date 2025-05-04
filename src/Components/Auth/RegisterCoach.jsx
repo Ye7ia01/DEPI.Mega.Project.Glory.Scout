@@ -3,35 +3,36 @@ import axios from "axios";
 import { Link } from "react-router";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import toast from "react-hot-toast";
 
 const RegisterCoach = () => {
   const validationSchema = Yup.object({
-    username: Yup.string().required("Username is required"),
-    email: Yup.string().email("Invalid email address").required("Email is required"),
-    password: Yup.string().min(6, "Password must be at least 6 characters").required("Password is required"),
-    confirmPassword: Yup.string().oneOf([Yup.ref("password"), null], "Passwords must match").required("Confirm password is required"),
-    specialization: Yup.string().required("Specialization is required"),
-    experience: Yup.string().required("Experience is required"),
-    clubName: Yup.string().required("Club name is required"),
-    coachingSpecialty: Yup.string().required("Coaching specialty is required"),
-    portfolioFile: Yup.mixed().required("Portfolio is required").test("fileSize", "File too large", (value) => !value || value.size <= 1024 * 1024), // Limit file size to 1MB
+    Username: Yup.string().required("Username is required"),
+    Email: Yup.string().email("Invalid email address").required("Email is required"),
+    Password: Yup.string().min(6, "Password must be at least 6 characters").required("Password is required"),
+    PhoneNumber: Yup.string().matches(/^01[0125][0-9]{8}$/, "Invalid Egyptian phone number").required("Phone number is required"),
+    Specialization: Yup.string().required("Specialization is required"),
+    Experience: Yup.string().required("Experience is required"),
+    CurrentClubName: Yup.string().required("CurrentClubName is required"),
+    CoachingSpecialty: Yup.string().required("Coaching specialty is required"),
+    profilePhoto: Yup.mixed().required("Portfolio is required").test("fileSize", "File too large", (value) => !value || value.size <= 1024 * 1024), // Limit file size to 1MB
   });
   const handleSubmit = async (values, { setSubmitting }) => {
     const formData = new FormData();
+
     Object.keys(values).forEach((key) => {
-      if (key !== "portfolioFile") {
+      if (key !== "profilePhoto") {
         formData.append(key, values[key]);
       }
-      console.log("Form Values:", values);
     });
     console.log(formData);
-    if (values.portfolioFile) {
-      formData.append("portfolioFile", values.portfolioFile);
+    if (values.profilePhoto) {
+      formData.append("profilePhoto", values.profilePhoto);
     }
 
     try {
       const response = await axios.post(
-        "EndPoint", // Add your API URL here
+        "http://glory-scout.tryasp.net/api/Auth/register-coach",
         formData,
         {
           headers: {
@@ -40,10 +41,14 @@ const RegisterCoach = () => {
           },
         }
       );
+      toast.success(`You have successfully registered, ${response.data.username}!`),
       console.log("Response:", response.data);
-    // console.log(response);
     } catch (error) {
-      console.error("Error:", error.response ? error.response.data : error.message);
+      console.error(
+        "Error:",
+        error.response ? error.response.data : error.message,
+        toast.error(error.response.data),
+      );
     } finally {
       setSubmitting(false);
     }
@@ -56,15 +61,15 @@ const RegisterCoach = () => {
           <div className="bg"></div>
           <Formik
             initialValues={{
-              username: "",
-              email: "",
-              password: "",
-              confirmPassword: "",
-              specialization: "",
-              experience: "",
-              clubName: "",
-              coachingSpecialty: "",
-              portfolioFile: null,
+              Username: "",
+              Email: "",
+              Password: "",
+              PhoneNumber: "",
+              Specialization: "",
+              Experience: "",
+              CurrentClubName: "",
+              CoachingSpecialty: "",
+              profilePhoto: null,
             }}
             validationSchema={validationSchema}
             onSubmit={handleSubmit}
@@ -83,28 +88,28 @@ const RegisterCoach = () => {
                 </div>
                 <div className="inputs username-email">
                 <div className="rules">
-                <ErrorMessage name="username" component="div" className="error" />
-                <Field type="text" name="username" placeholder="Enter Your Username" />
+                <ErrorMessage name="Username" component="div" className="error" />
+                <Field type="text" name="Username" placeholder="Enter Your Username" />
                 </div>
                  <div className="rules">
-                 <ErrorMessage name="email" component="div" className="error" />
-                 <Field type="email" name="email" placeholder="Enter Your Email" />
+                 <ErrorMessage name="Email" component="div" className="error" />
+                 <Field type="email" name="Email" placeholder="Enter Your Email" />
                  </div>
                 </div>
                 <div className="inputs input-password">
                   <div className="rules">
-                  <ErrorMessage name="password" component="div" className="error" />
-                  <Field type="password" name="password" placeholder="Enter Your Password" />
+                  <ErrorMessage name="Password" component="div" className="error" />
+                  <Field type="password" name="Password" placeholder="Enter Your Password" />
                   </div>
                  <div className="rules">
-                 <ErrorMessage name="confirmPassword" component="div" className="error" />
-                 <Field type="password" name="confirmPassword" placeholder="Confirm Your Password" />
-                 </div>
+                  <ErrorMessage name="PhoneNumber" component="div" className="error"/>
+                  <Field type="text" name="PhoneNumber" placeholder="Enter Your Phone Number"/>
+                </div>
                 </div>
                 <div className="inputs select-specialization-experience">
                   <div className="rules">
-                  <ErrorMessage name="specialization" component="div" className="error" />
-                  <Field as="select" name="specialization" className="select-specialization">
+                  <ErrorMessage name="Specialization" component="div" className="error" />
+                  <Field as="select" name="Specialization" className="select-specialization">
                     <option value="" disabled>Select your specialization</option>
                     <option value="Fitness">Fitness</option>
                     <option value="Strength">Strength</option>
@@ -112,8 +117,8 @@ const RegisterCoach = () => {
                     </Field>
                   </div>
                   <div className="rules">
-                  <ErrorMessage name="experience" component="div" className="error" />
-                  <Field as="select" name="experience" className="select-experience">
+                  <ErrorMessage name="Experience" component="div" className="error" />
+                  <Field as="select" name="Experience" className="select-experience">
                     <option value="" disabled>Enter your experience</option>
                     <option value="1">1 Year</option>
                     <option value="2">2 Years</option>
@@ -123,12 +128,12 @@ const RegisterCoach = () => {
                 </div>
                 <div className="inputs club-name-select-coaching-specialty">
                   <div className="rules">
-                  <ErrorMessage name="clubName" component="div" className="error" />
-                  <Field type="text" name="clubName" className="input-club-name" placeholder="Enter your current club Name" />
+                  <ErrorMessage name="CurrentClubName" component="div" className="error" />
+                  <Field type="text" name="CurrentClubName" className="input-club-name" placeholder="Enter your current club Name" />
                   </div>
                   <div className="rules">
-                  <ErrorMessage name="coachingSpecialty" component="div" className="error" />
-                  <Field as="select" name="coachingSpecialty" className="select-coaching-specialty">
+                  <ErrorMessage name="CoachingSpecialty" component="div" className="error" />
+                  <Field as="select" name="CoachingSpecialty" className="select-coaching-specialty">
                     <option value="" disabled>Select your coaching specialty</option>
                     <option value="strength">Strength Training</option>
                     <option value="tactics">Tactical Coaching</option>
@@ -138,14 +143,14 @@ const RegisterCoach = () => {
                 <div className="inputs input-upload-image">
                   <input
                     type="file"
-                    id="portfolioFile"
+                    id="profilePhoto"
                     className="input-portfolio-file"
-                    onChange={(e) => setFieldValue("portfolioFile", e.target.files[0])}
+                    onChange={(e) => setFieldValue("profilePhoto", e.target.files[0])}
                   />
-                  <label htmlFor="portfolioFile" className="label-portfolio-upload">
+                  <label htmlFor="profilePhoto" className="label-portfolio-upload">
                     Upload your coaching portfolio
                   </label>
-                  <ErrorMessage name="portfolioFile" component="div" className="error" />
+                  <ErrorMessage name="profilePhoto" component="div" className="error" />
                 </div>
                 <div className="btns">
                   <button type="submit" disabled={isSubmitting}>
