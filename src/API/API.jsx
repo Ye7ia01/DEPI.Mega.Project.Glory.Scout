@@ -1,3 +1,4 @@
+
 import logo from "../Components/Pictures/logo2.png";
 import Rectangle from "../Components/Pictures/Rectangle.png";
 import image3 from "../Components/Pictures/image2.png";
@@ -124,4 +125,5 @@ export const MissionVision = [
     image: Coching,
   },
 ];
+
 

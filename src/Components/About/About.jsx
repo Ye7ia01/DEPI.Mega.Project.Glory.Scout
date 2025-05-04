@@ -1,6 +1,8 @@
 import React from "react";
 import MissionVisionSection from "./MissionVisionSection/MissionVisionSection";
 import StyleHomePage from "../../styles/StyleHomePage.module.css";
+import SecondFooter from "../SecondFooter";
+
 const About = () => {
   return (
     <div>
@@ -34,6 +36,7 @@ const About = () => {
         </div>
       </div>
       <MissionVisionSection />
+      <SecondFooter width={'90%'} backgroundColor={'#000000'}/>
     </div>
   );
 };

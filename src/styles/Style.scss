@@ -1998,4 +1998,15 @@ body {
 .players-home-screen {
   background-color: #1e1e1e;
 }
+.plan{
+  display: flex;
+  gap: 10px;
+}
+.custom-nav{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #000000 !important;
+  background-color: #33FF33;
+}
 // Ended @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@

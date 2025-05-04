@@ -12,13 +12,14 @@ import PublicNavbar from "./Components/PublicNavbar.jsx";
 import RegisterCoach from "./Components/Auth/RegisterCoach.jsx";
 import RegisterPlayers from "./Components/Auth/RegisterPlayers.jsx";
 import { Toaster } from "react-hot-toast";
+import Footer from "./Components/Footer.jsx";
+import Login from "./Components/Auth/Login.jsx";
 
 
 function App() {
   const [collapsed, setCollapsed] = useState(false);
   const { user } = useContext(AuthContext);
-
-
+  
   return (
     <AuthProvider>
       <Toaster/>
@@ -33,14 +34,16 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/faq" element={<FAQ />} />
-        <Route path="/signup" element={<RegisterCoach />} />
-        <Route path="/registerplayers" element={<RegisterPlayers />} />
+        <Route path="/register-coaches" element={<RegisterCoach />} />
+        <Route path="/register-player" element={<RegisterPlayers />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/player" element={<PlayersCoachesHomeScreen dataType="players" />} />
         <Route path="/coach" element={<PlayersCoachesHomeScreen dataType="coaches" />} />
         <Route path="/player-profile" element={<PlayerProfile dataType="players" />} />
         <Route path="/coach-profile" element={<PlayerProfile dataType="coaches" />} />
     
       </Routes>
+      <Footer />
     </AuthProvider>
   );
 }

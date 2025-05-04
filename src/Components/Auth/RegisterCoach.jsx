@@ -55,7 +55,8 @@ const RegisterCoach = () => {
   };
 
   return (
-    <div>
+    <>
+     <div>
       <div className="register-coach">
         <div className="container-coach">
           <div className="bg"></div>
@@ -164,6 +165,9 @@ const RegisterCoach = () => {
         </div>
       </div>
     </div>
+
+    {/* <SecondFooter width={'90%'} backgroundColor={'#000000'}/> */}
+    </>
   );
 };
 

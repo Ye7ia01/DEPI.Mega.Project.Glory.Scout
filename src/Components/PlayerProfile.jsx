@@ -1,86 +1,25 @@
-import React from "react";
+
+import React, { useEffect, useState } from "react";
 import ProfileImg from "../assets/PlayerProfile-img.png";
 import { IoMdPersonAdd } from "react-icons/io";
 import { MdOutlineWindow } from "react-icons/md";
-import PlayerImg1 from "../assets/PlayerImg1.png";
-import PlayerImg2 from "../assets/playerImg2.png";
-import PlayerImg3 from "../assets/PlayerImg3.png";
-import PlayerImg4 from "../assets/PlayerImg4.png";
-import PlayerImg5 from "../assets/PlayerImg5.png";
+import { Button, Container } from "@mui/material";
+import { Link, useLocation } from "react-router";
+import PlayerPosts from "./PlayerPosts";
 
 const PlayerProfile = () => {
-  const PlayerImgs = [
-    {
-      id: 1,
-      image: PlayerImg1,
-    },
 
-    {
-      id: 2,
-      image: PlayerImg2,
-    },
+  const location = useLocation();
+  const [refreshPosts, setRefreshPosts] = useState(false);
 
-    {
-      id: 3,
-      image: PlayerImg3,
-    },
+  useEffect(() => {
+    if (location.state?.newPostAdded) {
 
-    {
-      id: 4,
-      image: PlayerImg4,
-    },
-    {
-      id: 5,
-      image: PlayerImg5,
-    },
-    {
-      id: 6,
-      image: PlayerImg1,
-    },
-
-    {
-      id: 7,
-      image: PlayerImg2,
-    },
-
-    {
-      id: 8,
-      image: PlayerImg3,
-    },
-
-    {
-      id: 9,
-      image: PlayerImg4,
-    },
-    {
-      id: 10,
-      image: PlayerImg5,
-    },
-    {
-      id: 11,
-      image: PlayerImg1,
-    },
-
-    {
-      id: 12,
-      image: PlayerImg2,
-    },
-
-    {
-      id: 13,
-      image: PlayerImg3,
-    },
-
-    {
-      id: 14,
-      image: PlayerImg4,
-    },
-    {
-      id: 15,
-      image: PlayerImg5,
-    },
-  ];
-
+      setRefreshPosts(true);
+      window.history.replaceState({}, document.title);
+    }
+  }, [location]);
+  
   return (
     <section className="profile-container text-white">
       <div className="row player-info ps-5 pt-5 d-flex align-items-center ">
@@ -128,6 +67,7 @@ const PlayerProfile = () => {
         <div className="col-sm-12 col-md-4 mb-2 ">
           <button className="request-btn w-100">Request Details</button>
         </div>
+
         <div className="col-sm-12 col-md-4 mb-2 d-flex justify-content-center align-items-center">
           <IoMdPersonAdd
             style={{
@@ -141,22 +81,35 @@ const PlayerProfile = () => {
           />
         </div>
 
+        <Container sx={{ mt: 3 }}>
+          <Link to="/upload" style={{ textDecoration: "none" }}>
+            <Button
+              variant="contained"
+              sx={{
+                backgroundColor: "#fff",
+                color: "#141414",
+                fontWeight: "bold",
+                "&:hover": {
+                  backgroundColor: "#e65100",
+                },
+              }}
+            >
+              Add Post
+            </Button>
+          </Link>
+        </Container>
+
         <div>
           <MdOutlineWindow style={{ width: 50, height: 100 }} />
         </div>
 
-        <div className="player-images">
-          <div className="row g-4 mx-auto">
-            {PlayerImgs.map((img) => (
-              <div key={img.id} className="col-sm-12 col-md-6 col-lg-3">
-                <img src={img.image} alt="player image" className="w-100" />
-              </div>
-            ))}
-          </div>
-        </div>
+        <PlayerPosts refresh={refreshPosts} onRefreshed={() => setRefreshPosts(false)}/>
+
+      
       </div>
     </section>
   );
 };
 
 export default PlayerProfile;
+
