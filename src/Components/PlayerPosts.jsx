@@ -35,8 +35,7 @@ const PlayerPosts = ({ refresh, onRefreshed }) => {
   });
 
   const navigate = useNavigate();
-  const token= " eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJQbGF5ZXIiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJ5b3Vzc2VmQHlhaG9vLmNvbSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJZb3Vzc2VmLWFsaSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWVpZGVudGlmaWVyIjoiZmY4Y2RiODUtM2FiMi00MDkyLTEwODctMDhkZDhiYWFhZjc2IiwiZXhwIjoxNzUwMzIwMDM3LCJpc3MiOiJTZWN1cmVBcGkiLCJhdWQiOiJTZWN1cmVBcGlVc2VyIn0.uT6ViO1zsLNzrhfqS_YDwcAUPiRhgXuWB3IbE-SZ5wM"
-
+  const token = localStorage.getItem("token");
   
   const userId = JSON.parse(atob(token.split(".")[1]))?.nameidentifier;
   useEffect(() => {
@@ -54,7 +53,7 @@ const PlayerPosts = ({ refresh, onRefreshed }) => {
           },
         }
       );
-      console.log(response?.data);
+      console.log(response);
 
       setPosts(response?.data?.posts || []);
     } catch (err) {
