@@ -1,27 +1,29 @@
 import React from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import axios from "axios";
 
 const ResetPassword = () => {
-  // Define validation schema
   const validationSchema = Yup.object({
     email: Yup.string()
       .email("Invalid email address")
       .required("Email is required"),
   });
 
-  const handleSubmit = (values, { setSubmitting, setErrors }) => {
-    // Simulate API call (you can replace this with your actual API logic)
-    setTimeout(() => {
-      if (values.email === "test@example.com") {
-        // Simulate a success response
-        alert("Password reset link sent to " + values.email);
-      } else {
-        // Simulate an error response
-        setErrors({ submit: "Email not found" });
+  const handleSubmit = async (values, { setSubmitting, setErrors }) => {
+    try {
+      const response = await axios.post('APIS', {
+        email: values.email,
+      });
+      console.log("Password reset link sent to " + values.email);
+    } catch (error) {
+      if (error.response) {
+        setErrors({ submit: error.response.data.message || "An error occurred" });
+        setErrors({ submit: "Network error" });
       }
+    } finally {
       setSubmitting(false);
-    }, 1000);
+    }
   };
 
   return (
@@ -34,16 +36,14 @@ const ResetPassword = () => {
             validationSchema={validationSchema}
             onSubmit={handleSubmit}
             validateOnChange={true} // Enable validation on change
-            validateOnBlur={true}   // Enable validation on blur (when leaving the input)
+            validateOnBlur={true}   
           >
-            {({ errors, touched, isSubmitting, setFieldTouched }) => (
+            {({ errors, isSubmitting, setFieldTouched }) => (
               <Form
                 onSubmit={(e) => {
                   e.preventDefault();
-                  // Manually touch the field to trigger validation
                   setFieldTouched("email", true, true);
                   if (!isSubmitting) {
-                    // Proceed with form submission if valid
                     handleSubmit();
                   }
                 }}
