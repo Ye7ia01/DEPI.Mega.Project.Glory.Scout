@@ -14,6 +14,8 @@ import RegisterPlayers from "./Components/Auth/RegisterPlayers.jsx";
 import { Toaster } from "react-hot-toast";
 import Footer from "./Components/Footer.jsx";
 import Login from "./Components/Auth/Login.jsx";
+import CreateNewPassword from "./Components/Auth/CreateNewPassword.jsx";
+import ResetPassword from "./Components/Auth/ResetPassword.jsx";
 
 
 function App() {
@@ -37,6 +39,8 @@ function App() {
         <Route path="/register-coaches" element={<RegisterCoach />} />
         <Route path="/register-player" element={<RegisterPlayers />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/changepassword" element={<CreateNewPassword />} />
+        <Route path="/resetpassword" element={<ResetPassword />} />
         <Route path="/player" element={<PlayersCoachesHomeScreen dataType="players" />} />
         <Route path="/coach" element={<PlayersCoachesHomeScreen dataType="coaches" />} />
         <Route path="/player-profile" element={<PlayerProfile dataType="players" />} />
