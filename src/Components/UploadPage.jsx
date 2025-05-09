@@ -8,6 +8,7 @@ import {
   Snackbar,
   Alert,
   TextField,
+  CircularProgress,
 } from "@mui/material";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -15,8 +16,21 @@ import { useLocation, useNavigate } from "react-router-dom";
 const UploadPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const token= " eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJQbGF5ZXIiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJlbWFuQHlhaG9vLmNvbSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJFbWFuLWhhc2FuaWVuIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiJlNGE4OTlmZS1hZGMwLTRjOTUtNzg3NC0wOGRkODljNThkNzQiLCJleHAiOjE3NTAxMTE2NzEsImlzcyI6IlNlY3VyZUFwaSIsImF1ZCI6IlNlY3VyZUFwaVVzZXIifQ.VYqusqtRe1KxTM4hfIeJuWx-cIzzb0oooTrg9C7V2gc"
-  const userId = JSON.parse(atob(token.split('.')[1]))?.nameidentifier;
+  const token = localStorage.getItem("token");
+  const MAX_VEDIO_SIZE_MB = 10;
+  useEffect(() => {
+    if (!token) {
+      navigate("/login");
+    }
+  }, [token, navigate]);
+
+  let userId = null;
+  try {
+    const payload = JSON.parse(atob(token.split(".")[1]));
+    userId = payload?.nameidentifier;
+  } catch (error) {
+    console.error("Invalid token format", error);
+  }
 
   const post = location.state?.post;
   const isEditing = !!post;
@@ -24,6 +38,7 @@ const UploadPage = () => {
   const [file, setFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
   const [description, setDescription] = useState(post?.description || "");
+  const [loading, setLoading] = useState(false);
   const [snackbar, setSnackbar] = useState({
     open: false,
     message: "",
@@ -31,10 +46,24 @@ const UploadPage = () => {
   });
 
   useEffect(() => {
-    if (isEditing && post.fileUrl) {
-      setPreviewUrl(post.fileUrl);
+    console.log(post);
+    if (isEditing) {
+      const preview = post.fileUrl || post.posrUrl;
+      if (preview) {
+        setPreviewUrl(preview);
+      }
     }
   }, [isEditing, post]);
+
+  useEffect(() => {
+    return () => {
+      if (previewUrl && file) {
+        URL.revokeObjectURL(previewUrl);
+      }
+    };
+  }, [previewUrl, file]);
+
+  // handel file input to upload image or video
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
@@ -42,15 +71,38 @@ const UploadPage = () => {
     setPreviewUrl(selectedFile ? URL.createObjectURL(selectedFile) : null);
   };
 
+  // handel upload button to submit post either new post or updated post
   const handleSubmit = async () => {
+    if (!description.trim()) {
+      setSnackbar({
+        open: true,
+        message: "Description is required.",
+        severity: "warning",
+      });
+      return;
+    }
+
+    setLoading(true);
     const formData = new FormData();
 
     if (isEditing) {
       formData.append("PostId", post.id);
     } else {
-      formData.append("UserId", userId); 
+      formData.append("UserId", userId);
     }
 
+    if (file && file.size > MAX_VEDIO_SIZE_MB * 1024 * 1024) {
+      setSnackbar({
+        open: true,
+        message: `File is too large. Max allowed size is ${MAX_VEDIO_SIZE_MB}MB.`,
+        severity: "error",
+      });
+      setDescription("");
+      setFile(null);
+      setLoading(false);
+      setPreviewUrl(null);
+      return;
+    }
     formData.append("Description", description);
     if (file) {
       formData.append("file", file);
@@ -66,27 +118,30 @@ const UploadPage = () => {
       const res = await axios[method](url, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${token} `,
+          Authorization: `Bearer ${token}`,
         },
       });
 
       if (res.status === 200) {
+        console.log(res);
+
         setFile(null);
         setPreviewUrl(null);
         setDescription("");
         setSnackbar({
           open: true,
-          message: isEditing ? "Post updated successfully!" : "Post created successfully!",
+          message: isEditing
+            ? "Post updated successfully!"
+            : "Post created successfully!",
           severity: "success",
         });
 
-       navigate("/player-profile", { state: { newPostAdded: true } });
+        setTimeout(
+          () => navigate("/player-profile", { state: { newPostAdded: true } }),
+          2000
+        );
       } else {
-        setSnackbar({
-          open: true,
-          message: "Failed to process the request.",
-          severity: "error",
-        });
+        throw new Error("Unexpected response");
       }
     } catch (err) {
       console.error(err);
@@ -95,22 +150,35 @@ const UploadPage = () => {
         message: "Server error. Please try again later.",
         severity: "error",
       });
+    } finally {
+      setLoading(false);
     }
   };
 
+  // how to preview image or vedio before create post
   const renderPreview = () => {
     if (!previewUrl) return null;
 
-    if (file?.type?.startsWith("image/") || previewUrl.match(/\.(jpeg|jpg|png|gif)$/)) {
+    if (
+     file && file?.type?.startsWith("image/") ||
+      previewUrl.match(/\.(jpeg|jpg|png|gif)$/)
+    ) {
       return (
         <Box mt={2}>
           <Typography variant="subtitle1">Preview:</Typography>
-          <img src={previewUrl} alt="Preview" style={{ maxWidth: "100%", borderRadius: 8 }} />
+          <img
+            src={previewUrl}
+            alt="Preview"
+            style={{ maxWidth: "100%", borderRadius: 8 }}
+          />
         </Box>
       );
     }
 
-    if (file?.type?.startsWith("video/") || previewUrl.match(/\.(mp4|webm|ogg)$/)) {
+    if (
+     file && file?.type?.startsWith("video/") ||
+      previewUrl.match(/\.(mp4|webm|ogg)$/)
+    ) {
       return (
         <Box mt={2}>
           <Typography variant="subtitle1">Preview:</Typography>
@@ -193,8 +261,15 @@ const UploadPage = () => {
             fontWeight: "bold",
           }}
           onClick={handleSubmit}
+          disabled={loading}
         >
-          {isEditing ? "Save Changes" : "Upload Post"}
+          {loading ? (
+            <CircularProgress size={24} sx={{ color: "#000" }} />
+          ) : isEditing ? (
+            "Save Changes"
+          ) : (
+            "Upload Post"
+          )}
         </Button>
 
         {renderPreview()}
@@ -217,4 +292,5 @@ const UploadPage = () => {
 };
 
 export default UploadPage;
+
 

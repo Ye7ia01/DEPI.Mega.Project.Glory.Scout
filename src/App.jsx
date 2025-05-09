@@ -17,6 +17,7 @@ import Login from "./Components/Auth/Login.jsx";
 import CreateNewPassword from "./Components/Auth/CreateNewPassword.jsx";
 import ResetPassword from "./Components/Auth/ResetPassword.jsx";
 import Layout from "./Components/Layout/Layout.jsx";
+import UploadPage from "./Components/UploadPage.jsx";
 
 
 function App() {
@@ -41,12 +42,12 @@ function App() {
           Any content within this route will be displayed inside the Layout.
         */}
         <Route path="/home" element={<Layout />}>
-        <Route index  element={<PlayerProfile />} />
+        <Route path="/home/player"  element={<PlayerProfile />} />
         <Route path="/home/faq"  element={<FAQ />} />
         <Route path="/home/email"  element={<Login />} />
         <Route path="/home/contact"  element={<Contact />} />
         {/* <Route path="/home/player"  element={<players />} /> */}
-        <Route path="/home/player" element={<PlayersCoachesHomeScreen dataType="players" />} />
+        <Route index  element={<PlayersCoachesHomeScreen dataType="players" />} />
         {/* <Route index  element={<PlayersCoachesHomeScreen />} /> */}
         </Route>
 
@@ -64,7 +65,7 @@ function App() {
         {/* <Route path="/coach" element={<PlayersCoachesHomeScreen dataType="coaches" />} /> */}
         {/* <Route path="/player-profile" element={<PlayerProfile dataType="players" />} /> */}
         {/* <Route path="/coach-profile" element={<PlayerProfile dataType="coaches" />} /> */}
-    
+        <Route path="/upload" element={<UploadPage/>}/>
       </Routes>
       <Footer />
     </AuthProvider>

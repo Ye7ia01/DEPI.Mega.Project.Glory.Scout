@@ -330,9 +330,9 @@ body,
 
 .profile-container {
   min-height: 100vh;
-  width: 70%;
+  width: 80%;
   background-color: #141414;
-  margin: 0 0 0 250px;
+  margin: 0 auto;
 }
 .profile-container .edit-btn {
   padding: 4px 40px;

@@ -1,4 +1,4 @@
-﻿import {Image} from "react-bootstrap";
+import {Image} from "react-bootstrap";
 import Brand from "../assets/logo.svg";
 
 export const NavbarLogo = () => {

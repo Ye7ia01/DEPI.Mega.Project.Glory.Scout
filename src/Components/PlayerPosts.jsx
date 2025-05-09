@@ -35,10 +35,8 @@ const PlayerPosts = ({ refresh, onRefreshed }) => {
   });
 
   const navigate = useNavigate();
-  const token =
-    " eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJQbGF5ZXIiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJlbWFuQHlhaG9vLmNvbSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJFbWFuLWhhc2FuaWVuIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiJlNGE4OTlmZS1hZGMwLTRjOTUtNzg3NC0wOGRkODljNThkNzQiLCJleHAiOjE3NTAxMTE2NzEsImlzcyI6IlNlY3VyZUFwaSIsImF1ZCI6IlNlY3VyZUFwaVVzZXIifQ.VYqusqtRe1KxTM4hfIeJuWx-cIzzb0oooTrg9C7V2gc";
+  const token = localStorage.getItem("token");
   
- 
   const userId = JSON.parse(atob(token.split(".")[1]))?.nameidentifier;
   useEffect(() => {
     if (userId) fetchPosts();
@@ -55,7 +53,7 @@ const PlayerPosts = ({ refresh, onRefreshed }) => {
           },
         }
       );
-      console.log(response?.data);
+      console.log(response);
 
       setPosts(response?.data?.posts || []);
     } catch (err) {
@@ -80,7 +78,7 @@ const PlayerPosts = ({ refresh, onRefreshed }) => {
           headers: { Authorization: `Bearer  ${token}` },
         }
       );
-      console.log('post deleted');
+     
       
       setSnackbar({
         open: true,
@@ -151,7 +149,7 @@ const PlayerPosts = ({ refresh, onRefreshed }) => {
   return (
     <Container maxWidth="xl" sx={{ mb: 4 }}>
       <Typography variant="h4" gutterBottom sx={{ color: "#fff" }}>
-        My Posts
+        Posts :
       </Typography>
      
       {posts.length === 0 ? (

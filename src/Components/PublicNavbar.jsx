@@ -72,7 +72,7 @@ const PublicNavbar = () => {
               </li>
               <li className="nav-item mx-2">
                 <NavLink
-                  to="/player"
+                  to="/home"
                   className={({ isActive }) =>
                     `nav-link ${isActive ? "active" : "text-white"}`
                   }
@@ -85,7 +85,7 @@ const PublicNavbar = () => {
               </li>
               <li className="nav-item mx-2">
                 <NavLink
-                  to="/coach"
+                  to="/home/email"
                   className={({ isActive }) =>
                     `nav-link ${isActive ? "active" : "text-white"}`
                   }

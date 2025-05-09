@@ -1,4 +1,3 @@
-﻿import {useState} from "react";
 import playerIcon from '../../assets/default_user.png'
 
 
