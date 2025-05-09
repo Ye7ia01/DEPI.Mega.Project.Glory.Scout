@@ -25,8 +25,8 @@ const LiveStore = () => {
                 </p>
               </div>
               <div className="links">
-                <Link>Sign in</Link>
-                <Link>Sign Up</Link>
+                <Link to="/login">Sign in</Link>
+                <Link to="/register-player">Sign Up</Link>
               </div>
             </div>
           </div>

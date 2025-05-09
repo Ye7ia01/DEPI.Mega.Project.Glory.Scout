@@ -75,15 +75,13 @@ const Login = () => {
           </div>
 
           <div className="paths">
-            <Link to="/changepassword">Forgot Password?</Link>
+            <Link to="/resetpassword">Forgot Password?</Link>
           </div>
 
           <div className="btns">
           <button type="submit" disabled={isSubmitting}>{isSubmitting ? <FaSpinner className="loading-login" /> : "Login"}</button>
-            <Link to="/login">Sign Up</Link>
-          </div>
-
-          
+            <Link to="/register-player">Sign Up</Link>
+          </div>       
         </Form>
       )}
     </Formik>

@@ -21,7 +21,7 @@ const PlayerProfile = () => {
   }, [location]);
   
   return (
-    <section className="profile-container text-white">
+    <section className="profile-container text-white  w-full" style={{ width: "80%" }}>
       <div className="row player-info ps-5 pt-5 d-flex align-items-center ">
         <div className="col-sm-12 col-md-3 col-lg-3">
           <h3>Foad_ya2</h3>

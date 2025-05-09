@@ -146,7 +146,7 @@ export const AuthenticatedNavBar = ({collapsed, setCollapsed}) => {
                     {/*Nav Profile and Dropdown*/}
                     <div className="d-flex justify-content-center">
                         <Dropdown as={NavItem}>
-                            <Dropdown.Toggle as={NavLink} className="nav-link d-flex align-items-center text-white">
+                            <Dropdown.Toggle  as={NavLink} className="nav-link d-flex align-items-center text-white">
                                 <Image
                                     src={profileImage}
                                     alt=""
@@ -160,9 +160,9 @@ export const AuthenticatedNavBar = ({collapsed, setCollapsed}) => {
                                 </div>
                             </Dropdown.Toggle>
 
-                            <Dropdown.Menu>
-                                <Dropdown.Item as={Link} to={"/player-profile"}>Profile</Dropdown.Item>
-                                <Dropdown.Item href="#">Logout</Dropdown.Item>
+                            <Dropdown.Menu style={{ transform: 'translateX(-40px)' }} className="">
+                                <Dropdown.Item as={Link} >Profile</Dropdown.Item>
+                                <Dropdown.Item as={Link} >Logout</Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>
                     </div>
