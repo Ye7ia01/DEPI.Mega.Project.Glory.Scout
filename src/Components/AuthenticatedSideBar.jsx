@@ -52,7 +52,7 @@ export const AuthenticatedSideBar = ({collapsed, setCollapsed}) => {
                             </div>
                             <p className="side-bar-text mt-3">Main Menu</p>
                             <Nav.Item>
-                                <NavLink href to="/" className="d-flex align-items-center ps-0 text-decoration-none"
+                                <NavLink href to="/home" className="d-flex align-items-center ps-0 text-decoration-none"
                                          onClick={
                                              () => setActivePage('home')
                                          }>
@@ -67,7 +67,7 @@ export const AuthenticatedSideBar = ({collapsed, setCollapsed}) => {
                             </Nav.Item>
 
                             <Nav.Item className="">
-                                <NavLink to="/email" className="d-flex align-items-center ps-0 text-decoration-none"
+                                <NavLink to="/home/email" className="d-flex align-items-center ps-0 text-decoration-none"
                                          onClick={
                                              () => setActivePage('email')
                                          }>
@@ -83,7 +83,7 @@ export const AuthenticatedSideBar = ({collapsed, setCollapsed}) => {
                             </Nav.Item>
 
                             <Nav.Item className="">
-                                <NavLink to="/faq" className="d-flex align-items-center ps-0  text-decoration-none"
+                                <NavLink to="/home/faq" className="d-flex align-items-center ps-0  text-decoration-none"
                                          onClick={
                                              () => setActivePage('faq')
                                          }>
@@ -99,7 +99,7 @@ export const AuthenticatedSideBar = ({collapsed, setCollapsed}) => {
                             </Nav.Item>
 
                             <Nav.Item className="">
-                                <NavLink to="/contact" className="d-flex align-items-center ps-0 text-decoration-none"
+                                <NavLink to="/home/contact" className="d-flex align-items-center ps-0 text-decoration-none"
                                          onClick={
                                              () => setActivePage('contact')
                                          }>
@@ -117,7 +117,7 @@ export const AuthenticatedSideBar = ({collapsed, setCollapsed}) => {
 
                             {user.user_type === UserType.PLAYER && (
                                 <Nav.Item className="">
-                                    <NavLink to="/player" className="d-flex align-items-center ps-0 text-decoration-none"
+                                    <NavLink to="/home/player" className="d-flex align-items-center ps-0 text-decoration-none"
                                              onClick={
                                                  () => setActivePage('players')
                                              }>
