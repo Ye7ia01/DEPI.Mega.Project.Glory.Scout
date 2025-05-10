@@ -161,7 +161,7 @@ export const AuthenticatedNavBar = ({collapsed, setCollapsed}) => {
                             </Dropdown.Toggle>
 
                             <Dropdown.Menu>
-                                <Dropdown.Item as={Link} to={"/player-profile"}>Profile</Dropdown.Item>
+                                <Dropdown.Item as={Link} to={"/home/player"}>Profile</Dropdown.Item>
                                 <Dropdown.Item href="#">Logout</Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>

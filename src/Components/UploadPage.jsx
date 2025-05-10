@@ -137,7 +137,7 @@ const UploadPage = () => {
         });
 
         setTimeout(
-          () => navigate("/player-profile", { state: { newPostAdded: true } }),
+          () => navigate("/home/player", { state: { newPostAdded: true } }),
           2000
         );
       } else {

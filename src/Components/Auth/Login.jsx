@@ -27,7 +27,7 @@ const Login = () => {
       });
       localStorage.setItem("token", response.data.token);
       setTimeout(() => {
-        navigate("/");
+        navigate("/home/player");
       }, 800);
       console.log("Login successful:", response.data);
     } catch (error) {

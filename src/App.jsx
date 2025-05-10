@@ -18,6 +18,7 @@ import RegisterPlayers from "./Components/Auth/RegisterPlayers.jsx";
 import CreateNewPassword from "./Components/Auth/CreateNewPassword.jsx";
 import ResetPassword from "./Components/Auth/ResetPassword.jsx";
 import UploadPage from "./Components/UploadPage.jsx";
+import PublicPlayerProfile from "./Components/PublicPlayerProfile.jsx";
 
 function App() {
   const [collapsed, setCollapsed] = useState(false);
@@ -64,6 +65,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/changepassword" element={<CreateNewPassword />} />
         <Route path="/resetpassword" element={<ResetPassword />} />
+        <Route path="/player:id" element={<PublicPlayerProfile/>}/>
         {/* <Route path="/coach" element={<PlayersCoachesHomeScreen dataType="coaches" />} /> */}
         {/* <Route path="/player-profile" element={<PlayerProfile dataType="players" />} /> */}
         {/* <Route path="/coach-profile" element={<PlayerProfile dataType="coaches" />} /> */}
