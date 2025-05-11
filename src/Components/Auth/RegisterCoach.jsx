@@ -1,12 +1,18 @@
-import React from "react";
+import React, {useContext, useEffect} from "react";
 import axios from "axios";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import toast from "react-hot-toast";
+import {AuthContext} from "../../context/AuthContext.jsx";
+import {UserType} from "../../enums/userType.jsx";
+import {FaSpinner} from "react-icons/fa";
 
 const RegisterCoach = () => {
-  const validationSchema = Yup.object({
+    const {registerCoach, authLoading, authenticated, authError, authMessage} = useContext(AuthContext);
+    const {user} = useContext(AuthContext);
+    const navigate = useNavigate()
+    const validationSchema = Yup.object({
     Username: Yup.string().required("Username is required"),
     Email: Yup.string().email("Invalid email address").required("Email is required"),
     Password: Yup.string().min(6, "Password must be at least 6 characters").required("Password is required"),
@@ -30,30 +36,24 @@ const RegisterCoach = () => {
       formData.append("profilePhoto", values.profilePhoto);
     }
 
-    try {
-      const response = await axios.post(
-        "http://glory-scout.tryasp.net/api/Auth/register-coach",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      toast.success(`You have successfully registered, ${response.data.username}!`),
-      console.log("Response:", response.data);
-    } catch (error) {
-      console.error(
-        "Error:",
-        error.response ? error.response.data : error.message,
-        toast.error(error.response.data),
-      );
-    } finally {
-      setSubmitting(false);
-    }
-  };
+    registerCoach(formData);
+  }
 
+    useEffect(() => {
+        if (authenticated) {
+            console.log("Authenticated")
+            toast.success(`You have successfully registered, ${user?.username}!`);
+            user?.role == UserType.PLAYER ? navigate("/home/players") : navigate("/home/coaches")
+        }
+        else if (authMessage)
+        {
+            toast.error(authMessage);
+
+        }
+    }, [authenticated,authMessage]);
+
+
+ 
   return (
     <>
      <div>
@@ -154,8 +154,7 @@ const RegisterCoach = () => {
                   <ErrorMessage name="profilePhoto" component="div" className="error" />
                 </div>
                 <div className="btns">
-                  <button type="submit" disabled={isSubmitting}>
-                    Sign Up
+                  <button type="submit" disabled={authLoading}>{authLoading ? <FaSpinner className="loading-login" /> : "Sign Up"}
                   </button>
                   <Link to="/login">Login</Link>
                 </div>

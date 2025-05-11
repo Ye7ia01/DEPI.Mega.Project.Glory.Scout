@@ -16,21 +16,21 @@ export const AuthContext = createContext({})
  */
 export const AuthProvider = ({children}) => {
 
-    // Demo user object for development mode
-    const demoUser = {
-        token: "demoToken",
-        username: "Demo",
-        id: 1,
-        accessLevel: 1,
-        user_type: 2, // 1 player, 2 coach
-        info: {
-            id: 1,
-            name: "Demo Full Name",
-            phone: "",
-            email: "demo@gmail.com",
-            mobile: ""
-        }
-    }
+    // // Demo user object for development mode
+    // const demoUser = {
+    //     token: "demoToken",
+    //     username: "Demo",
+    //     id: 1,
+    //     accessLevel: 1,
+    //     user_type: 2, // 1 player, 2 coach
+    //     info: {
+    //         id: 1,
+    //         name: "Demo Full Name",
+    //         phone: "",
+    //         email: "demo@gmail.com",
+    //         mobile: ""
+    //     }
+    // }
 
     // State to manage authentication loading state
     const [authLoading, setAuthLoading] = useState(false);
@@ -41,9 +41,9 @@ export const AuthProvider = ({children}) => {
     // State to manage authentication error message
     const [authMessage, setAuthMessage] = useState("");
     // State to manage user information
-    const [user, setUser] = useState(demoUser);
+    const [user, setUser] = useState();
     // State to manage development mode
-    const [devMode, setDevMode] = useState(true)
+    // const [devMode, setDevMode] = useState(true)
 
     // Effect to check local storage for user information on component mount
     useEffect(() => {
@@ -59,13 +59,13 @@ export const AuthProvider = ({children}) => {
                 console.log(authenticated);
                 return;
             }
-            if (devMode) {
-                console.info("Dev Mode Detected")
-                setUser(demoUser)
-                setAuthenticated(true)
-                setAuthLoading(false)
-                console.info("Authenticated Demo User in Dev Mode")
-            }
+            // if (devMode) {
+            //     console.info("Dev Mode Detected")
+            //     setUser(demoUser)
+            //     setAuthenticated(true)
+            //     setAuthLoading(false)
+            //     console.info("Authenticated Demo User in Dev Mode")
+            // }
             setAuthLoading(false);
             console.log(authenticated);
         }
@@ -82,23 +82,25 @@ export const AuthProvider = ({children}) => {
     /**
      * Function to handle user login
      *
-     * @param {string} username - The username
+     * @param {string} email - The username
      * @param {string} password - The password
      * @returns {Promise<void>}
      */
-    const loginAsync = async (username, password) => {
+
+    const registerPlayer = async (formData) => {
+        console.log("In Register Method AUTHCONTEXT", formData);
         setAuthLoading(true);
         setAuthError(false);
+        setAuthMessage(false);
 
-        axios.post('https://mydomain.com/api/Authentication/Login', {
-            username, password
-        }, {
+        axios.post('http://glory-scout.tryasp.net/api/Auth/register-player', formData , {
             headers: {
-                "Content-Type": 'application/json'
+                "Content-Type": "multipart/form-data"
             }
         }).then(res => {
-            let data = res.data?.data
-            if (data?.user_Type !== 1 && data?.user_Type !== 2) {
+            console.log("Data : ",res)
+            let data = res.data
+            if (!data) {
                 console.log("Not a valid user type");
                 setAuthError(true);
                 setAuthMessage("Cannot Sign In");
@@ -111,29 +113,71 @@ export const AuthProvider = ({children}) => {
             const userObj = {
                 token: data?.token,
                 username: data?.username,
-                id: data?.userId,
-                accessLevel: data?.accessLevel,
-                linked_Id: data?.linked_Id,
-                user_type: data?.user_Type,
-                info: {
-                    id: data?.info?.id,
-                    name: data?.info?.name,
-                    phone: data?.info?.phone,
-                    email: data?.info?.email,
-                    mobile: data?.info?.mobile
-                }
+                role: data?.role,
+                email: data?.email,
+                profilePhoto: data?.profilePhoto,
             };
             setUser(userObj);
             const setStorage = async () => {
-                await localStorage.setItem('user', JSON.stringify(userObj)).then(() => {
-                    localStorage.getItem('user').then(json => {
-                        console.log('SET STORAGE');
-                        console.log(json);
-                        setAuthError(false);
-                        setAuthLoading(false);
-                        setAuthenticated(true);
-                    });
-                });
+                await localStorage.setItem('user', JSON.stringify(userObj));
+                const json = await localStorage.getItem('user');
+                console.log('SET STORAGE');
+                console.log(json);
+                setAuthError(false);
+                setAuthLoading(false);
+                setAuthenticated(true);
+            }
+            setStorage();
+        }).catch(err => {
+            console.log(JSON.stringify(err));
+            console.log(err?.response?.data);
+            setAuthError(true);
+            setUser();
+            setAuthMessage(err?.response?.data ?? "Error, Cannot Sign In");
+            setAuthLoading(false);
+        })
+    }
+
+
+    const registerCoach = async (formData) => {
+        console.log("In Register Method AUTHCONTEXT", formData);
+        setAuthLoading(true);
+        setAuthError(false);
+        setAuthMessage(false);
+
+        axios.post('http://glory-scout.tryasp.net/api/Auth/register-coach', formData , {
+            headers: {
+                "Content-Type": "multipart/form-data"
+            }
+        }).then(res => {
+            console.log("Data : ",res)
+            let data = res.data
+            if (!data) {
+                console.log("Not a valid user type");
+                setAuthError(true);
+                setAuthMessage("Cannot Sign In");
+                setUser({});
+                setAuthLoading(false);
+                return;
+            }
+
+            // Set User Object based on retrieved data from Database
+            const userObj = {
+                token: data?.token,
+                username: data?.username,
+                role: data?.role,
+                email: data?.email,
+                profilePhoto: data?.profilePhoto,
+            };
+            setUser(userObj);
+            const setStorage = async () => {
+                await localStorage.setItem('user', JSON.stringify(userObj));
+                const json = await localStorage.getItem('user');
+                console.log('SET STORAGE');
+                console.log(json);
+                setAuthError(false);
+                setAuthLoading(false);
+                setAuthenticated(true);
             }
             setStorage();
         }).catch(err => {
@@ -141,6 +185,63 @@ export const AuthProvider = ({children}) => {
             setAuthError(true);
             setUser();
             setAuthMessage(JSON.stringify(err) ?? "Error, Cannot Sign In");
+            setAuthLoading(false);
+            setAuthMessage(err?.response?.data ?? "Error, Cannot Sign In");
+        })
+    }
+
+
+
+
+    const loginAsync = async (email, password) => {
+        console.log("In Async Method");
+        setAuthLoading(true);
+        setAuthError(false);
+        setAuthMessage(false);
+
+        axios.post('http://glory-scout.tryasp.net/api/Auth/login', {
+            email, password
+        }, {
+            headers: {
+                "Content-Type": 'application/json'
+            }
+        }).then(res => {
+            console.log("Data : ",res)
+            let data = res.data
+            if (!data) {
+                console.log("Not a valid user type");
+                setAuthError(true);
+                setAuthMessage("Cannot Sign In");
+                setUser({});
+                setAuthLoading(false);
+                return;
+            }
+
+            // Set User Object based on retrieved data from Database
+            const userObj = {
+                token: data?.token,
+                username: data?.username,
+                // id: data?.userId,
+                role: data?.role,
+                email: data?.email,
+                profilePhoto: data?.profilePhoto,
+            };
+            setUser(userObj);
+            const setStorage = async () => {
+               await localStorage.setItem('user', JSON.stringify(userObj));
+               const json = await localStorage.getItem('user');
+               console.log('SET STORAGE');
+               console.log(json);
+               setAuthError(false);
+               setAuthLoading(false);
+               setAuthenticated(true);
+            }
+            setStorage();
+        }).catch(err => {
+            console.log(JSON.stringify(err));
+            setAuthError(true);
+            setUser();
+            setAuthMessage(err?.response?.data ?? "Invalid email or password");
             setAuthLoading(false);
         })
     }
@@ -159,7 +260,7 @@ export const AuthProvider = ({children}) => {
         setAuthLoading(false);
     }
 
-    return <AuthContext.Provider value={{loginAsync, authLoading, user, authenticated, authError, authMessage, logoutAsync}}>
+    return <AuthContext.Provider value={{loginAsync, authLoading, user, authenticated, authError, authMessage, logoutAsync, registerPlayer, registerCoach}}>
         {children}
     </AuthContext.Provider>
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {
   Container,
   Typography,
@@ -17,10 +17,25 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import {AuthContext} from "../context/AuthContext.jsx";
 
 const PlayerPosts = ({ refresh, onRefreshed }) => {
   console.log(refresh);
-  
+
+  // Yehia - Mohamed
+  // ----- START -----
+  //  Shared User Object Context includes :
+  //   user.username
+  //   user.role = "Player" , "Coach" OR UserTypes.PLAYER , UserTypes.COACH (ENUM)
+  //   user.email
+  //   user.token
+  //   user.profilePhoto
+
+  const {user} = useContext(AuthContext);
+
+  //    ---- END ------
+
+
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");

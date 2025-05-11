@@ -1314,15 +1314,7 @@ body {
       align-items: center;
       gap: 20px ;
       // padding: 15px 0;
-      .loading-login{
-        animation: spin 1s linear infinite;
-        color: var(--pure-black);
-        @keyframes spin {
-          100% {
-            transform: rotate(360deg);
-          }
-        }
-      }
+
       .paths{
         width: 100%;
         padding: 15px 0;
@@ -2381,4 +2373,20 @@ body {
   color: #000000 !important;
   background-color: #33FF33;
 }
+
+.error {
+  color:red;
+}
+
+// Login - Register Spinner
+.loading-login{
+  animation: spin 1s linear infinite;
+  color: gray;
+  @keyframes spin {
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+}
+
 // Ended @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
