@@ -1,15 +1,21 @@
 ﻿import {Image} from "react-bootstrap";
 import IconPhone from '../assets/iconPhone.svg'
 import IconEmail from '../assets/iconEmail.svg'
+import {useNavigate} from "react-router-dom";
 
 export const PlayersCoachesCard = ({data, type}) => {
-    console.log("Type : ", type)
+    console.log("Type : ", type);
+    const navigate = useNavigate();
     return (
 
         <>
 
             {type == 'players' &&
-                <div className='players-coaches-card d-flex flex-column align-items-center justify-content-evenly'>
+                <div className='players-coaches-card d-flex flex-column align-items-center justify-content-evenly'
+                onClick={() => {
+                    console.log("Clicked")
+                    navigate(`/player:${data.id}`)
+                }}>
                     <div>
                         <Image src={data?.profilePhoto}
                                width='100px'

@@ -18,6 +18,7 @@ import RegisterPlayers from "./Components/Auth/RegisterPlayers.jsx";
 import CreateNewPassword from "./Components/Auth/CreateNewPassword.jsx";
 import ResetPassword from "./Components/Auth/ResetPassword.jsx";
 import UploadPage from "./Components/UploadPage.jsx";
+import PublicPlayerProfile from "./Components/PublicPlayerProfile.jsx";
 import ProtectedLayout from "./Components/Layout/ProtectedLayout.jsx";
 
 function App() {
@@ -44,24 +45,22 @@ function App() {
           This route displays the main Layout containing the Sidebar.
           Any content within this route will be displayed inside the Layout.
         */}
-
-
         <Route path="/home" element={
-          <ProtectedLayout>
-            <Layout/>
-          </ProtectedLayout>
+        <ProtectedLayout>
+          <Layout />
+        </ProtectedLayout>
         }>
-          <Route path="/home/players" element={<PlayersCoachesHomeScreen dataType="players"/>}/>
-          <Route path="/home/coaches" element={<PlayersCoachesHomeScreen dataType="coaches"/>}/>
-          <Route path="/home/player" element={<PlayerProfile/>}/>
-          <Route path="/home/faq" element={<FAQ/>}/>
-          <Route path="/home/email" element={<Login/>}/>
-          <Route path="/home/contact" element={<Contact/>}/>
+          <Route index element={<PlayersCoachesHomeScreen dataType="players" />}/>
+          <Route path="/home/player" element={<PlayerProfile />} />
+          <Route path="/home/faq" element={<FAQ />} />
+          <Route path="/home/email" element={<Login />} />
+          <Route path="/home/contact" element={<Contact />} />
+          <Route path="/home/players" element={<PlayersCoachesHomeScreen dataType="players" />} />
+          <Route path="/home/coaches" element={<PlayersCoachesHomeScreen dataType="coaches" />} />
+          {/*<Route path="/home/coaches" element={<PlayerProfile dataType="players" />} />*/}
           {/* <Route path="/home/player"  element={<players />} /> */}
           {/* <Route index  element={<PlayersCoachesHomeScreen />} /> */}
         </Route>
-
-
         <Route path="/" element={<PublicLayout />}>
           {/* These routes will be divided between site visitors and registered users.
         Each group will be linked to a specific layout with its own access permissions. */}
@@ -74,8 +73,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/changepassword" element={<CreateNewPassword />} />
         <Route path="/resetpassword" element={<ResetPassword />} />
-        {/* <Route path="/coach" element={<PlayersCoachesHomeScreen dataType="coaches" />} /> */}
-        {/* <Route path="/player-profile" element={<PlayerProfile dataType="players" />} /> */}
+        <Route path="/player:id" element={<PublicPlayerProfile/>}/>
+
         {/* <Route path="/coach-profile" element={<PlayerProfile dataType="coaches" />} /> */}
         <Route path="/upload" element={<UploadPage />} />
         </Route>

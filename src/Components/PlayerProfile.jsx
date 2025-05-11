@@ -171,9 +171,7 @@ const PlayerProfile = () => {
           </button>
         </div>
 
-        <div className="col-sm-12 col-md-4 mb-2">
-          <button className="request-btn w-100">Request Details</button>
-        </div>
+       
 
         <div className="col-sm-12 col-md-4 mb-2 d-flex justify-content-center align-items-center">
           <IoMdPersonAdd
@@ -213,6 +211,7 @@ const PlayerProfile = () => {
         <PlayerPosts
           refresh={refreshPosts}
           onRefreshed={() => setRefreshPosts(false)}
+          isEditable={true}
         />
       </div>
 

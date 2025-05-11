@@ -28,27 +28,6 @@ const Login = () => {
   const handleSubmit = async (values) => {
 
     await loginAsync(values.email, values.password);
-
-
-    // try {
-
-
-
-    //   const response = await axios.post("http://glory-scout.tryasp.net/api/Auth/login", {
-    //     email: values.email,
-    //     password: values.password,
-    //   });
-    //   localStorage.setItem("token", response.data.token);
-    //   setTimeout(() => {
-    //     navigate("/");
-    //   }, 800);
-    //   console.log("Login successful:", response.data);
-    // } catch (error) {
-    //   console.error("Error:", error.response ? error.response.data : error.message);
-    //   setErrors({ submit: "Invalid email or password" });
-    // } finally {
-    //   setSubmitting(false);
-    // }
   };
 
   useEffect(() => {
