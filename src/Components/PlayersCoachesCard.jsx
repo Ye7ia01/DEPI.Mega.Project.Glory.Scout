@@ -1,7 +1,7 @@
 ﻿import {Image} from "react-bootstrap";
 import IconPhone from '../assets/iconPhone.svg'
 import IconEmail from '../assets/iconEmail.svg'
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 export const PlayersCoachesCard = ({data, type}) => {
     console.log("Type : ", type);
@@ -75,6 +75,7 @@ export const PlayersCoachesCard = ({data, type}) => {
                     {/*    </div>*/}
                     {/*</div>*/}
                 </div>
+                    </Link>
 
             }
 
