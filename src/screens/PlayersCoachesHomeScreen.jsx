@@ -82,7 +82,7 @@ export const PlayersCoachesHomeScreen = ({dataType}) => {
 
                 <div className="row g-4 m-auto mt-5 mb-5" style={{width: '95%'}}>
                     {data?.map((player, index) => (
-                        <div key={index} className='col-12 col-lg-3 col-md-4 col-sm-6 custom-col-sm'>
+                        <div key={index} className='col-12 col-lg-2 col-md-4 col-sm-6 custom-col-sm'>
                             <PlayersCoachesCard data={player} type={dataType}/>
                         </div>
                     ))}
