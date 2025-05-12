@@ -2261,16 +2261,27 @@ body {
   font-size: 12px;
 }
 .players-coaches-card {
+  //width: 300px;
+  //height: 450px;
+  background: linear-gradient(135deg, #f5d76e, #f7ca18);
+  border-radius: 20px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  font-family: 'Arial', sans-serif;
   min-width: 120px;
   height: 360px;
-  border-width: 1px;
-  border: 1px solid;
-  background: #ffffff;
-  border-radius: 8px;
+  //border-width: 1px;
+  //border: 1px solid;
+  //background: #ffffff;
+  //border-radius: 8px;
 }
 
 .player-image {
-  object-fit: cover;
+  //object-fit: cover;
 }
 
 .player-name {
@@ -2285,9 +2296,7 @@ body {
   color: #a5a5a5;
   font-family: "Open Sans";
   font-weight: 400;
-  font-size: 12px;
-  line-height: 20px;
-  letter-spacing: 0%;
+  font-size: 14px;
   text-align: center;
 }
 
