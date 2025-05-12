@@ -31,6 +31,8 @@ export const AuthenticatedSideBar = ({collapsed, setCollapsed}) => {
 
     // Get the current user from the AuthContext
     const {user} = useContext(AuthContext)
+
+    console.log("User in SIde Bar Comp. : ", user);
     // State to manage the visibility of the sidebar
     const [visible, setVisible] = useState(true)
     // State to manage the active page
@@ -115,9 +117,9 @@ export const AuthenticatedSideBar = ({collapsed, setCollapsed}) => {
                             </Nav.Item>
 
 
-                            {user.user_type === UserType.PLAYER && (
+                            {user?.role === UserType.PLAYER && (
                                 <Nav.Item className="">
-                                    <NavLink to="/home/player" className="d-flex align-items-center ps-0 text-decoration-none"
+                                    <NavLink to="/home/players" className="d-flex align-items-center ps-0 text-decoration-none"
                                              onClick={
                                                  () => setActivePage('players')
                                              }>
@@ -134,9 +136,9 @@ export const AuthenticatedSideBar = ({collapsed, setCollapsed}) => {
                                 </Nav.Item>
                             )
                             }
-                            {user.user_type === UserType.COACH && (
+                            {user?.role === UserType.COACH && (
                                 <Nav.Item className="">
-                                    <NavLink to="/coach" className="d-flex align-items-center ps-0 text-decoration-none"
+                                    <NavLink to="/home/coaches" className="d-flex align-items-center ps-0 text-decoration-none"
                                              onClick={
                                                  () => setActivePage('coaches')
                                              }>

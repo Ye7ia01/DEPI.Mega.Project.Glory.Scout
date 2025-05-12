@@ -22,6 +22,7 @@ import Gift from '../assets/gift.svg'
 import {AuthenticatedSideBar} from "./AuthenticatedSideBar.jsx";
 import {NavbarLogo} from "./NavbarLogo.jsx";
 import { Link } from "react-router";
+import {useNavigate} from "react-router-dom";
 
 /**
  * AuthenticatedNavBar component
@@ -38,7 +39,9 @@ import { Link } from "react-router";
 export const AuthenticatedNavBar = ({collapsed, setCollapsed}) => {
 
     // Get the current user from the AuthContext
-    const {user} = useContext(AuthContext)
+    const {user} = useContext(AuthContext);
+    const navigate = useNavigate();
+    const {logoutAsync} = useContext(AuthContext);
     // State to manage the visibility of the search bar on smaller screens
     const [searchVisible, setSearchVisible] = useState(false)
 
@@ -148,21 +151,25 @@ export const AuthenticatedNavBar = ({collapsed, setCollapsed}) => {
                         <Dropdown as={NavItem}>
                             <Dropdown.Toggle as={NavLink} className="nav-link d-flex align-items-center text-white">
                                 <Image
-                                    src={profileImage}
+                                    src={user?.profilePhoto}
+                                    roundedCircle
                                     alt=""
                                     width={50}
                                     height={50}
                                     className="me-md-3 me-lg-3 img-fluid"
                                 />
                                 <div className="d-flex flex-column me-2 d-lg-flex d-md-flex d-none">
-                                    <strong className='user-data'>{user.username}</strong>
-                                    <small className='user-data'>{user.user_type}</small>
+                                    <strong className='user-data'>{user?.username}</strong>
+                                    <small className='user-data'>{user?.role}</small>
                                 </div>
                             </Dropdown.Toggle>
 
                             <Dropdown.Menu>
                                 <Dropdown.Item as={Link} to={"/player-profile"}>Profile</Dropdown.Item>
-                                <Dropdown.Item href="#">Logout</Dropdown.Item>
+                                <Dropdown.Item href="#" onClick={() => {
+                                    logoutAsync();
+                                    navigate("/");
+                                }}>Logout</Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>
                     </div>

@@ -4,6 +4,6 @@
  * @enum {number}
  */
 export const UserType = Object.freeze({
-    PLAYER: 1, /**< Represents a player user type */
-    COACH: 2   /**< Represents a coach user type */
+    PLAYER: "Player", /**< Represents a player user type */
+    COACH: "Coach"   /**< Represents a coach user type */
 });

@@ -18,9 +18,7 @@ import {
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const PlayerPosts = ({ refresh, onRefreshed }) => {
-  console.log(refresh);
-  
+const PlayerPosts = ({ isEditable, playerId }) => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -36,24 +34,21 @@ const PlayerPosts = ({ refresh, onRefreshed }) => {
 
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
-  
-  const userId = JSON.parse(atob(token.split(".")[1]))?.nameidentifier;
+
   useEffect(() => {
-    if (userId) fetchPosts();
-  }, [userId]);
+    fetchPosts();
+  }, [playerId]);
 
   const fetchPosts = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(
-        `http://glory-scout.tryasp.net/api/UserProfile/get-profile`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      console.log(response);
+      const url = isEditable
+        ? `http://glory-scout.tryasp.net/api/UserProfile/get-profile`
+        : `http://glory-scout.tryasp.net/api/SearchPages/players/${playerId}`;
+
+      const response = await axios.get(url, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
 
       setPosts(response?.data?.posts || []);
     } catch (err) {
@@ -63,23 +58,14 @@ const PlayerPosts = ({ refresh, onRefreshed }) => {
     }
   };
 
-  useEffect(() => {
-    if (refresh) {
-      fetchPosts();
-      if (onRefreshed) onRefreshed();
-    }
-  }, [refresh]);
-
   const handleDelete = async (postId) => {
     try {
       await axios.delete(
         `http://glory-scout.tryasp.net/api/UserProfile/delete-post/${postId}`,
         {
-          headers: { Authorization: `Bearer  ${token}` },
+          headers: { Authorization: `Bearer ${token}` },
         }
       );
-     
-      
       setSnackbar({
         open: true,
         message: "Post deleted successfully!",
@@ -101,7 +87,7 @@ const PlayerPosts = ({ refresh, onRefreshed }) => {
   };
 
   const renderMedia = (fileUrl) => {
-    const ext = fileUrl?.split(".").pop().toLowerCase();
+  const ext = new URL(fileUrl).pathname.split(".").pop().toLowerCase();
 
     if (["mp4", "mov", "avi"].includes(ext)) {
       return (
@@ -151,7 +137,7 @@ const PlayerPosts = ({ refresh, onRefreshed }) => {
       <Typography variant="h4" gutterBottom sx={{ color: "#fff" }}>
         Posts :
       </Typography>
-     
+
       {posts.length === 0 ? (
         <Typography color="text.secondary">No posts found.</Typography>
       ) : (
@@ -164,9 +150,7 @@ const PlayerPosts = ({ refresh, onRefreshed }) => {
               md={6}
               lg={2}
               key={post.id}
-              sx={{
-                width: { xs: "80%", sm: "80%", md: "48%" },
-              }}
+              sx={{ width: { xs: "80%", sm: "80%", md: "48%" } }}
             >
               <Card
                 sx={{
@@ -186,72 +170,85 @@ const PlayerPosts = ({ refresh, onRefreshed }) => {
                 <CardContent sx={{ flexGrow: 1 }}>
                   <Typography variant="body1">{post.description}</Typography>
 
-                  <Box
-                    mt={2}
-                    display="flex"
-                    gap={2}
-                    sx={{
-                      flexDirection: {
-                        xs: "column",
-                        sm: "row",
-                      },
-                      alignItems: {
-                        xs: "stretch",
-                        sm: "center",
-                      },
-                    }}
-                  >
-                    <Button
-                      variant="outlined"
-                      color="primary"
+                  {isEditable ? (
+                    <Box
+                      mt={2}
+                      display="flex"
+                      gap={2}
                       sx={{
-                        fontSize: {
-                          xxs: "12px",
-                          xs: "0.8rem",
-                          sm: "1rem",
-                          lg: "1rem",
+                        flexDirection: {
+                          xs: "column",
+                          sm: "row",
                         },
-                        padding: {
-                          xxs: "5px 10px",
-                          xs: "6px 12px",
-                          sm: "8px 16px",
-                        },
-                        "@media (max-width: 1086px)": {
-                          fontSize: "0.9rem",
-                          padding: "6px 10px",
+                        alignItems: {
+                          xs: "stretch",
+                          sm: "center",
                         },
                       }}
-                      onClick={() => handleEdit(post)}
                     >
-                      Update Post
-                    </Button>
-                    <Button
-                      variant="outlined"
-                      color="error"
-                      sx={{
-                        fontSize: {
-                          xxs: "12px",
-                          xs: "0.8rem",
-                          sm: "1rem",
-                          lg: "1rem",
-                        },
-                        padding: {
-                          xxs: "5px 10px",
-                          xs: "6px 12px",
-                          sm: "8px 16px",
-                        },
-                        "@media (max-width: 1086px)": {
-                          fontSize: "0.9rem",
-                          padding: "6px 10px",
-                        },
-                      }}
-                      onClick={() =>
-                        setDeleteDialog({ open: true, postId: post.id })
-                      }
-                    >
-                      Delete Post
-                    </Button>
-                  </Box>
+                      <Button
+                        variant="outlined"
+                        color="primary"
+                        sx={{
+                          fontSize: {
+                            xxs: "12px",
+                            xs: "0.8rem",
+                            sm: "1rem",
+                            lg: "1rem",
+                          },
+                          padding: {
+                            xxs: "5px 10px",
+                            xs: "6px 12px",
+                            sm: "8px 16px",
+                          },
+                          "@media (max-width: 1086px)": {
+                            fontSize: "0.9rem",
+                            padding: "6px 10px",
+                          },
+                        }}
+                        onClick={() => handleEdit(post)}
+                      >
+                        Update Post
+                      </Button>
+                      <Button
+                        variant="outlined"
+                        color="error"
+                        sx={{
+                          fontSize: {
+                            xxs: "12px",
+                            xs: "0.8rem",
+                            sm: "1rem",
+                            lg: "1rem",
+                          },
+                          padding: {
+                            xxs: "5px 10px",
+                            xs: "6px 12px",
+                            sm: "8px 16px",
+                          },
+                          "@media (max-width: 1086px)": {
+                            fontSize: "0.9rem",
+                            padding: "6px 10px",
+                          },
+                        }}
+                        onClick={() =>
+                          setDeleteDialog({ open: true, postId: post.id })
+                        }
+                      >
+                        Delete Post
+                      </Button>
+                    </Box>
+                  ) : (
+                    <Box mt={2}>
+                      <Button
+                        variant="outlined"
+                        href={post.posrUrl}
+                        download
+                        sx={{ color: "#90caf9", borderColor: "#90caf9" }}
+                      >
+                        Download Media
+                      </Button>
+                    </Box>
+                  )}
                 </CardContent>
               </Card>
             </Grid>
@@ -272,9 +269,7 @@ const PlayerPosts = ({ refresh, onRefreshed }) => {
       >
         <DialogTitle>Are you sure you want to delete this post?</DialogTitle>
         <DialogActions>
-          <Button
-            onClick={() => setDeleteDialog({ open: false, postId: null })}
-          >
+          <Button onClick={() => setDeleteDialog({ open: false, postId: null })}>
             Cancel
           </Button>
           <Button
@@ -290,3 +285,369 @@ const PlayerPosts = ({ refresh, onRefreshed }) => {
 };
 
 export default PlayerPosts;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import React, { useEffect, useState } from "react";
+// import {
+//   Container,
+//   Typography,
+//   Box,
+//   Card,
+//   CardContent,
+//   CardMedia,
+//   CircularProgress,
+//   Alert,
+//   Button,
+//   Snackbar,
+//   Dialog,
+//   DialogTitle,
+//   DialogActions,
+//   Grid,
+// } from "@mui/material";
+// import axios from "axios";
+// import { useNavigate } from "react-router-dom";
+
+// const PlayerPosts = ({ refresh, onRefreshed }) => {
+//   console.log(refresh);
+  
+//   const [posts, setPosts] = useState([]);
+//   const [loading, setLoading] = useState(true);
+//   const [error, setError] = useState("");
+//   const [snackbar, setSnackbar] = useState({
+//     open: false,
+//     message: "",
+//     severity: "success",
+//   });
+//   const [deleteDialog, setDeleteDialog] = useState({
+//     open: false,
+//     postId: null,
+//   });
+
+//   const navigate = useNavigate();
+//   const token = localStorage.getItem("token");
+  
+//   const userId = JSON.parse(atob(token.split(".")[1]))?.nameidentifier;
+//   useEffect(() => {
+//     if (userId) fetchPosts();
+//   }, [userId]);
+
+//   const fetchPosts = async () => {
+//     setLoading(true);
+//     try {
+//       const response = await axios.get(
+//         `http://glory-scout.tryasp.net/api/UserProfile/get-profile`,
+//         {
+//           headers: {
+//             Authorization: `Bearer ${token}`,
+//           },
+//         }
+//       );
+//       console.log(response);
+
+//       setPosts(response?.data?.posts || []);
+//     } catch (err) {
+//       setError("Failed to load posts. Please try again.");
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   useEffect(() => {
+//     if (refresh) {
+//       fetchPosts();
+//       if (onRefreshed) onRefreshed();
+//     }
+//   }, [refresh]);
+
+//   const handleDelete = async (postId) => {
+//     try {
+//       await axios.delete(
+//         `http://glory-scout.tryasp.net/api/UserProfile/delete-post/${postId}`,
+//         {
+//           headers: { Authorization: `Bearer  ${token}` },
+//         }
+//       );
+     
+      
+//       setSnackbar({
+//         open: true,
+//         message: "Post deleted successfully!",
+//         severity: "success",
+//       });
+//       setPosts(posts.filter((p) => p.id !== postId));
+//     } catch (err) {
+//       setSnackbar({
+//         open: true,
+//         message: "Failed to delete post.",
+//         severity: "error",
+//       });
+//     }
+//     setDeleteDialog({ open: false, postId: null });
+//   };
+
+//   const handleEdit = (post) => {
+//     navigate("/upload", { state: { post } });
+//   };
+
+//   const renderMedia = (fileUrl) => {
+//     const ext = fileUrl?.split(".").pop().toLowerCase();
+
+//     if (["mp4", "mov", "avi"].includes(ext)) {
+//       return (
+//         <CardMedia
+//           component="video"
+//           src={fileUrl}
+//           controls
+//           sx={{ width: "100%", maxHeight: 200, objectFit: "cover" }}
+//         />
+//       );
+//     } else if (["jpg", "jpeg", "png", "webp", "gif"].includes(ext)) {
+//       return (
+//         <CardMedia
+//           component="img"
+//           src={fileUrl}
+//           alt="Post"
+//           sx={{ width: "100%", height: 200, objectFit: "cover" }}
+//         />
+//       );
+//     }
+//     return <Typography color="text.secondary">Unsupported media</Typography>;
+//   };
+
+//   if (loading) {
+//     return (
+//       <Box
+//         minHeight="80vh"
+//         display="flex"
+//         alignItems="center"
+//         justifyContent="center"
+//       >
+//         <CircularProgress />
+//       </Box>
+//     );
+//   }
+
+//   if (error) {
+//     return (
+//       <Container maxWidth="sm" sx={{ mt: 4 }}>
+//         <Alert severity="error">{error}</Alert>
+//       </Container>
+//     );
+//   }
+
+//   return (
+//     <Container maxWidth="xl" sx={{ mb: 4 }}>
+//       <Typography variant="h4" gutterBottom sx={{ color: "#fff" }}>
+//         Posts :
+//       </Typography>
+     
+//       {posts.length === 0 ? (
+//         <Typography color="text.secondary">No posts found.</Typography>
+//       ) : (
+//         <Grid container spacing={3} display="flex" justifyContent={"center"}>
+//           {posts.map((post) => (
+//             <Grid
+//               item
+//               xs={12}
+//               sm={6}
+//               md={6}
+//               lg={2}
+//               key={post.id}
+//               sx={{
+//                 width: { xs: "80%", sm: "80%", md: "48%" },
+//               }}
+//             >
+//               <Card
+//                 sx={{
+//                   height: "100%",
+//                   display: "flex",
+//                   flexDirection: "column",
+//                   backgroundColor: "#1e1e1e",
+//                   color: "#fff",
+//                   borderRadius: 2,
+//                   boxShadow: 3,
+//                 }}
+//               >
+//                 <Box sx={{ width: "100%", height: 200, overflow: "hidden" }}>
+//                   {renderMedia(post.posrUrl)}
+//                 </Box>
+
+//                 <CardContent sx={{ flexGrow: 1 }}>
+//                   <Typography variant="body1">{post.description}</Typography>
+
+//                   <Box
+//                     mt={2}
+//                     display="flex"
+//                     gap={2}
+//                     sx={{
+//                       flexDirection: {
+//                         xs: "column",
+//                         sm: "row",
+//                       },
+//                       alignItems: {
+//                         xs: "stretch",
+//                         sm: "center",
+//                       },
+//                     }}
+//                   >
+//                     <Button
+//                       variant="outlined"
+//                       color="primary"
+//                       sx={{
+//                         fontSize: {
+//                           xxs: "12px",
+//                           xs: "0.8rem",
+//                           sm: "1rem",
+//                           lg: "1rem",
+//                         },
+//                         padding: {
+//                           xxs: "5px 10px",
+//                           xs: "6px 12px",
+//                           sm: "8px 16px",
+//                         },
+//                         "@media (max-width: 1086px)": {
+//                           fontSize: "0.9rem",
+//                           padding: "6px 10px",
+//                         },
+//                       }}
+//                       onClick={() => handleEdit(post)}
+//                     >
+//                       Update Post
+//                     </Button>
+//                     <Button
+//                       variant="outlined"
+//                       color="error"
+//                       sx={{
+//                         fontSize: {
+//                           xxs: "12px",
+//                           xs: "0.8rem",
+//                           sm: "1rem",
+//                           lg: "1rem",
+//                         },
+//                         padding: {
+//                           xxs: "5px 10px",
+//                           xs: "6px 12px",
+//                           sm: "8px 16px",
+//                         },
+//                         "@media (max-width: 1086px)": {
+//                           fontSize: "0.9rem",
+//                           padding: "6px 10px",
+//                         },
+//                       }}
+//                       onClick={() =>
+//                         setDeleteDialog({ open: true, postId: post.id })
+//                       }
+//                     >
+//                       Delete Post
+//                     </Button>
+//                   </Box>
+//                 </CardContent>
+//               </Card>
+//             </Grid>
+//           ))}
+//         </Grid>
+//       )}
+
+//       <Snackbar
+//         open={snackbar.open}
+//         autoHideDuration={3000}
+//         onClose={() => setSnackbar({ ...snackbar, open: false })}
+//         message={snackbar.message}
+//       />
+
+//       <Dialog
+//         open={deleteDialog.open}
+//         onClose={() => setDeleteDialog({ open: false, postId: null })}
+//       >
+//         <DialogTitle>Are you sure you want to delete this post?</DialogTitle>
+//         <DialogActions>
+//           <Button
+//             onClick={() => setDeleteDialog({ open: false, postId: null })}
+//           >
+//             Cancel
+//           </Button>
+//           <Button
+//             onClick={() => handleDelete(deleteDialog.postId)}
+//             color="error"
+//           >
+//             Delete
+//           </Button>
+//         </DialogActions>
+//       </Dialog>
+//     </Container>
+//   );
+// };
+
+// export default PlayerPosts;

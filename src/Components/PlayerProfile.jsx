@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {
   Box,
   Button,
@@ -16,6 +16,7 @@ import { MdOutlineWindow } from "react-icons/md";
 import PlayerPosts from "./PlayerPosts";
 import axios from "axios";
 import { Link, useLocation } from "react-router-dom";
+import {AuthContext} from "../context/AuthContext.jsx";
 
 const PlayerProfile = () => {
   const location = useLocation();
@@ -31,6 +32,19 @@ const PlayerProfile = () => {
     message: "",
     severity: "success",
   });
+
+   // Yehia - Mohamed
+    // ----- START -----
+    //  Shared User Object Context includes :
+    //   user.username
+    //   user.role = "Player" , "Coach" OR UserTypes.PLAYER , UserTypes.COACH (ENUM)
+    //   user.email
+    //   user.token
+    //   user.profilePhoto
+
+    const {user} = useContext(AuthContext);
+
+  //    ---- END ------
 
   useEffect(() => {
     if (location.state?.newPostAdded) {
@@ -157,9 +171,7 @@ const PlayerProfile = () => {
           </button>
         </div>
 
-        <div className="col-sm-12 col-md-4 mb-2">
-          <button className="request-btn w-100">Request Details</button>
-        </div>
+       
 
         <div className="col-sm-12 col-md-4 mb-2 d-flex justify-content-center align-items-center">
           <IoMdPersonAdd
@@ -199,6 +211,7 @@ const PlayerProfile = () => {
         <PlayerPosts
           refresh={refreshPosts}
           onRefreshed={() => setRefreshPosts(false)}
+          isEditable={true}
         />
       </div>
 

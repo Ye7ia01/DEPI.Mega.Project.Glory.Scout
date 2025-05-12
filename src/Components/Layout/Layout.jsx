@@ -1,10 +1,20 @@
-import React, { useState } from "react";
+import React, {useContext, useState, useEffect} from "react";
 import { AuthenticatedNavBar } from "../AuthenticatedNavBar";
 import { AuthenticatedSideBar } from "../AuthenticatedSideBar";
 import { Outlet } from "react-router";
+import {AuthContext} from "../../context/AuthContext.jsx";
+import {useNavigate} from "react-router-dom";
 
 const Layout = () => {
   const [collapsed, setCollapsed] = useState(true);
+  const {user} = useContext(AuthContext);
+  const navigate = useNavigate();
+    useEffect(() => {
+        console.log
+        if (!user?.token) {
+            navigate('/login');
+        }
+    }, []);
   return (
     <div className="d-flex flex-column">
       {/* Navbar */}

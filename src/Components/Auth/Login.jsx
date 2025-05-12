@@ -1,15 +1,20 @@
-import React, { useState } from "react";
+import React, {useContext, useEffect, useState} from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { FaEye, FaEyeSlash, FaSpinner } from "react-icons/fa";
+import {AuthContext} from "../../context/AuthContext.jsx";
+import {UserType} from "../../enums/userType.jsx";
+import toast from "react-hot-toast";
 // import toast from "react-hot-toast";
 // import SecondFooter from "../SecondFooter";
 
 const Login = () => {
+  const {user} = useContext(AuthContext);
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+  const {loginAsync, authLoading, authenticated, authError, authMessage} = useContext(AuthContext);
   const validationSchema = Yup.object({
     email: Yup.string()
       .email("Invalid email format")
@@ -19,25 +24,23 @@ const Login = () => {
       .min(8, "Password must be at least 8 characters"),
   });
 
-  const handleSubmit = async (values, { setSubmitting, setErrors }) => {
-    try {
-      const response = await axios.post("http://glory-scout.tryasp.net/api/Auth/login", {
-        email: values.email,
-        password: values.password,
-      });
-      localStorage.setItem("token", response.data.token);
-      setTimeout(() => {
-        navigate("/");
-      }, 800);
-      console.log("Login successful:", response.data);
-    } catch (error) {
-      console.error("Error:", error.response ? error.response.data : error.message);
-      setErrors({ submit: "Invalid email or password" });
-    } finally {
-      setSubmitting(false);
-    }
+  // const handleSubmit = async (values, { setSubmitting, setErrors }) => {
+  const handleSubmit = async (values) => {
+
+    await loginAsync(values.email, values.password);
   };
 
+  useEffect(() => {
+  console.log("Authenticated : ", authenticated);
+  console.log("AuthMessage : ", authMessage);
+  console.log("Error : ", authError);
+  if (authenticated) {
+    console.log("Authenticated User : ", user);
+    user?.role === UserType.PLAYER ? navigate("/home/players") : navigate("/home/coaches");
+  } else if (authMessage) {
+    toast.error(authMessage);
+  }
+}, [authenticated, authError, authMessage]);
   return (
     <>
      <div>
@@ -48,14 +51,16 @@ const Login = () => {
           initialValues={{ email: "", password: "" }}
           validationSchema={validationSchema}
           onSubmit={handleSubmit}>
-        {({isSubmitting, errors }) => (
+        {/*{({isSubmitting, errors }) => (*/}
+        { () => (
         <Form>
           <div className="title">
             <h1>
               <span>Login</span>
             </h1>
             <p>Welcome back! Please log in to access your account.</p>
-            {errors.submit && <div className="error-text">{errors.submit}</div>}
+            {/*{errors.submit && <div className="error-text">{errors.submit}</div>}*/}
+            {authMessage.submit && <div className="error-text">{authMessage.submit}</div>}
           </div>
 
           <div className="inputs username-email">
@@ -79,7 +84,7 @@ const Login = () => {
           </div>
 
           <div className="btns">
-          <button type="submit" disabled={isSubmitting}>{isSubmitting ? <FaSpinner className="loading-login" /> : "Login"}</button>
+          <button type="submit" disabled={authLoading}>{authLoading ? <FaSpinner className="loading-login" /> : "Login"}</button>
             <Link to="/register-player">Sign Up</Link>
           </div>       
         </Form>
