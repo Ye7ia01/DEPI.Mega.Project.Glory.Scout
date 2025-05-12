@@ -55,21 +55,21 @@ function App() {
         <Route path="/" element={<PublicLayout />}>
           {/* These routes will be divided between site visitors and registered users.
         Each group will be linked to a specific layout with its own access permissions. */}
-        <Route index element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/faq" element={<FAQ />} />
-        <Route path="/register-coaches" element={<RegisterCoach />} />
-        <Route path="/register-player" element={<RegisterPlayers />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/changepassword" element={<CreateNewPassword />} />
-        <Route path="/resetpassword" element={<ResetPassword />} />
-        {/* <Route path="/coach" element={<PlayersCoachesHomeScreen dataType="coaches" />} /> */}
-        {/* <Route path="/player-profile" element={<PlayerProfile dataType="players" />} /> */}
-        {/* <Route path="/coach-profile" element={<PlayerProfile dataType="coaches" />} /> */}
-        <Route path="/upload" element={<UploadPage />} />
+          <Route index element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/faq" element={<FAQ />} />
+          <Route path="/register-coaches" element={<RegisterCoach />} />
+          <Route path="/register-player" element={<RegisterPlayers />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/changepassword" element={<CreateNewPassword />} />
+          <Route path="/resetpassword" element={<ResetPassword />} />
+          {/* <Route path="/coach" element={<PlayersCoachesHomeScreen dataType="coaches" />} /> */}
+          {/* <Route path="/player-profile" element={<PlayerProfile dataType="players" />} /> */}
+          {/* <Route path="/coach-profile" element={<PlayerProfile dataType="coaches" />} /> */}
+          <Route path="/upload" element={<UploadPage />} />
         </Route>
-        <Route path="*" element={<NotFound/>} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </AuthProvider>
   );
