@@ -12,10 +12,18 @@ export const PlayersCoachesCard = ({data, type}) => {
 
             {type == 'players' &&
 
-                    <Link className="links-player" to="">
-                <div className='players-coaches-card d-flex flex-column align-items-center justify-content-evenly '>
-                    <div className="outer ">
-                        <Image src={data?.profilePhoto} width='100%' height='100px' roundedCircle className='player-image'/>
+                <div className='players-coaches-card d-flex flex-column align-items-center justify-content-evenly'
+                onClick={() => {
+                    navigate(`/player/${data?.id}`)
+                }}>
+
+                    <div>
+                        <Image src={data?.profilePhoto}
+                               width='100%'
+                               height='100px'
+                               roundedCircle
+                               className='player-image'
+                        />
                     </div>
 
                     <div className='d-flex flex-column align-items-center justify-content-between w-100 overflow-hidden'
