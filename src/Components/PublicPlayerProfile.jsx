@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Container,
   Typography,
@@ -17,10 +17,11 @@ import axios from "axios";
 import PlayerPosts from "./PlayerPosts";
 
 const PublicPlayerProfile = () => {
-  const { id } = useParams();
-  const token = localStorage.getItem("token");
+   const {user} = useContext(AuthContext);
+  const token = user.token;
+  // const token = localStorage.getItem("token");
   const userId = JSON.parse(atob(token.split(".")[1]))?.nameidentifier;
-
+   const { id } = useParams();
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
