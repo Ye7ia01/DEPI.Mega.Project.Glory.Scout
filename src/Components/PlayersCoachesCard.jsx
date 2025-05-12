@@ -1,7 +1,7 @@
 ﻿import {Image} from "react-bootstrap";
 import IconPhone from '../assets/iconPhone.svg'
 import IconEmail from '../assets/iconEmail.svg'
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 export const PlayersCoachesCard = ({data, type}) => {
     console.log("Type : ", type);
@@ -12,15 +12,10 @@ export const PlayersCoachesCard = ({data, type}) => {
 
             {type == 'players' &&
 
-                <div className='players-coaches-card d-flex flex-column align-items-center justify-content-evenly'>
-
-                    <div>
-                        <Image src={data?.profilePhoto}
-                               width='100%'
-                               height='100px'
-                               roundedCircle
-                               className='player-image'
-                        />
+                    <Link className="links-player" to="">
+                <div className='players-coaches-card d-flex flex-column align-items-center justify-content-evenly '>
+                    <div className="outer ">
+                        <Image src={data?.profilePhoto} width='100%' height='100px' roundedCircle className='player-image'/>
                     </div>
 
                     <div className='d-flex flex-column align-items-center justify-content-between w-100 overflow-hidden'
@@ -72,6 +67,7 @@ export const PlayersCoachesCard = ({data, type}) => {
                     {/*    </div>*/}
                     {/*</div>*/}
                 </div>
+                    </Link>
 
             }
 
