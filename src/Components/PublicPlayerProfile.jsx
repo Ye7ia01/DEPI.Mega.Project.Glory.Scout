@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {
   Container,
   Typography,
@@ -15,11 +15,17 @@ import {
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import PlayerPosts from "./PlayerPosts";
+import {AuthContext} from "../context/AuthContext.jsx";
 
 const PublicPlayerProfile = () => {
   const { id } = useParams();
-  const token = localStorage.getItem("token");
+  const {user} = useContext(AuthContext);
+  // const token = localStorage.getItem("token");
+  const token = user?.token;
+  // const userId = JSON.parse(atob(token.split(".")[1]))?.nameidentifier;
   const userId = JSON.parse(atob(token.split(".")[1]))?.nameidentifier;
+  console.log("User ID : ",userId)
+  console.log("Token : ",token)
 
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -45,6 +51,9 @@ const PublicPlayerProfile = () => {
         }
       );
       setProfile(response?.data);
+
+      // profile.userId -> Call /get-profile/{userId} : posts , followers
+
       setIsFollowing(response?.data?.isFollowing || false);
     } catch (err) {
       setError("Failed to load profile.");
