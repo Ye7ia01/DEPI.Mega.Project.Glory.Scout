@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   Container,
   Box,
@@ -12,11 +12,14 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
 const UploadPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const token = localStorage.getItem("token");
+    const {user} = useContext(AuthContext);
+      const token = user?.token;
+  // const token = localStorage.getItem("token");
   const MAX_VEDIO_SIZE_MB = 10;
   useEffect(() => {
     if (!token) {
@@ -264,7 +267,7 @@ const UploadPage = () => {
           disabled={loading}
         >
           {loading ? (
-            <CircularProgress size={24} sx={{ color: "#000" }} />
+            <CircularProgress size={24} sx={{ color: "#00cc33" }} />
           ) : isEditing ? (
             "Save Changes"
           ) : (
