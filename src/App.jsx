@@ -55,6 +55,7 @@ function App() {
           <Route path="/home/faq" element={<FAQ />} />
           <Route path="/home/email" element={<Login />} />
           <Route path="/home/contact" element={<Contact />} />
+          <Route path="/home/public" element={<PublicPlayerProfile />} />
           <Route path="/home/players" element={<PlayersCoachesHomeScreen dataType="players" />} />
           <Route path="/home/coaches" element={<PlayersCoachesHomeScreen dataType="coaches" />} />
           {/*<Route path="/home/coaches" element={<PlayerProfile dataType="players" />} />*/}
@@ -73,7 +74,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/changepassword" element={<CreateNewPassword />} />
         <Route path="/resetpassword" element={<ResetPassword />} />
-        <Route path="/home/player/:id" element={<PublicPlayerProfile/>}/>
+        <Route path="/player/:id" element={<PublicPlayerProfile/>}/>
 
         {/* <Route path="/coach-profile" element={<PlayerProfile dataType="coaches" />} /> */}
         <Route path="/upload" element={<UploadPage />} />

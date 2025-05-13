@@ -115,7 +115,7 @@ export const AuthenticatedNavBar = ({collapsed, setCollapsed}) => {
                         </Nav.Item>
                         <Nav.Item className='me-3'>
 
-                            <Nav.Link href="#">
+                            <Nav.Link to="public">
                                 <Image src={Gift}
                                        className='img-fluid'
                                        width='20px'

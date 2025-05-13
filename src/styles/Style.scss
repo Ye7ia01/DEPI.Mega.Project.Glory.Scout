@@ -2260,30 +2260,46 @@ body {
 .user-data {
   font-size: 12px;
 }
-.players-coaches-card {
-  //width: 300px;
-  //height: 450px;
-  background: linear-gradient(135deg, #f5d76e, #f7ca18);
-  border-radius: 20px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  padding: 15px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  position: relative;
-  font-family: 'Arial', sans-serif;
-  //min-width: 120px;
-  min-width: 150px;
-  height: 360px;
-  //border-width: 1px;
-  //border: 1px solid;
-  //background: #ffffff;
-  //border-radius: 8px;
+.Player-Links{
+  text-decoration: none;
+  color: var(--pure-black);
+  .players-coaches-card {
+    //width: 300px;
+    //height: 450px;
+    background: linear-gradient(135deg, #f5d76e, #f7ca18);
+    border-radius: 20px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    font-family: 'Arial', sans-serif;
+    //min-width: 120px;
+    min-width: 150px;
+    height: 360px;
+    //border-width: 1px;
+    //border: 1px solid;
+    //background: #ffffff;
+    //border-radius: 8px;
+    transition: .3s;
+    .outer {
+  padding: 4px;
+  background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+  border-radius: 50%;
+  // display: inline-block;
+}
+    .player-image {
+      object-fit: fill;
+      
+    }
+  }
+  .players-coaches-card:hover{
+    transition: .3s;
+    transform: scale(1.05);
+  }
 }
 
-.player-image {
-  //object-fit: cover;
-}
 
 .player-name {
   font-family: "Cairo";

@@ -6,7 +6,7 @@ import {AuthContext} from "../../context/AuthContext.jsx";
 import {useNavigate} from "react-router-dom";
 
 const Layout = () => {
-  const [collapsed, setCollapsed] = useState(true);
+  const [collapsed, setCollapsed] = useState(false);
   const {user} = useContext(AuthContext);
   const navigate = useNavigate();
     useEffect(() => {
