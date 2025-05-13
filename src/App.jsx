@@ -74,7 +74,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/changepassword" element={<CreateNewPassword />} />
         <Route path="/resetpassword" element={<ResetPassword />} />
-        <Route path="/home/player/:id" element={<PublicPlayerProfile/>}/>
+        <Route path="/player/:id" element={<PublicPlayerProfile/>}/>
 
         {/* <Route path="/coach-profile" element={<PlayerProfile dataType="coaches" />} /> */}
         <Route path="/upload" element={<UploadPage />} />
