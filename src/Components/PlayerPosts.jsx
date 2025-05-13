@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Container,
   Typography,
@@ -17,9 +17,13 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
-const PlayerPosts = ({ isEditable, playerId }) => {
+const PlayerPosts = ({ isEditable, playerId ,onDataLoaded}) => {
  
+    const { user } = useContext(AuthContext);
+   
+    const token = user?.token;
   
   const [posts, setPosts] = useState([]);
   const [postsNumber, setpostsNumber] = useState(0);
@@ -37,7 +41,7 @@ const PlayerPosts = ({ isEditable, playerId }) => {
   });
 
   const navigate = useNavigate();
-  const token = localStorage.getItem("token");
+  // const token = localStorage.getItem("token");
 
   useEffect(() => {
     fetchPosts();
@@ -56,10 +60,17 @@ const PlayerPosts = ({ isEditable, playerId }) => {
 
        console.log(playerId , isEditable);
       setPosts(response?.data.posts || []);
-      setpostsNumber(posts.length)
+      setpostsNumber(response?.data.posts.length)
       console.log("response from posts",response?.data);
       
-      console.log(posts);
+      console.log("posts number:",postsNumber);
+
+       if (onDataLoaded) {
+          onDataLoaded({
+          postsCount:response?.data.posts.length,
+          followersCount: response?.data.followersCount || 0,
+        });
+      }
       
     } catch (err) {
       setError("Failed to load posts. Please try again.");

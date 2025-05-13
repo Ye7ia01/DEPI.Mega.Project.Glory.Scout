@@ -75,7 +75,7 @@ export const PlayersCoachesCard = ({data, type}) => {
                     {/*    </div>*/}
                     {/*</div>*/}
                 </div>
-                    </Link>
+                    
 
             }
 

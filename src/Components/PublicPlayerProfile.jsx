@@ -20,50 +20,53 @@ import { AuthContext } from "../context/AuthContext.jsx";
 const PublicPlayerProfile = () => {
   const { id } = useParams();
   const { user } = useContext(AuthContext);
- 
-  const token = user?.token;
 
+  const token = user?.token;
 
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [userId, setuserId] = useState(null);
+  const [postCount, setPostCount] = useState(0);
+  const [followersCount, setFollowersCount] = useState(0);
   const [snackbar, setSnackbar] = useState({
     open: false,
     message: "",
     severity: "success",
   });
   const [isFollowing, setIsFollowing] = useState(false);
+  console.log(postCount);
 
   useEffect(() => {
-    fetchProfile();
+    if (id && token) fetchProfile();
+  }, [id,token]);
 
-    if (id) fetchProfile();
-  }, [id]);
-
- 
   const fetchProfile = async () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        `http://glory-scout.tryasp.net/api/SearchPages/players/${id}`,{
-          headers:{
-              Authorization: `Bearer ${token}`,
-          }
+        `http://glory-scout.tryasp.net/api/SearchPages/players/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
       console.log("player profile", response);
       setProfile(response?.data);
       setuserId(response?.data?.userId);
+
       console.log("id", id);
-  
+      console.log("userId", userId);
+      
+      
+
       // profile.userId -> Call /get-profile/{userId} : posts , followers
 
       setIsFollowing(response?.data?.isFollowing || false);
     } catch (err) {
-      setError("Failed to load profile.", err);
+      setError("Failed to load profile.");
       console.log(err);
-      
     } finally {
       setLoading(false);
     }
@@ -74,14 +77,18 @@ const PublicPlayerProfile = () => {
       const url = isFollowing
         ? `http://glory-scout.tryasp.net/api/UserProfile/unfollow/${userId}`
         : `http://glory-scout.tryasp.net/api/UserProfile/follow/${userId}`;
-      await axios.post(
-        url,
-        {},
+      const res = await axios.post(
+        url, null,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      setIsFollowing(!isFollowing);
+      console.log("response from followers", res);
+      setIsFollowing((prevFollowing) => {
+        const newFollowing = !prevFollowing;
+        setFollowersCount((prev) => (newFollowing ? prev + 1 : prev - 1));
+        return newFollowing;
+      });
       setSnackbar({
         open: true,
         message: isFollowing
@@ -121,34 +128,49 @@ const PublicPlayerProfile = () => {
 
   return (
     <Container maxWidth="md" sx={{ py: 4 }}>
-      <Typography variant="h4" style={{color:"#fff", marginLeft:"30px"}} gutterBottom>
-        {profile?.userName}
-      </Typography>
-      {/* Media */}
-      {profile?.profilePhoto && (
-        <CardMedia
-          component="img"
-          image={profile.profilePhoto}
-          alt="Profile media"
-           style={{
+      <Box display="flex" alignItems="center" gap={4} ml={3} mt={2}>
+        {/* صورة البروفايل */}
+        {profile?.profilePhoto && (
+          <CardMedia
+            component="img"
+            image={profile.profilePhoto}
+            alt="Profile media"
+            style={{
               width: "120px",
               height: "120px",
               borderRadius: "50%",
               objectFit: "cover",
               border: "2px solid #ccc",
-               marginLeft:"30px"
             }}
-          sx={{ width: "100%", height: 300, objectFit: "cover", my: 2 }}
-        />
-      )}
-      <Typography variant="body1" gutterBottom>
-        {profile?.profileDescription}
-      </Typography>
-       
-       
-      
+          />
+        )}
+
+        {/* Posts & Followers */}
+        <Box display="flex" gap={4}>
+          {/* Posts */}
+          <Box textAlign="center">
+            <Typography variant="subtitle1" color="#3aff33">
+              Posts
+            </Typography>
+            <Typography variant="h6" color="white">
+              {postCount}
+            </Typography>
+          </Box>
+
+          {/* Followers */}
+          <Box textAlign="center">
+            <Typography variant="subtitle1" color="#3aff33">
+              Followers
+            </Typography>
+            <Typography variant="h6" color="white">
+              {followersCount}
+            </Typography>
+          </Box>
+        </Box>
+      </Box>
+
       {/* Buttons */}
-      {String(userId) !== String(id) && (
+      {userId && id && String(userId) !== String(id) && (
         <Box display="flex" gap={2} mt={2} marginLeft={"30px"}>
           <Button
             variant="contained"
@@ -162,7 +184,14 @@ const PublicPlayerProfile = () => {
           </Button>
         </Box>
       )}
-      <PlayerPosts isEditable={false} playerId={userId}/>
+      <PlayerPosts
+        isEditable={false}
+        playerId={userId}
+        onDataLoaded={({ postsCount, followersCount }) => {
+          setPostCount(postsCount);
+          setFollowersCount(followersCount);
+        }}
+      />
       <Snackbar
         open={snackbar.open}
         autoHideDuration={3000}
