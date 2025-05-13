@@ -78,7 +78,7 @@ function App() {
         {/* <Route path="/coach-profile" element={<PlayerProfile dataType="coaches" />} /> */}
         <Route path="/upload" element={<UploadPage />} />
         </Route>
-        <Route path="*" element={<NotFound/>} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </AuthProvider>
   );

@@ -1,4 +1,4 @@
-import {useContext, useEffect, useState} from "react";
+import {useContext, useState} from "react";
 import getPlayers from '../API/players/players.js';
 import getCoaches from '../API/coaches/coaches.js'
 import {PlayersCoachesCard} from '../Components/PlayersCoachesCard.jsx';
@@ -66,7 +66,7 @@ export const PlayersCoachesHomeScreen = ({dataType}) => {
             <div className='players-home-screen'>
 
 
-                <div className='d-flex align-items-center justify-content-between flex-wrap players-header-div'>
+                <div className='d-flex align-items-center justify-content-between flex-wrap players-header-div '>
                     <div className='d-flex ms-sm-5 ms-md-5 ps-sm-5 ps-md-5 ps-lg-5 ms-lg-5 mt-sm-4 mt-md-4 mt-lg-4'>
                         <h1 className='players-heading'>
                             {dataType == 'players' && (<span>Players</span>)}
@@ -80,9 +80,9 @@ export const PlayersCoachesHomeScreen = ({dataType}) => {
                     </div>
                 </div>
 
-                <div className="row g-4 m-auto mt-5 mb-5" style={{width: '95%'}}>
+                <div className="row g-4 m-auto mt-5 mb-5 " style={{width: '95%'}}>
                     {data?.map((player, index) => (
-                        <div key={index} className='col-12 col-lg-3 col-md-4 col-sm-6 custom-col-sm'>
+                        <div key={index} className='col-12 col-lg-2 col-md-4 col-sm-6 custom-col-sm'>
                             <PlayersCoachesCard data={player} type={dataType}/>
                         </div>
                     ))}
