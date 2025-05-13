@@ -4,7 +4,7 @@
 import {Link} from "react-router-dom";
 
 export const PlayersCoachesCard = ({data, type}) => {
-    console.log("Type : ", type);
+    // console.log("Type : ", type);
     return (
 
         <>
