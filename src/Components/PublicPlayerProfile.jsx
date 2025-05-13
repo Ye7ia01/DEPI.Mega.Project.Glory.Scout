@@ -35,7 +35,7 @@ const PublicPlayerProfile = () => {
     severity: "success",
   });
   const [isFollowing, setIsFollowing] = useState(false);
-  console.log(postCount);
+
 
   useEffect(() => {
     if (id && token) fetchProfile();
@@ -73,6 +73,8 @@ const PublicPlayerProfile = () => {
   };
 
   const handleFollowToggle = async () => {
+       console.log("userId",userId);
+       
     try {
       const url = isFollowing
         ? `http://glory-scout.tryasp.net/api/UserProfile/unfollow/${userId}`
@@ -84,6 +86,8 @@ const PublicPlayerProfile = () => {
         }
       );
       console.log("response from followers", res);
+
+      
       setIsFollowing((prevFollowing) => {
         const newFollowing = !prevFollowing;
         setFollowersCount((prev) => (newFollowing ? prev + 1 : prev - 1));
@@ -170,7 +174,7 @@ const PublicPlayerProfile = () => {
       </Box>
 
       {/* Buttons */}
-      {userId && id && String(userId) !== String(id) && (
+      { profile?.userId && id && String(profile?.userId) !== String(id) && (
         <Box display="flex" gap={2} mt={2} marginLeft={"30px"}>
           <Button
             variant="contained"

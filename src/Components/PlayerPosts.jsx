@@ -167,6 +167,7 @@ const PlayerPosts = ({ isEditable, playerId ,onDataLoaded}) => {
         <Typography style={{color:"#fff"}}>No posts found.</Typography>
       ) : (
         <Grid container spacing={3} display="flex" justifyContent={"center"}>
+          
           {posts.map((post) => (
             <Grid
               item

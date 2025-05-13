@@ -33,18 +33,11 @@ const PlayerProfile = () => {
     severity: "success",
   });
 
-   // Yehia - Mohamed
-    // ----- START -----
-    //  Shared User Object Context includes :
-    //   user.username
-    //   user.role = "Player" , "Coach" OR UserTypes.PLAYER , UserTypes.COACH (ENUM)
-    //   user.email
-    //   user.token
-    //   user.profilePhoto
+
 
     const {user} = useContext(AuthContext);
     const token = user?.token;
-  //    ---- END ------
+
 
   useEffect(() => {
     if (location.state?.newPostAdded) {
@@ -92,7 +85,7 @@ const PlayerProfile = () => {
 
     setLoading(true);
     try {
-      const token = localStorage.getItem("token");
+      // const token = localStorage.getItem("token");
       const res = await axios.put(
         "http://glory-scout.tryasp.net/api/UserProfile/edit-profile",
         formData,
@@ -189,6 +182,9 @@ const PlayerProfile = () => {
         </div>
 
         <Container sx={{ mt: 3 }}>
+
+           {/* Add post button */}
+
           <Link to="/upload" style={{ textDecoration: "none" }}>
             <Button
               variant="contained"
