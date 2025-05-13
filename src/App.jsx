@@ -61,6 +61,8 @@ function App() {
           {/*<Route path="/home/coaches" element={<PlayerProfile dataType="players" />} />*/}
           {/* <Route path="/home/player"  element={<players />} /> */}
           {/* <Route index  element={<PlayersCoachesHomeScreen />} /> */}
+         <Route path="/home/player/:id" element={<PublicPlayerProfile/>}/>
+
         </Route>
         <Route path="/" element={<PublicLayout />}>
           {/* These routes will be divided between site visitors and registered users.
@@ -74,7 +76,6 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/changepassword" element={<CreateNewPassword />} />
         <Route path="/resetpassword" element={<ResetPassword />} />
-        <Route path="/player/:id" element={<PublicPlayerProfile/>}/>
 
         {/* <Route path="/coach-profile" element={<PlayerProfile dataType="coaches" />} /> */}
         <Route path="/upload" element={<UploadPage />} />

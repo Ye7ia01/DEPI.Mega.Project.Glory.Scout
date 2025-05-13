@@ -10,7 +10,7 @@ export const PlayersCoachesCard = ({data, type}) => {
         <>
 
             {type == 'players' &&
-                <Link className="Player-Links" to={`${`/player/${data?.id}`}`}>
+                <Link className="Player-Links" to={`${`/home/player/${data?.id}`}`}>
                 <div className='players-coaches-card d-flex flex-column align-items-center justify-content-evenly'>
 
                     <div className="outer">
@@ -51,7 +51,7 @@ export const PlayersCoachesCard = ({data, type}) => {
 
 
             {type == 'coaches' &&
-                <Link className="Player-Links" to={`${`/player/${data?.id}`}`}>
+                <Link className="Player-Links" to={`${`/home/player/${data?.id}`}`}>
                 <div className='players-coaches-card d-flex flex-column align-items-center justify-content-evenly'>
 
                     <div className="outer">
