@@ -12,7 +12,10 @@ export const PlayersCoachesCard = ({data, type}) => {
 
             {type == 'players' &&
 
-                <div className='players-coaches-card d-flex flex-column align-items-center justify-content-evenly'>
+                <div className='players-coaches-card d-flex flex-column align-items-center justify-content-evenly'
+                onClick={() => {
+                    navigate(`/home/player/${data?.id}`)
+                }}>
 
                     <div>
                         <Image src={data?.profilePhoto}

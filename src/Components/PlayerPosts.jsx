@@ -19,7 +19,11 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const PlayerPosts = ({ isEditable, playerId }) => {
+ 
+  
   const [posts, setPosts] = useState([]);
+  const [postsNumber, setpostsNumber] = useState(0);
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [snackbar, setSnackbar] = useState({
@@ -44,20 +48,29 @@ const PlayerPosts = ({ isEditable, playerId }) => {
     try {
       const url = isEditable
         ? `http://glory-scout.tryasp.net/api/UserProfile/get-profile`
-        : `http://glory-scout.tryasp.net/api/SearchPages/players/${playerId}`;
+        : `http://glory-scout.tryasp.net/api/SearchPages/get-profile/${playerId}`;
 
       const response = await axios.get(url, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
-      setPosts(response?.data?.posts || []);
+       console.log(playerId , isEditable);
+      setPosts(response?.data.posts || []);
+      setpostsNumber(posts.length)
+      console.log("response from posts",response?.data);
+      
+      console.log(posts);
+      
     } catch (err) {
       setError("Failed to load posts. Please try again.");
+      console.log(err);
+      
     } finally {
       setLoading(false);
     }
   };
-
+  
+ 
   const handleDelete = async (postId) => {
     try {
       await axios.delete(
@@ -134,12 +147,13 @@ const PlayerPosts = ({ isEditable, playerId }) => {
 
   return (
     <Container maxWidth="xl" sx={{ mb: 4 }}>
-      <Typography variant="h4" gutterBottom sx={{ color: "#fff" }}>
+       
+      <Typography variant="h4" gutterBottom style={{color:"#fff", marginBlock:"50px"}}>
         Posts :
       </Typography>
 
       {posts.length === 0 ? (
-        <Typography color="text.secondary">No posts found.</Typography>
+        <Typography style={{color:"#fff"}}>No posts found.</Typography>
       ) : (
         <Grid container spacing={3} display="flex" justifyContent={"center"}>
           {posts.map((post) => (

@@ -43,7 +43,7 @@ const PlayerProfile = () => {
     //   user.profilePhoto
 
     const {user} = useContext(AuthContext);
-
+    const token = user?.token;
   //    ---- END ------
 
   useEffect(() => {
@@ -56,7 +56,7 @@ const PlayerProfile = () => {
 
   const fetchProfile = async () => {
     try {
-      const token = localStorage.getItem("token");
+      // const token = localStorage.getItem("token");
       const res = await axios.get(
         "http://glory-scout.tryasp.net/api/UserProfile/get-profile",
         {
@@ -65,8 +65,10 @@ const PlayerProfile = () => {
           },
         }
       );
-      setProfileData(res.data);
-      setEditBio(res.data.profileDescription || "");
+      setProfileData(res?.data);
+      console.log(res?.data);
+      
+      setEditBio(res?.data.profileDescription || "");
     } catch (err) {
       console.error(err);
     }
