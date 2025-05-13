@@ -36,7 +36,7 @@ const Login = () => {
   console.log("Error : ", authError);
   if (authenticated) {
     console.log("Authenticated User : ", user);
-    user?.role === UserType.PLAYER ? navigate("/home/players") : navigate("/home/coaches");
+    user?.role === UserType.PLAYER ? navigate("/home") : navigate("/home");
   } else if (authMessage) {
     toast.error(authMessage);
   }
