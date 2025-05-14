@@ -193,6 +193,7 @@ const HomePage = () => {
                                         <h3>{e.username}: </h3>
                                         <p><p>{e.description}</p></p>
                                     </div>
+                                    {/*Show Comments Modal*/}
                                     {showComments && post && (
                                         <div
                                             className="modal"
