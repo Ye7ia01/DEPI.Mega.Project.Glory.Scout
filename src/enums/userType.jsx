@@ -5,5 +5,5 @@
  */
 export const UserType = Object.freeze({
     PLAYER: "Player", /**< Represents a player user type */
-    COACH: "Coach"   /**< Represents a coach user type */
+    COACH: "Scout"   /**< Represents a coach user type */
 });
