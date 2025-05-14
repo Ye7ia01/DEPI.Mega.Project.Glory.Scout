@@ -239,7 +239,7 @@ const HomePage = () => {
                                                 <div className="detalis-profile">
                                                     {/* to={`/home/player/${e.userId}`} */}
                                                     <Link><img src={post.user.profilePhoto} alt=""/></Link>
-                                                    <h3>{post.user.username}</h3>
+                                                    <h3 style={{color:'black', fontWeight:'bolder', fontSize:'16px', fontFamily:'Open Sans, sans-serif'}}>{post.user.username}</h3>
                                                     <h4>@{e.username}</h4>
                                                     <p>{formatDistanceToNow(new Date(post.createdAt), {addSuffix: true})}</p>
                                                 </div>
@@ -260,7 +260,7 @@ const HomePage = () => {
                                                         <div key={index}>
                                                             <div className={"d-flex flex-row align-items-top"}>
                                                                 <img
-                                                                    src={post.user.profilePhoto}
+                                                                    src={comment.user.profilePhoto}
                                                                     alt="User"
                                                                     width={"50px"}
                                                                     height={"50px"}
@@ -268,7 +268,7 @@ const HomePage = () => {
                                                                 />
                                                                 <div className={"comment-card"}>
                                                                     <div className={"d-flex flex-row details-profile"}>
-                                                                        <p className={"comment-user"}>{comment.user.username}</p>
+                                                                        <p className={"comment-user"} >{comment.user.username}</p>
                                                                         <p className={"comment-period"}>
                                                                             {formatDistanceToNow(new Date(comment.createdAt), {
                                                                                 addSuffix: true,
