@@ -20,6 +20,7 @@ import ResetPassword from "./Components/Auth/ResetPassword.jsx";
 import UploadPage from "./Components/UploadPage.jsx";
 import PublicPlayerProfile from "./Components/PublicPlayerProfile.jsx";
 import ProtectedLayout from "./Components/Layout/ProtectedLayout.jsx";
+import HomePage from "./screens/HomePage.jsx";
 
 function App() {
   const [collapsed, setCollapsed] = useState(false);
@@ -50,8 +51,7 @@ function App() {
           <Layout />
         </ProtectedLayout>
         }>
-          {/*<Route index element={<PlayersCoachesHomeScreen dataType="players" />}/>*/}
-          <Route index element={{}} />
+          <Route index element={<HomePage />}/>
           <Route path="/home/player" element={<PlayerProfile />} />
           <Route path="/home/faq" element={<FAQ />} />
           <Route path="/home/email" element={<Login />} />

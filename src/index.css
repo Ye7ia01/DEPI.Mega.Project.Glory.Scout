@@ -483,3 +483,29 @@ body,
   }
 }
 
+.comment-card {
+  /*background-color: #b7b7b7;*/
+  background: linear-gradient(to bottom, rgba(128, 128, 128, 0.5), rgba(128, 128, 128, 0.3));
+  /*background-color: rgba(197, 197, 197, 0.3);*/
+  display: flex;
+  flex-direction: column;
+  border-radius: 15px;
+  width:100%;
+  padding-left:10px;
+  margin-bottom: 1.2em;
+  margin-left: 1.1em;
+  margin-right: 1.1em;
+}
+
+.comment-user {
+  font-family: "Open Sans", sans-serif;
+  font-weight: bolder;
+  margin-right: 1.1em;
+
+}
+
+.comment-period {
+  font-weight: 500;
+  /*font-size: 14.75px;*/
+  color: #4e5762;
+}

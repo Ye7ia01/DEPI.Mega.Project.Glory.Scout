@@ -8,7 +8,7 @@ const useGetPlayersScouts = (dataType) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  console.log("Data type in API : ",dataType)
+  console.log("Data type in API useGetPlayers: ",dataType)
 
   const url = dataType == 'players' ? 'http://glory-scout.tryasp.net/api/SearchPages/players' :
       'http://glory-scout.tryasp.net/api/SearchPages/scouts'
