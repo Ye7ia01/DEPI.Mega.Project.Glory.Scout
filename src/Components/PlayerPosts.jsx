@@ -60,15 +60,16 @@ const PlayerPosts = ({ isEditable, playerId, onDataLoaded }) => {
       });
 
       console.log(playerId, isEditable);
-      setPosts(response?.data.posts || []);
-      setpostsNumber(response?.data.posts.length);
+      setPosts(response?.data.profile.posts || []);
+      console.log("Response : ",response?.data?.profile.posts)
+      setpostsNumber(response?.data.profile.posts.length);
       console.log("response from posts", response?.data);
 
       console.log("posts number:", postsNumber);
 
       if (onDataLoaded) {
         onDataLoaded({
-          postsCount: response?.data.posts.length,
+          postsCount: response?.data.profile?.posts.length,
           followersCount: response?.data.followersCount || 0,
         });
       }
