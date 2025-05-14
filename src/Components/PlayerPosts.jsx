@@ -61,6 +61,7 @@ const PlayerPosts = ({ isEditable, playerId, onDataLoaded }) => {
 
       console.log(playerId, isEditable);
       setPosts(response?.data.profile.posts || []);
+    
       setpostsNumber(response?.data.profile.posts.length);
       console.log("response from posts", response?.data);
 
@@ -68,8 +69,8 @@ const PlayerPosts = ({ isEditable, playerId, onDataLoaded }) => {
 
       if (onDataLoaded) {
         onDataLoaded({
-          postsCount: response?.data?.profile.posts.length,
-          followersCount: response?.data.profile.followersCount || 0,
+          postsCount: response?.data.profile?.posts.length,
+          followersCount: response?.data.followersCount || 0,
         });
       }
     } catch (err) {
