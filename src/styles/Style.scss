@@ -1903,6 +1903,80 @@ body {
   }
 }
 @media (max-width: 785px) {
+   .login{
+    padding: 15px 0;
+    .container-coach{
+      height: 100%;
+      width: 85%;
+     form{
+      width: 95%;
+       .inputs{
+        .rules{
+          width: 85%;
+        }
+        input{
+          width: 100%;
+        }
+      }
+      button,a{
+        width: 85% !important;
+      }
+     }
+    }
+  }
+   .register-coach{
+    height: auto !important;
+    padding: 30px 0;
+    .container-coach{
+      // height: auto !important;
+      height: 170vh !important;
+      .title{
+        p{
+          font-size: 17px !important;
+        }
+        h1{
+          font-size: 28px !important;
+        }
+      }
+      form{
+        padding: 30px 0;
+        .inputs{
+          flex-wrap: wrap;
+          height: auto;
+          ::placeholder{
+            text-align: center;
+            font-size: 15px;
+          }
+          select{
+            width: 90% !important;
+          }
+          #profilePhoto{
+            width: 90% !important;
+            margin: auto !important;
+          }
+          .label-portfolio-upload{
+            width: 90% !important;
+            margin: auto !important;
+          }
+         
+          .rules{
+            width: 100% !important;
+            input{
+              width: 90% !important;
+              height: 55px !important;
+              
+            }
+          }
+        }
+         .btns{
+            button ,a{
+              width: 90% !important;
+
+            }
+          }
+      }
+    }
+  }
   .hero {
     .hero-card {
       width: 80% !important;
@@ -2089,6 +2163,74 @@ body {
   }
 }
 @media (max-width: 500px) {
+  .login{
+    .container-coach{
+      height: 100%;
+      width: 95%;
+     form{
+      width: 95%;
+       .inputs{
+        input{
+          width: 100%;
+        }
+      }
+      button,a{
+        width: 90% !important;
+      }
+     }
+    }
+  }
+  .register-coach{
+    height: auto !important;
+    .container-coach{
+      // height: auto !important;
+      height: 185vh !important;
+      .title{
+        p{
+          font-size: 11px !important;
+        }
+        h1{
+          font-size: 18px !important;
+        }
+      }
+      form{
+        .inputs{
+          flex-wrap: wrap;
+          height: auto;
+          ::placeholder{
+            text-align: center;
+            font-size: 15px;
+          }
+          select{
+            width: 90% !important;
+          }
+          #profilePhoto{
+            width: 90% !important;
+            margin: auto !important;
+          }
+          .label-portfolio-upload{
+            width: 90% !important;
+            margin: auto !important;
+          }
+         
+          .rules{
+            width: 100% !important;
+            input{
+              width: 90% !important;
+              height: 40px !important;
+              
+            }
+          }
+        }
+         .btns{
+            button ,a{
+              width: 90% !important;
+
+            }
+          }
+      }
+    }
+  }
   .hero {
     height: 75vh !important;
     .hero-container {
