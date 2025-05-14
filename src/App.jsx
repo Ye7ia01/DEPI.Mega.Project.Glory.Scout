@@ -50,7 +50,8 @@ function App() {
           <Layout />
         </ProtectedLayout>
         }>
-          <Route index element={<PlayersCoachesHomeScreen dataType="players" />}/>
+          {/*<Route index element={<PlayersCoachesHomeScreen dataType="players" />}/>*/}
+          <Route index element={{}} />
           <Route path="/home/player" element={<PlayerProfile />} />
           <Route path="/home/faq" element={<FAQ />} />
           <Route path="/home/email" element={<Login />} />
