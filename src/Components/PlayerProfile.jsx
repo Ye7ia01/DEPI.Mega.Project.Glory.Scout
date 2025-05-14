@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -16,7 +16,7 @@ import { MdOutlineWindow } from "react-icons/md";
 import PlayerPosts from "./PlayerPosts";
 import axios from "axios";
 import { Link, useLocation } from "react-router-dom";
-import {AuthContext} from "../context/AuthContext.jsx";
+import { AuthContext } from "../context/AuthContext.jsx";
 
 const PlayerProfile = () => {
   const location = useLocation();
@@ -33,11 +33,11 @@ const PlayerProfile = () => {
     severity: "success",
   });
 
+  const { user } = useContext(AuthContext);
+  const token = user?.token;
+  const role = user.role;
 
-
-    const {user} = useContext(AuthContext);
-    const token = user?.token;
-
+  console.log(role);
 
   useEffect(() => {
     if (location.state?.newPostAdded) {
@@ -60,7 +60,7 @@ const PlayerProfile = () => {
       );
       setProfileData(res?.data);
       console.log(res?.data);
-      
+
       setEditBio(res?.data.profileDescription || "");
     } catch (err) {
       console.error(err);
@@ -118,9 +118,11 @@ const PlayerProfile = () => {
   };
 
   return (
-    <section className="profile-container text-white  w-full" style={{ width: "80%" }}>
+    <section
+      className="profile-container text-white  w-full"
+      style={{ width: "90%" }}
+    >
       <div className="row player-info ps-5 pt-5 d-flex align-items-center ">
-
         <div className="col-sm-12 col-md-3 col-lg-3">
           <h3>{profileData?.username}</h3>
           <img
@@ -136,18 +138,18 @@ const PlayerProfile = () => {
           />
         </div>
 
-        <div className="info col-sm-12 col-md-4 col-lg-4 p-2 d-flex align-items-center justify-content-between">
+        <div className="info col-sm-12 col-md-4 col-lg-4 p-2 d-flex align-items-center justify-content-between text-center">
           <div>
-            <h6>{profileData?.posts?.length || 0}</h6>
             <p>Posts</p>
+            <h6>{profileData?.posts?.length || 0}</h6>
           </div>
           <div>
-            <h6>{profileData?.followersCount || 0}</h6>
             <p>Followers</p>
+            <h6>{profileData?.followersCount || 0}</h6>
           </div>
           <div>
-            <h6>{profileData?.followingCount || 0}</h6>
             <p>Following</p>
+            <h6>{profileData?.followingCount || 0}</h6>
           </div>
         </div>
       </div>
@@ -155,18 +157,47 @@ const PlayerProfile = () => {
       <div className="bio ps-5 pt-3">
         <h4>{profileData?.username}</h4>
         <p className="p-3">
-          {profileData?.profileDescription || "No bio available , please click edit profile to add bio"}
+          {profileData?.profileDescription ||
+            "No bio available , please click edit profile to add bio"}
         </p>
       </div>
 
       <div className="row profile-btns ps-5">
         <div className="col-sm-12 col-md-4 mb-2">
-          <button className="edit-btn w-100" onClick={() => setOpenEdit(true)}>
-            Edit Profile
-          </button>
+          <Box
+            display="flex"
+            flexDirection={{ xs: "column", sm: "row" }}
+            gap={2}
+            width="100%"
+          >
+            <Button
+              variant="contained"
+              onClick={() => setOpenEdit(true)}
+              sx={{
+                width:  {
+                  md: "70%",
+                  sm: "50%",
+                  xs:"90%"
+                },
+                 padding:{
+                  xs:" 5px 10px",
+                  sm: "5px 10px ",
+                  md: "10px 20px"
+                },
+                fontWeight: "bold",
+                backgroundColor: "#e65100",
+                color: "#fff",
+                borderRadius: "4px",
+                "&:hover": {
+                  backgroundColor: "#bf360c", // لون أغمق عند الهوفر
+                },
+              }}
+            >
+              Edit Profile
+            </Button>
+          
+          </Box>
         </div>
-
-       
 
         <div className="col-sm-12 col-md-4 mb-2 d-flex justify-content-center align-items-center">
           <IoMdPersonAdd
@@ -182,8 +213,7 @@ const PlayerProfile = () => {
         </div>
 
         <Container sx={{ mt: 3 }}>
-
-           {/* Add post button */}
+          {/* Add post button */}
 
           <Link to="/upload" style={{ textDecoration: "none" }}>
             <Button
@@ -221,7 +251,7 @@ const PlayerProfile = () => {
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
-            width: "60%",
+            width: "70%",
             bgcolor: "#1e1e1e",
             color: "#fff",
             borderRadius: 2,

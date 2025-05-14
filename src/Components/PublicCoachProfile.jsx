@@ -16,13 +16,12 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import PlayerPosts from "./PlayerPosts";
 import { AuthContext } from "../context/AuthContext.jsx";
-
-const PublicPlayerProfile = () => {
+const PublicCoachProfile = () => {
   const { id } = useParams();
   const { user } = useContext(AuthContext);
 
   const token = user?.token;
- 
+
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -36,30 +35,27 @@ const PublicPlayerProfile = () => {
   });
   const [isFollowing, setIsFollowing] = useState(false);
 
-
   useEffect(() => {
     if (id && token) fetchProfile();
-  }, [id,token]);
+  }, [id, token]);
 
   const fetchProfile = async () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        `http://glory-scout.tryasp.net/api/SearchPages/players/${id}`,
+        `http://glory-scout.tryasp.net/api/SearchPages/scouts/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         }
       );
-      console.log("player profile", response);
+      console.log("coach profile", response);
       setProfile(response?.data);
       setuserId(response?.data?.userId);
 
       console.log("id", id);
       console.log("userId", userId);
-      
-      
 
       // profile.userId -> Call /get-profile/{userId} : posts , followers
 
@@ -73,21 +69,17 @@ const PublicPlayerProfile = () => {
   };
 
   const handleFollowToggle = async () => {
-       console.log("userId",userId);
-       
+    console.log("userId", userId);
+
     try {
       const url = isFollowing
         ? `http://glory-scout.tryasp.net/api/UserProfile/unfollow/${userId}`
         : `http://glory-scout.tryasp.net/api/UserProfile/follow/${userId}`;
-      const res = await axios.post(
-        url, null,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
+      const res = await axios.post(url, null, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       console.log("response from followers", res);
 
-      
       setIsFollowing((prevFollowing) => {
         const newFollowing = !prevFollowing;
         setFollowersCount((prev) => (newFollowing ? prev + 1 : prev - 1));
@@ -131,8 +123,10 @@ const PublicPlayerProfile = () => {
   }
 
   return (
-    <Container maxWidth="md" sx={{ py: 4 }} className="profile-container" >
-       
+    <Container sx={{ py: 4 }} display="flex" className="profile-container">
+      <Typography variant="h4" sx={{ color: "white" }}>
+        {profile.userName}
+      </Typography>
       <Box display="flex" alignItems="center" gap={4} ml={3} mt={2}>
         {/* صورة البروفايل */}
         {profile?.profilePhoto && (
@@ -173,9 +167,80 @@ const PublicPlayerProfile = () => {
           </Box>
         </Box>
       </Box>
-
+      <Box
+        display={"flex"}
+        alignItems={"center"}
+        gap={"20px"}
+        marginBlock={"30px"}
+      >
+        <Typography
+          variant="h6"
+          color="white"
+          sx={{
+            fontSize: { xs: "14px", sm: "16px", md: "20px" },
+            "&:hover": {
+              color: "#e65100",
+            },
+            cursor: "pointer",
+          }}
+        >
+          {profile.nationality}
+        </Typography>
+        <Typography
+          variant="h6"
+          color="white"
+          sx={{
+            fontSize: { xs: "14px", sm: "16px", md: "20px" },
+            "&:hover": {
+              color: "#e65100",
+            },
+            cursor: "pointer",
+          }}
+        >
+          {profile.currentClubName}
+        </Typography>
+        <Typography
+          variant="h6"
+          color="white"
+          sx={{
+            fontSize: { xs: "14px", sm: "16px", md: "20px" },
+            "&:hover": {
+              color: "#e65100",
+            },
+            cursor: "pointer",
+          }}
+        >
+          {profile.specialization}
+        </Typography>
+        <Typography
+          variant="h6"
+          color="white"
+          sx={{
+            fontSize: { xs: "14px", sm: "16px", md: "20px" },
+            "&:hover": {
+              color: "#e65100",
+            },
+            cursor: "pointer",
+          }}
+        >
+          {profile.coachingSpecialty}
+        </Typography>
+        <Typography
+          variant="h6"
+          color="white"
+          sx={{
+            fontSize: { xs: "14px", sm: "16px", md: "20px" },
+            "&:hover": {
+              color: "#e65100",
+            },
+            cursor: "pointer",
+          }}
+        >
+          {profile.experience} year exper.
+        </Typography>
+      </Box>
       {/* Buttons */}
-      { profile?.userId && id && String(profile?.userId) !== String(id) && (
+      {profile?.userId && id && String(profile?.userId) !== String(id) && (
         <Box display="flex" gap={2} mt={2} marginLeft={"30px"}>
           <Button
             variant="contained"
@@ -183,29 +248,6 @@ const PublicPlayerProfile = () => {
             onClick={handleFollowToggle}
           >
             {isFollowing ? "Unfollow" : "Follow"}
-          </Button>
-          <Button 
-            sx={{
-                width: {
-                  md: "30%",
-                  sm: "50%"
-                },
-                padding:{
-                  xs:" 5px 10px",
-                  sm: "5px 10px ",
-                  md: "10px 20px"
-                },
-                fontWeight: "bold",
-                backgroundColor: "#e65100",
-                color: "#fff",
-                borderRadius: "4px",
-                "&:hover": {
-                  backgroundColor: "#bf360c", // لون أغمق عند الهوفر
-                },
-              
-              }}
-          >
-            Request Details
           </Button>
         </Box>
       )}
@@ -227,4 +269,4 @@ const PublicPlayerProfile = () => {
   );
 };
 
-export default PublicPlayerProfile;
+export default PublicCoachProfile;
