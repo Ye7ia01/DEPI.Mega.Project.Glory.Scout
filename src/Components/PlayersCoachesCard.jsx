@@ -51,7 +51,7 @@ export const PlayersCoachesCard = ({data, type}) => {
 
 
             {type == 'coaches' &&
-                <Link className="Player-Links" to={`${`/home/player/${data?.id}`}`}>
+                <Link className="Player-Links" to={`${`/home/coach/${data?.id}`}`}>
                 <div className='players-coaches-card d-flex flex-column align-items-center justify-content-evenly'>
 
                     <div className="outer">
