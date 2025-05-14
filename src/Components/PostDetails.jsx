@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { FaRegComment, FaSpinner } from "react-icons/fa";
 import { PiShareFat } from "react-icons/pi";
 import { CiHeart } from "react-icons/ci";
@@ -15,7 +15,7 @@ const PostDetails = () => {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
+  const navigate = useNavigate();
   // Fetch post details
   useEffect(() => {
     const fetchPostDetails = async () => {
@@ -197,7 +197,7 @@ const PostDetails = () => {
         alignItems: "center",
         marginBottom: "1rem"
       }}>
-        <Link to="/home" className="back-button" style={{
+        <Link to=""   onClick={() => navigate(-1)} className="back-button" style={{
           marginRight: "1rem",
           color: "#007bff",
           textDecoration: "none"
@@ -277,7 +277,7 @@ const PostDetails = () => {
               fontSize: "1rem"
             }}
           >
-            <FaRegComment /> {post.commentsCount || 0}
+            <FaRegComment /> {post.comments?.length || 0}
           </button>
           <button 
             style={{
