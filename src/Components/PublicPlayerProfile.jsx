@@ -28,7 +28,7 @@ const PublicPlayerProfile = () => {
   const [error, setError] = useState("");
   const [userId, setuserId] = useState(null);
   const [postCount, setPostCount] = useState(0);
-  const [followersCount, setFollowersCount] = useState(0);
+  // const [followersCount, setFollowersCount] = useState(0);
   const [snackbar, setSnackbar] = useState({
     open: false,
     message: "",
@@ -52,13 +52,15 @@ const PublicPlayerProfile = () => {
           },
         }
       );
-      console.log("player profile", response);
+      console.log("player profile", response?.data);
       setProfile(response?.data);
       setuserId(response?.data?.userId);
 
       console.log("id", id);
       console.log("userId", userId);
-      
+      // setFollowersCount(response?.data.followersCount)
+      console.log("followers count",response?.data);
+      console.log("Data",response?.data);
       
 
       // profile.userId -> Call /get-profile/{userId} : posts , followers
@@ -88,11 +90,11 @@ const PublicPlayerProfile = () => {
       console.log("response from followers", res);
 
       
-      setIsFollowing((prevFollowing) => {
-        const newFollowing = !prevFollowing;
-        setFollowersCount((prev) => (newFollowing ? prev + 1 : prev - 1));
-        return newFollowing;
-      });
+      // setIsFollowing((prevFollowing) => {
+      //   const newFollowing = !prevFollowing;
+      //   setFollowersCount((prev) => (newFollowing ? prev + 1 : prev - 1));
+      //   return newFollowing;
+      // });
       setSnackbar({
         open: true,
         message: isFollowing
@@ -132,8 +134,12 @@ const PublicPlayerProfile = () => {
 
   return (
     <Container  sx={{ py: 4 }} className="profile-container w-full"   style={{ width: "90%" }}>
-       
+        <Typography variant="h4" color="white" padding={"30px"} >
+              {profile?.userName}
+        </Typography>
       <Box display="flex" alignItems="center" gap={4} ml={3} mt={2}>
+        
+            
         {/* صورة البروفايل */}
         {profile?.profilePhoto && (
           <CardMedia
@@ -168,11 +174,73 @@ const PublicPlayerProfile = () => {
               Followers
             </Typography>
             <Typography variant="h6" color="white">
-              {followersCount}
+              {/* {followersCount} */}
             </Typography>
           </Box>
         </Box>
       </Box>
+
+      <Box
+              display={"flex"}
+              alignItems={"center"}
+              gap={"20px"}
+              marginBlock={"30px"}
+              paddingLeft={"30px"}
+            >
+              <Typography
+                variant="h6"
+                color="white"
+                sx={{
+                  fontSize: { xs: "14px", sm: "16px", md: "16px" },
+                  "&:hover": {
+                    color: "#e65100",
+                  },
+                  cursor: "pointer",
+                }}
+              >
+                {profile.nationality}
+              </Typography>
+              <Typography
+                variant="h6"
+                color="white"
+                sx={{
+                  fontSize: { xs: "14px", sm: "16px", md: "16px" },
+                  "&:hover": {
+                    color: "#e65100",
+                  },
+                  cursor: "pointer",
+                }}
+              >
+                {profile.position}
+              </Typography>
+              <Typography
+                variant="h6"
+                color="white"
+                sx={{
+                  fontSize: { xs: "14px", sm: "16px", md: "16px" },
+                  "&:hover": {
+                    color: "#e65100",
+                  },
+                  cursor: "pointer",
+                }}
+              >
+                height {profile.height} 
+              </Typography>
+              <Typography
+                variant="h6"
+                color="white"
+                sx={{
+                  fontSize: { xs: "14px", sm: "16px", md: "16px" },
+                  "&:hover": {
+                    color: "#e65100",
+                  },
+                  cursor: "pointer",
+                }}
+              >
+               weight {profile.weight}
+              </Typography>
+            
+            </Box>
 
       {/* Buttons */}
       { profile?.userId && id && String(profile?.userId) !== String(id) && (
@@ -214,7 +282,7 @@ const PublicPlayerProfile = () => {
         playerId={userId}
         onDataLoaded={({ postsCount, followersCount }) => {
           setPostCount(postsCount);
-          setFollowersCount(followersCount);
+          // setFollowersCount(followersCount);
         }}
       />
       <Snackbar

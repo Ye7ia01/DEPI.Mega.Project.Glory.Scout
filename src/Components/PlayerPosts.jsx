@@ -60,16 +60,16 @@ const PlayerPosts = ({ isEditable, playerId, onDataLoaded }) => {
       });
 
       console.log(playerId, isEditable);
-      setPosts(response?.data.profile.posts || []);
-      console.log("Response : ",response?.data?.profile.posts)
-      setpostsNumber(response?.data.profile.posts.length);
+      setPosts(response?.data.posts || []);
+    
+      setpostsNumber(response?.data.posts.length);
       console.log("response from posts", response?.data);
 
       console.log("posts number:", postsNumber);
 
       if (onDataLoaded) {
         onDataLoaded({
-          postsCount: response?.data.profile?.posts.length,
+          postsCount: response?.data.posts.length,
           followersCount: response?.data.followersCount || 0,
         });
       }
@@ -105,9 +105,33 @@ const PlayerPosts = ({ isEditable, playerId, onDataLoaded }) => {
     setDeleteDialog({ open: false, postId: null });
   };
 
-  const handleEdit = (post) => {
-    navigate("/upload", { state: { post } });
-  };
+  
+
+  const handelUpdatePost=async (postId)=>{
+    console.log(postId);
+    //  navigate("/upload", { state: { postId } });
+    //    try {
+    //   await axios.put(
+    //     `http://glory-scout.tryasp.net/api/Post/Upate-post/${postId}`,
+    //     {
+    //       headers: { Authorization: `Bearer ${token}` },
+    //     }
+    //   );
+    //   setSnackbar({
+    //     open: true,
+    //     message: "Post updated successfully!",
+    //     severity: "success",
+    //   });
+    //   setPosts(  );
+    // } catch (err) {
+    //   setSnackbar({
+    //     open: true,
+    //     message: "Failed to update post.",
+    //     severity: "error",
+    //   });
+    // }
+    // setDeleteDialog({ open: false, postId: null });
+  }
 
   const renderMedia = (fileUrl) => {
     const ext = new URL(fileUrl).pathname.split(".").pop().toLowerCase();
@@ -172,13 +196,13 @@ const PlayerPosts = ({ isEditable, playerId, onDataLoaded }) => {
         Posts :
       </Typography>
 
-      {posts.length === 0 ? (
+      {posts?.length === 0 ? (
         <Typography variant={"p"} style={{ color: "#fff", fontSize: "18px" }}>
           No posts yet...
         </Typography>
       ) : (
         <Grid container spacing={3} display="flex">
-          {posts.map((post) => (
+          {posts?.map((post) => (
             <Grid
               item
               xs={12}
@@ -189,6 +213,7 @@ const PlayerPosts = ({ isEditable, playerId, onDataLoaded }) => {
               sx={{ width: { xs: "100%", sm: "80%", md: "48%", lg: "31%" } }}
             >
               <Card
+                onClick={() => navigate(`/posts/${post.id}`)}
                 sx={{
                   height: "100%",
                   display: "flex",
@@ -197,6 +222,7 @@ const PlayerPosts = ({ isEditable, playerId, onDataLoaded }) => {
                   color: "#fff",
                   borderRadius: 2,
                   boxShadow: 3,
+                  cursor: "pointer",
                 }}
               >
                 <Box sx={{ width: "100%", height: 200, overflow: "hidden" }}>
@@ -284,7 +310,7 @@ const PlayerPosts = ({ isEditable, playerId, onDataLoaded }) => {
                             padding: "6px 10px",
                           },
                         }}
-                        onClick={() => handleEdit(post)}
+                        onClick={() =>handelUpdatePost(post.id)}
                       >
                         Update Post
                       </Button>
