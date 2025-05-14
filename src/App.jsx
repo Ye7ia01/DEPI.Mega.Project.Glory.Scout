@@ -20,6 +20,8 @@ import ResetPassword from "./Components/Auth/ResetPassword.jsx";
 import UploadPage from "./Components/UploadPage.jsx";
 import PublicPlayerProfile from "./Components/PublicPlayerProfile.jsx";
 import ProtectedLayout from "./Components/Layout/ProtectedLayout.jsx";
+import HomePage from "./screens/HomePage.jsx";
+import PublicCoachProfile from "./Components/PublicCoachProfile.jsx";
 
 
 function App() {
@@ -52,7 +54,8 @@ function App() {
         </ProtectedLayout>
         }>
           <Route index element={<HomePage />}/>
-          <Route path="/home/player" element={<PlayerProfile />} />
+          <Route path="/home/player" element={<PlayerProfile />} dataType="players"/>
+          <Route path="/home/coach" element={<PlayerProfile />} dataType="coaches"/>
           <Route path="/home/faq" element={<FAQ />} />
           <Route path="/home/email" element={<Login />} />
           <Route path="/home/contact" element={<Contact />} />
