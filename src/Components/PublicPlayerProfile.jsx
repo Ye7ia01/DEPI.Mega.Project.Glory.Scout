@@ -132,8 +132,12 @@ const PublicPlayerProfile = () => {
 
   return (
     <Container  sx={{ py: 4 }} className="profile-container w-full"   style={{ width: "90%" }}>
-       
+        <Typography variant="h4" color="white" padding={"30px"} >
+              {profile?.userName}
+        </Typography>
       <Box display="flex" alignItems="center" gap={4} ml={3} mt={2}>
+        
+            
         {/* صورة البروفايل */}
         {profile?.profilePhoto && (
           <CardMedia
