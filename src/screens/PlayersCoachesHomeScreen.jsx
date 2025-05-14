@@ -63,7 +63,7 @@ export const PlayersCoachesHomeScreen = ({dataType}) => {
             )}
 
             { data &&
-            <div className='players-home-screen'>
+            <div className='players-home-screen pb-2'>
 
 
                 <div className='d-flex align-items-center justify-content-between flex-wrap players-header-div '>
@@ -74,10 +74,10 @@ export const PlayersCoachesHomeScreen = ({dataType}) => {
                         </h1>
                     </div>
 
-                    <div className=''>
+                    {/* <div className='border'>
                         {dataType == 'players' && (<NewPlayerButton/>)}
                         {dataType == 'coaches' && (<NewClubButton/>)}
-                    </div>
+                    </div> */}
                 </div>
 
                 <div className="row g-4 m-auto mt-5 mb-5 " style={{width: '95%'}}>

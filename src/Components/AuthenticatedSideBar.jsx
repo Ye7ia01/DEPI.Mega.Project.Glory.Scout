@@ -70,7 +70,7 @@ export const AuthenticatedSideBar = ({collapsed, setCollapsed}) => {
                             </Nav.Item>
 
                             <Nav.Item className="">
-                                <NavLink to="/home/email" className="d-flex align-items-center ps-0 text-decoration-none"
+                                <NavLink to="" className="d-flex align-items-center ps-0 text-decoration-none"
                                          onClick={
                                              () => setActivePage('email')
                                          }>

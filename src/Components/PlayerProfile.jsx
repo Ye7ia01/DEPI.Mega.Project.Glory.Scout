@@ -10,7 +10,7 @@ import {
   Snackbar,
   Alert,
 } from "@mui/material";
-import ProfileImg from "../assets/PlayerProfile-img.png";
+import ProfileImg from "../assets/users.jpg";
 import { IoMdPersonAdd } from "react-icons/io";
 import { MdOutlineWindow } from "react-icons/md";
 import PlayerPosts from "./PlayerPosts";
