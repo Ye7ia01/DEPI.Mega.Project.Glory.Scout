@@ -141,7 +141,7 @@ const HomePage = () => {
 
     return (
         <div>
-            {isLoading && (
+            {/* {isLoading && (
                 <div style={{
                     position: 'fixed',
                     top: '50%',
@@ -151,7 +151,7 @@ const HomePage = () => {
                     zIndex: 1000,
                 }}>
                     <FaSpinner className="loading-login"/>
-                </div>)}
+                </div>)} */}
             <div className="hero-homepage">
                 <div className="container">
                     <div className="cards">
