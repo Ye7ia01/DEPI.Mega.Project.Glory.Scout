@@ -75,9 +75,7 @@ const PublicPlayerProfile = () => {
   };
 
   const handleFollowToggle = async () => {
-    // const targetId = profile?.userId; // استخدام مباشر من profile
-
-    // if (!targetId) return;
+  
 
     try {
       const url = isFollowing

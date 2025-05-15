@@ -188,10 +188,12 @@ const PlayerPosts = ({ isEditable, playerId, onDataLoaded }) => {
               md={6}
               lg={4}
               key={post.id}
-              sx={{ width: { xs: "100%", sm: "80%", md: "48%", lg: "31%" } }}
+              sx={{ width: { xs: "100%", sm: "80%", md: "48%", lg: "31%" }  }
+             
+            }
             >
               <Card
-                onClick={() => navigate(`/posts/${post.id}`)}
+               
                 sx={{
                   height: "100%",
                   display: "flex",
@@ -203,7 +205,9 @@ const PlayerPosts = ({ isEditable, playerId, onDataLoaded }) => {
                   cursor: "pointer",
                 }}
               >
-                <Box sx={{ width: "100%", height: 200, overflow: "hidden" }}>
+                <Box sx={{ width: "100%", height: 200, overflow: "hidden" }}
+                  onClick={() => navigate(`/posts/${post.id}`)}
+                >
                   {renderMedia(post.posrUrl)}
                 </Box>
 

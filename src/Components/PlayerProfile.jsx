@@ -155,7 +155,7 @@ const PlayerProfile = () => {
       </div>
 
       <div className="bio ps-5 pt-3">
-        <h4>{profileData?.username}</h4>
+      
         <p className="p-3">
           {profileData?.profileDescription ||
             "No bio available , please click edit profile to add bio"}
@@ -167,6 +167,8 @@ const PlayerProfile = () => {
           <Box
             display="flex"
             flexDirection={{ xs: "column", sm: "row" }}
+            alignItems={'center'}
+            justifyContent={'center'}
             gap={2}
             width="100%"
           >
@@ -175,21 +177,31 @@ const PlayerProfile = () => {
               onClick={() => setOpenEdit(true)}
               sx={{
                 width: {
-                  md: "70%",
-                  sm: "50%",
                   xs: "90%",
+                   sm: "90%",
+                  md: "80%",
+                 
+                  
+                },
+                margin:{
+                  xs:'auto'
+                },
+                fontSize:{
+                  md:"16px",
+                  sm:'14px',
+                  xxs:'14px'
                 },
                 padding: {
-                  xs: " 5px 10px",
-                  sm: "5px 10px ",
-                  md: "10px 20px",
+                  xs: " 7px 15px",
+                  sm: "7px 15px ",
+                  md: "2px 20px",
                 },
                 fontWeight: "bold",
                 backgroundColor: "#e65100",
                 color: "#fff",
                 borderRadius: "4px",
                 "&:hover": {
-                  backgroundColor: "#bf360c", // لون أغمق عند الهوفر
+                  backgroundColor: "#bf360c",
                 },
               }}
             >

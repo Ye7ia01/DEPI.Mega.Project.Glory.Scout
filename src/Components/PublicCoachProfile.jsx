@@ -69,7 +69,7 @@ const PublicCoachProfile = () => {
   };
 
   const handleFollowToggle = async () => {
-    console.log("userId", userId);
+  
 
     try {
       const url = isFollowing
@@ -79,12 +79,12 @@ const PublicCoachProfile = () => {
         headers: { Authorization: `Bearer ${token}` },
       });
       console.log("response from followers", res);
+        console.log("is following after", isFollowing);
+      const newFollowing = !isFollowing;
+      setIsFollowing(newFollowing);
+      setFollowersCount((prev) => (newFollowing ? prev + 1 : prev - 1));
 
-      setIsFollowing((prevFollowing) => {
-        const newFollowing = !prevFollowing;
-        setFollowersCount((prev) => (newFollowing ? prev + 1 : prev - 1));
-        return newFollowing;
-      });
+     
       setSnackbar({
         open: true,
         message: isFollowing
@@ -100,7 +100,6 @@ const PublicCoachProfile = () => {
       });
     }
   };
-
   if (loading) {
     return (
       <Box
@@ -254,9 +253,10 @@ const PublicCoachProfile = () => {
       <PlayerPosts
         isEditable={false}
         playerId={userId}
-        onDataLoaded={({ postsCount, followersCount }) => {
+        onDataLoaded={({ postsCount, followersCount,isFollowing }) => {
           setPostCount(postsCount);
           setFollowersCount(followersCount);
+          setIsFollowing(isFollowing);
         }}
       />
       <Snackbar
