@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext, useEffect} from "react";
 import Logo from "./Logo/Logo";
 import DiscoverTalent from "./DiscoverTalent/DiscoverTalent";
 import AchieveDream from "./AchieveDream/AchieveDream";
@@ -8,7 +8,21 @@ import PlayerAndTeams from "./Player&Teams/PlayerAndTeams";
 import StartFootball from "./StartFootball/StartFootball";
 import LiveStore from "./LiveStore/LiveStore";
 import StyleHomePage from "../../styles/StyleHomePage.module.css";
+import { useNavigate } from "react-router";
+
+import {AuthContext} from "../../context/AuthContext.jsx";
 const Home = () => {
+    const {user} = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if(user?.token)
+        {
+            navigate("/home")
+        }
+
+    }, [user]);
+
   return (
     <div>
       <div className="Home-Page">

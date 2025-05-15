@@ -228,6 +228,7 @@ const HomePage = () => {
                                                     fontSize: "1.5rem",
                                                     cursor: "pointer",
                                                     zIndex: 2000,
+                                                    overflow: "auto",
                                                 }}
                                             >
                                                 &times;
