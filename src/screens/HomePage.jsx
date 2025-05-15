@@ -165,7 +165,7 @@ const HomePage = () => {
                                 <div className="cardx" key={index}>
                                     <div className="detalis-profile">
                                         {/* to={`/home/player/${e.userId}`} */}
-                                        <Link><img src={e.userProfilePicture} alt=""/></Link>
+                                        <Link to={``}><img src={e.userProfilePicture} alt=""/></Link>
                                         <h3>{e.username}</h3>
                                         <h4>@{e.username}</h4>
                                         <p>{timeAgo}</p>
@@ -199,16 +199,17 @@ const HomePage = () => {
                                             className="modal"
                                             style={{
                                                 display: "block",
-                                                height: "90vh",
+                                                height: "100vh",
                                                 width: "60%",
                                                 margin: "auto",
                                                 alignSelf: "center",
                                                 zIndex: 1000, // Ensure it's above the overlay
                                                 position: "fixed",
                                                 left: "50%",
-                                                transform: "translate(-50%, 0%)",
+                                                top:"50%",
+                                                transform: "translate(-50%, -50%)",
                                                 // padding: '20px',
-                                                paddingTop: '20px',
+                                                
                                                 overflowY: "auto",  // Allow scrolling for content
                                             }}
                                         >

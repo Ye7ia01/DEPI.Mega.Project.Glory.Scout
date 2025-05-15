@@ -39,7 +39,7 @@ const UploadPage = () => {
 
   const post = location.state?.post;
   const isEditing = !!post;
- console.log(post.id);
+//  console.log(post.id);
 
   const [file, setFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
@@ -103,12 +103,12 @@ const UploadPage = () => {
       );
     } else {
       // إنشاء بوست جديد
-      if (file && file.size > MAX_VEDIO_SIZE_MB * 1024 * 1024) {
-        setSnackbar({
-          open: true,
-          message: `File is too large. Max allowed size is ${MAX_VEDIO_SIZE_MB}MB.`,
-          severity: "error",
-        });
+     if (file && file.type.startsWith("video/") && file.size > maxSizeInBytes) {
+  setSnackbar({
+    open: true,
+    message: `File is too large. Max allowed size is ${MAX_VEDIO_SIZE_MB}MB.`,
+    severity: "error",
+  });
         setDescription("");
         setFile(null);
         setPreviewUrl(null);

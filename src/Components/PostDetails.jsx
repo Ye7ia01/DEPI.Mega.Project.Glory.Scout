@@ -16,6 +16,7 @@ const PostDetails = () => {
   const [newComment, setNewComment] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+
   // Fetch post details
   useEffect(() => {
     const fetchPostDetails = async () => {
@@ -29,7 +30,6 @@ const PostDetails = () => {
             "Content-Type": "application/json"
           }
         });
-        
         if (response.status === 200) {
           setPost(response.data);
           setComments(response.data.comments);
