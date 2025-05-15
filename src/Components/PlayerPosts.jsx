@@ -191,6 +191,7 @@ const PlayerPosts = ({ isEditable, playerId, onDataLoaded }) => {
               sx={{ width: { xs: "100%", sm: "80%", md: "48%", lg: "31%" } }}
             >
               <Card
+                onClick={() => navigate(`/posts/${post.id}`)}
                 sx={{
                   height: "100%",
                   display: "flex",
@@ -199,6 +200,7 @@ const PlayerPosts = ({ isEditable, playerId, onDataLoaded }) => {
                   color: "#fff",
                   borderRadius: 2,
                   boxShadow: 3,
+                  cursor: "pointer",
                 }}
               >
                 <Box sx={{ width: "100%", height: 200, overflow: "hidden" }}>

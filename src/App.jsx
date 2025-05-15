@@ -22,6 +22,7 @@ import PublicPlayerProfile from "./Components/PublicPlayerProfile.jsx";
 import ProtectedLayout from "./Components/Layout/ProtectedLayout.jsx";
 import HomePage from "./screens/HomePage.jsx";
 import PublicCoachProfile from "./Components/PublicCoachProfile.jsx";
+import PostDetails from "./Components/PostDetails";
 
 
 function App() {
@@ -67,8 +68,9 @@ function App() {
           {/* <Route index  element={<PlayersCoachesHomeScreen />} /> */}
          <Route path="/home/player/:id" element={<PublicPlayerProfile/>}/>
          <Route path="/home/coach/:id" element={<PublicCoachProfile/>}/>
-
         </Route>
+        <Route path="/posts/:postId" element={<PostDetails />} />
+
         <Route path="/" element={<PublicLayout />}>
           {/* These routes will be divided between site visitors and registered users.
         Each group will be linked to a specific layout with its own access permissions. */}
@@ -81,7 +83,6 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/changepassword" element={<CreateNewPassword />} />
         <Route path="/resetpassword" element={<ResetPassword />} />
-
         {/* <Route path="/coach-profile" element={<PlayerProfile dataType="coaches" />} /> */}
         <Route path="/upload" element={<UploadPage />} />
         </Route>

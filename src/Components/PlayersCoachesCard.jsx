@@ -39,7 +39,7 @@ export const PlayersCoachesCard = ({data, type}) => {
                                 <span className='text-muted card-font' style={{ fontSize: '0.9rem' }}>Weight:</span>
                                 <span className='fw-bold card-font' style={{ fontSize: '0.9rem' }}>{data?.weight}</span>
                             </div>
-                            <div className='d-flex justify-content-between mb-1'>
+                            <div className='d-flex justify-content-between mb-1 gap-2'>
                                 <span className='text-muted card-font' style={{ fontSize: '0.9rem' }}>Nationality:</span>
                                 <span className='fw-bold card-font' style={{fontSize:'13px'}}>{data?.nationality}</span>
                             </div>
@@ -71,7 +71,7 @@ export const PlayersCoachesCard = ({data, type}) => {
                     <span className='text-muted card-font'>Experience:</span>
                     <span className='fw-bold card-font' style={{fontSize:'13px'}}>{data?.experience} years</span>
                 </div>
-                <div className='d-flex justify-content-between mt-2'>
+                <div className='d-flex justify-content-between mt-2 gap-2'>
                     <span className='text-muted card-font'>Nationality:</span>
                     <span className='fw-bold card-font' style={{fontSize:'13px'}}>{data?.nationality}</span>
                 </div>
