@@ -22,13 +22,13 @@ const PublicPlayerProfile = () => {
   const { user } = useContext(AuthContext);
 
   const token = user?.token;
- 
+
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [userId, setuserId] = useState(null);
   const [postCount, setPostCount] = useState(0);
-  // const [followersCount, setFollowersCount] = useState(0);
+  const [followersCount, setFollowersCount] = useState(0);
   const [snackbar, setSnackbar] = useState({
     open: false,
     message: "",
@@ -36,10 +36,9 @@ const PublicPlayerProfile = () => {
   });
   const [isFollowing, setIsFollowing] = useState(false);
 
-
   useEffect(() => {
     if (id && token) fetchProfile();
-  }, [id,token]);
+  }, [id, token]);
 
   const fetchProfile = async () => {
     setLoading(true);
@@ -58,14 +57,15 @@ const PublicPlayerProfile = () => {
 
       console.log("id", id);
       console.log("userId", userId);
-      // setFollowersCount(response?.data.followersCount)
-      console.log("followers count",response?.data);
-      console.log("Data",response?.data);
-      
+      setFollowersCount(response?.data.followersCount);
+      console.log("followers count", response?.data);
+      console.log("followersCount from profile", followersCount);
 
       // profile.userId -> Call /get-profile/{userId} : posts , followers
 
       setIsFollowing(response?.data?.isFollowing || false);
+      console.log("is following", isFollowing);
+      
     } catch (err) {
       setError("Failed to load profile.");
       console.log(err);
@@ -75,26 +75,24 @@ const PublicPlayerProfile = () => {
   };
 
   const handleFollowToggle = async () => {
-       console.log("userId",userId);
-       
+    // const targetId = profile?.userId; // استخدام مباشر من profile
+
+    // if (!targetId) return;
+
     try {
       const url = isFollowing
         ? `http://glory-scout.tryasp.net/api/UserProfile/unfollow/${userId}`
         : `http://glory-scout.tryasp.net/api/UserProfile/follow/${userId}`;
-      const res = await axios.post(
-        url, null,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
+      const res = await axios.post(url, null, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       console.log("response from followers", res);
+        console.log("is following after", isFollowing);
+      const newFollowing = !isFollowing;
+      setIsFollowing(newFollowing);
+      setFollowersCount((prev) => (newFollowing ? prev + 1 : prev - 1));
 
-      
-      // setIsFollowing((prevFollowing) => {
-      //   const newFollowing = !prevFollowing;
-      //   setFollowersCount((prev) => (newFollowing ? prev + 1 : prev - 1));
-      //   return newFollowing;
-      // });
+     
       setSnackbar({
         open: true,
         message: isFollowing
@@ -133,13 +131,15 @@ const PublicPlayerProfile = () => {
   }
 
   return (
-    <Container  sx={{ py: 4 }} className="profile-container w-full"   style={{ width: "90%" }}>
-        <Typography variant="h4" color="white" padding={"30px"} >
-              {profile?.userName}
-        </Typography>
+    <Container
+      sx={{ py: 4 }}
+      className="profile-container w-full"
+      style={{ width: "90%" }}
+    >
+      <Typography variant="h4" color="white" padding={"30px"}>
+        {profile?.userName}
+      </Typography>
       <Box display="flex" alignItems="center" gap={4} ml={3} mt={2}>
-        
-            
         {/* صورة البروفايل */}
         {profile?.profilePhoto && (
           <CardMedia
@@ -174,76 +174,75 @@ const PublicPlayerProfile = () => {
               Followers
             </Typography>
             <Typography variant="h6" color="white">
-              {/* {followersCount} */}
+              {followersCount}
             </Typography>
           </Box>
         </Box>
       </Box>
 
       <Box
-              display={"flex"}
-              alignItems={"center"}
-              gap={"20px"}
-              marginBlock={"30px"}
-              paddingLeft={"30px"}
-            >
-              <Typography
-                variant="h6"
-                color="white"
-                sx={{
-                  fontSize: { xs: "14px", sm: "16px", md: "16px" },
-                  "&:hover": {
-                    color: "#e65100",
-                  },
-                  cursor: "pointer",
-                }}
-              >
-                {profile.nationality}
-              </Typography>
-              <Typography
-                variant="h6"
-                color="white"
-                sx={{
-                  fontSize: { xs: "14px", sm: "16px", md: "16px" },
-                  "&:hover": {
-                    color: "#e65100",
-                  },
-                  cursor: "pointer",
-                }}
-              >
-                {profile.position}
-              </Typography>
-              <Typography
-                variant="h6"
-                color="white"
-                sx={{
-                  fontSize: { xs: "14px", sm: "16px", md: "16px" },
-                  "&:hover": {
-                    color: "#e65100",
-                  },
-                  cursor: "pointer",
-                }}
-              >
-                height {profile.height} 
-              </Typography>
-              <Typography
-                variant="h6"
-                color="white"
-                sx={{
-                  fontSize: { xs: "14px", sm: "16px", md: "16px" },
-                  "&:hover": {
-                    color: "#e65100",
-                  },
-                  cursor: "pointer",
-                }}
-              >
-               weight {profile.weight}
-              </Typography>
-            
-            </Box>
+        display={"flex"}
+        alignItems={"center"}
+        gap={"20px"}
+        marginBlock={"30px"}
+        paddingLeft={"30px"}
+      >
+        <Typography
+          variant="h6"
+          color="white"
+          sx={{
+            fontSize: { xs: "14px", sm: "16px", md: "16px" },
+            "&:hover": {
+              color: "#e65100",
+            },
+            cursor: "pointer",
+          }}
+        >
+          {profile.nationality}
+        </Typography>
+        <Typography
+          variant="h6"
+          color="white"
+          sx={{
+            fontSize: { xs: "14px", sm: "16px", md: "16px" },
+            "&:hover": {
+              color: "#e65100",
+            },
+            cursor: "pointer",
+          }}
+        >
+          {profile.position}
+        </Typography>
+        <Typography
+          variant="h6"
+          color="white"
+          sx={{
+            fontSize: { xs: "14px", sm: "16px", md: "16px" },
+            "&:hover": {
+              color: "#e65100",
+            },
+            cursor: "pointer",
+          }}
+        >
+          height {profile.height}
+        </Typography>
+        <Typography
+          variant="h6"
+          color="white"
+          sx={{
+            fontSize: { xs: "14px", sm: "16px", md: "16px" },
+            "&:hover": {
+              color: "#e65100",
+            },
+            cursor: "pointer",
+          }}
+        >
+          weight {profile.weight}
+        </Typography>
+      </Box>
 
       {/* Buttons */}
-      { profile?.userId && id && String(profile?.userId) !== String(id) && (
+      {profile?.userId && id && String(profile?.userId) !== String(id) && (
         <Box display="flex" gap={2} mt={2} marginLeft={"30px"}>
           <Button
             variant="contained"
@@ -252,26 +251,25 @@ const PublicPlayerProfile = () => {
           >
             {isFollowing ? "Unfollow" : "Follow"}
           </Button>
-          <Button 
+          <Button
             sx={{
-                width: {
-                  md: "30%",
-                  sm: "50%"
-                },
-                padding:{
-                  xs:" 5px 10px",
-                  sm: "5px 10px ",
-                  md: "10px 20px"
-                },
-                fontWeight: "bold",
-                backgroundColor: "#e65100",
-                color: "#fff",
-                borderRadius: "4px",
-                "&:hover": {
-                  backgroundColor: "#bf360c", // لون أغمق عند الهوفر
-                },
-              
-              }}
+              width: {
+                md: "30%",
+                sm: "50%",
+              },
+              padding: {
+                xs: " 5px 10px",
+                sm: "5px 10px ",
+                md: "10px 20px",
+              },
+              fontWeight: "bold",
+              backgroundColor: "#e65100",
+              color: "#fff",
+              borderRadius: "4px",
+              "&:hover": {
+                backgroundColor: "#bf360c", // لون أغمق عند الهوفر
+              },
+            }}
           >
             Request Details
           </Button>
@@ -280,9 +278,10 @@ const PublicPlayerProfile = () => {
       <PlayerPosts
         isEditable={false}
         playerId={userId}
-        onDataLoaded={({ postsCount, followersCount }) => {
+        onDataLoaded={({ postsCount, followersCount ,isFollowing}) => {
           setPostCount(postsCount);
-          // setFollowersCount(followersCount);
+          setFollowersCount(followersCount);
+          setIsFollowing(isFollowing)
         }}
       />
       <Snackbar

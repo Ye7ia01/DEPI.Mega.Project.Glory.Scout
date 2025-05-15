@@ -42,7 +42,7 @@ const PlayerPosts = ({ isEditable, playerId, onDataLoaded }) => {
   });
 
   const navigate = useNavigate();
-  // const token = localStorage.getItem("token");
+
 
   useEffect(() => {
     fetchPosts();
@@ -66,11 +66,13 @@ const PlayerPosts = ({ isEditable, playerId, onDataLoaded }) => {
       console.log("response from posts", response?.data);
 
       console.log("posts number:", postsNumber);
-
+       console.log("followers count from posts",response?.data.followersCount);
+       
       if (onDataLoaded) {
         onDataLoaded({
           postsCount: response?.data.posts.length,
           followersCount: response?.data.followersCount || 0,
+          isFollowing: response?.data.isFollowing,
         });
       }
     } catch (err) {
@@ -107,31 +109,7 @@ const PlayerPosts = ({ isEditable, playerId, onDataLoaded }) => {
 
   
 
-  const handelUpdatePost=async (postId)=>{
-    console.log(postId);
-    //  navigate("/upload", { state: { postId } });
-    //    try {
-    //   await axios.put(
-    //     `http://glory-scout.tryasp.net/api/Post/Upate-post/${postId}`,
-    //     {
-    //       headers: { Authorization: `Bearer ${token}` },
-    //     }
-    //   );
-    //   setSnackbar({
-    //     open: true,
-    //     message: "Post updated successfully!",
-    //     severity: "success",
-    //   });
-    //   setPosts(  );
-    // } catch (err) {
-    //   setSnackbar({
-    //     open: true,
-    //     message: "Failed to update post.",
-    //     severity: "error",
-    //   });
-    // }
-    // setDeleteDialog({ open: false, postId: null });
-  }
+
 
   const renderMedia = (fileUrl) => {
     const ext = new URL(fileUrl).pathname.split(".").pop().toLowerCase();
@@ -308,7 +286,7 @@ const PlayerPosts = ({ isEditable, playerId, onDataLoaded }) => {
                             padding: "6px 10px",
                           },
                         }}
-                        onClick={() =>handelUpdatePost(post.id)}
+                        onClick={() => navigate("/upload", { state: { post } })}
                       >
                         Update Post
                       </Button>

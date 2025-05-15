@@ -17,16 +17,18 @@ import { AuthContext } from "../context/AuthContext";
 const UploadPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
-    const {user} = useContext(AuthContext);
-      const token = user?.token;
-  // const token = localStorage.getItem("token");
-  const MAX_VEDIO_SIZE_MB = 10;
+  const { user } = useContext(AuthContext);
+  const token = user?.token;
+
+  const MAX_VIDEO_SIZE_MB = 10;
+
   useEffect(() => {
     if (!token) {
       navigate("/login");
     }
   }, [token, navigate]);
 
+  // استخراج userId من التوكن
   let userId = null;
   try {
     const payload = JSON.parse(atob(token.split(".")[1]));
@@ -37,6 +39,7 @@ const UploadPage = () => {
 
   const post = location.state?.post;
   const isEditing = !!post;
+ console.log(post.id);
 
   const [file, setFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
@@ -49,7 +52,6 @@ const UploadPage = () => {
   });
 
   useEffect(() => {
-    console.log(post);
     if (isEditing) {
       const preview = post.fileUrl || post.posrUrl;
       if (preview) {
@@ -66,106 +68,117 @@ const UploadPage = () => {
     };
   }, [previewUrl, file]);
 
-  // handel file input to upload image or video
-
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
     setFile(selectedFile);
     setPreviewUrl(selectedFile ? URL.createObjectURL(selectedFile) : null);
   };
 
-  // handel upload button to submit post either new post or updated post
-  const handleSubmit = async () => {
-    if (!description.trim()) {
-      setSnackbar({
-        open: true,
-        message: "Description is required.",
-        severity: "warning",
-      });
-      return;
-    }
+ const handleSubmit = async () => {
+  if (!description.trim()) {
+    setSnackbar({
+      open: true,
+      message: "Description is required.",
+      severity: "warning",
+    });
+    return;
+  }
 
-    setLoading(true);
-    const formData = new FormData();
+  setLoading(true);
+
+  try {
+    let res;
 
     if (isEditing) {
-      formData.append("PostId", post.id);
+      // تعديل البوست - إرسال الوصف فقط في JSON
+      res = await axios.put(
+        `http://glory-scout.tryasp.net/api/Post/Upate-post/${post.id}`,
+        { description }, // إرسال JSON
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
     } else {
-      formData.append("UserId", userId);
-    }
-
-    if (file && file.size > MAX_VEDIO_SIZE_MB * 1024 * 1024) {
-      setSnackbar({
-        open: true,
-        message: `File is too large. Max allowed size is ${MAX_VEDIO_SIZE_MB}MB.`,
-        severity: "error",
-      });
-      setDescription("");
-      setFile(null);
-      setLoading(false);
-      setPreviewUrl(null);
-      return;
-    }
-    formData.append("Description", description);
-    if (file) {
-      formData.append("file", file);
-    }
-
-    try {
-      const url = isEditing
-        ? `http://glory-scout.tryasp.net/api/UserProfile/update-post/${post.id}`
-        : `http://glory-scout.tryasp.net/api/UserProfile/create-post`;
-
-      const method = isEditing ? "put" : "post";
-
-      const res = await axios[method](url, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      if (res.status === 200) {
-        console.log(res);
-
-        setFile(null);
-        setPreviewUrl(null);
-        setDescription("");
+      // إنشاء بوست جديد
+      if (file && file.size > MAX_VEDIO_SIZE_MB * 1024 * 1024) {
         setSnackbar({
           open: true,
-          message: isEditing
-            ? "Post updated successfully!"
-            : "Post created successfully!",
-          severity: "success",
+          message: `File is too large. Max allowed size is ${MAX_VEDIO_SIZE_MB}MB.`,
+          severity: "error",
         });
-
-        setTimeout(
-          () => navigate("/home/player", { state: { newPostAdded: true } }),
-          2000
-        );
-      } else {
-        throw new Error("Unexpected response");
+        setDescription("");
+        setFile(null);
+        setPreviewUrl(null);
+        setLoading(false);
+        return;
       }
-    } catch (err) {
-      console.error(err);
+
+      const formData = new FormData();
+      formData.append("UserId", userId);
+      formData.append("Description", description);
+      if (file) {
+        formData.append("file", file);
+      }
+
+      res = await axios.post(
+        `http://glory-scout.tryasp.net/api/UserProfile/create-post`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+    }
+
+    if (res.status === 200) {
+      setFile(null);
+      setPreviewUrl(null);
+      setDescription("");
       setSnackbar({
         open: true,
-        message: "Server error. Please try again later.",
-        severity: "error",
+        message: isEditing
+          ? "Post updated successfully!"
+          : "Post created successfully!",
+        severity: "success",
       });
-    } finally {
-      setLoading(false);
-    }
-  };
 
-  // how to preview image or vedio before create post
+      setTimeout(
+        () => navigate("/home/player", { state: { newPostAdded: true } }),
+        2000
+      );
+    } else {
+      throw new Error("Unexpected response");
+    }
+  } catch (err) {
+    console.error(err);
+    setSnackbar({
+      open: true,
+      message: "Server error. Please try again later.",
+      severity: "error",
+    });
+  } finally {
+    setLoading(false);
+  }
+};
+
+
   const renderPreview = () => {
     if (!previewUrl) return null;
 
-    if (
-     file && file?.type?.startsWith("image/") ||
-      previewUrl.match(/\.(jpeg|jpg|png|gif)$/)
-    ) {
+    const isImage =
+      (file && file.type.startsWith("image/")) ||
+      previewUrl.match(/\.(jpeg|jpg|png|gif)$/);
+
+    const isVideo =
+      (file && file.type.startsWith("video/")) ||
+      previewUrl.match(/\.(mp4|webm|ogg)$/);
+
+    if (isImage) {
       return (
         <Box mt={2}>
           <Typography variant="subtitle1">Preview:</Typography>
@@ -178,10 +191,7 @@ const UploadPage = () => {
       );
     }
 
-    if (
-     file && file?.type?.startsWith("video/") ||
-      previewUrl.match(/\.(mp4|webm|ogg)$/)
-    ) {
+    if (isVideo) {
       return (
         <Box mt={2}>
           <Typography variant="subtitle1">Preview:</Typography>
@@ -295,5 +305,28 @@ const UploadPage = () => {
 };
 
 export default UploadPage;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
