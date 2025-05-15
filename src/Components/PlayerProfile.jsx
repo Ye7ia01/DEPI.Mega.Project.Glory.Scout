@@ -174,15 +174,15 @@ const PlayerProfile = () => {
               variant="contained"
               onClick={() => setOpenEdit(true)}
               sx={{
-                width:  {
+                width: {
                   md: "70%",
                   sm: "50%",
-                  xs:"90%"
+                  xs: "90%",
                 },
-                 padding:{
-                  xs:" 5px 10px",
+                padding: {
+                  xs: " 5px 10px",
                   sm: "5px 10px ",
-                  md: "10px 20px"
+                  md: "10px 20px",
                 },
                 fontWeight: "bold",
                 backgroundColor: "#e65100",
@@ -195,24 +195,22 @@ const PlayerProfile = () => {
             >
               Edit Profile
             </Button>
-          
+            <div className="col-sm-12 col-md-4 mb-2 d-flex justify-content-center align-items-center">
+              <IoMdPersonAdd
+                style={{
+                  width: 60,
+                  height: 30,
+                  borderWidth: 1,
+                  borderStyle: "solid",
+                  borderRadius: 4,
+                  padding: 5,
+                }}
+              />
+            </div>
           </Box>
         </div>
 
-        <div className="col-sm-12 col-md-4 mb-2 d-flex justify-content-center align-items-center">
-          <IoMdPersonAdd
-            style={{
-              width: 60,
-              height: 30,
-              borderWidth: 1,
-              borderStyle: "solid",
-              borderRadius: 4,
-              padding: 5,
-            }}
-          />
-        </div>
-
-        <Container sx={{ mt: 3 }}>
+        <Container sx={{ mt: 3 }} style={{marginLeft:"0px"}}>
           {/* Add post button */}
 
           <Link to="/upload" style={{ textDecoration: "none" }}>
@@ -235,7 +233,7 @@ const PlayerProfile = () => {
         <div>
           <MdOutlineWindow style={{ width: 50, height: 100 }} />
         </div>
-
+      
         <PlayerPosts
           refresh={refreshPosts}
           onRefreshed={() => setRefreshPosts(false)}

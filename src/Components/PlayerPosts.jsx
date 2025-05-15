@@ -169,11 +169,11 @@ const PlayerPosts = ({ isEditable, playerId, onDataLoaded }) => {
       <Typography
         variant="h4"
         gutterBottom
-        style={{ color: "#fff", marginBlock: "50px" }}
+        style={{ color: "#fff", marginBlock: "20px" }}
       >
         Posts :
       </Typography>
-
+       
       {posts?.length === 0 ? (
         <Typography variant={"p"} style={{ color: "#fff", fontSize: "18px" }}>
           No posts yet...
