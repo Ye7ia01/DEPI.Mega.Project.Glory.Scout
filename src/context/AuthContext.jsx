@@ -103,7 +103,7 @@ export const AuthProvider = ({children}) => {
             if (!data) {
                 console.log("Not a valid user type");
                 setAuthError(true);
-                setAuthMessage("Cannot Sign In");
+                setAuthMessage("Cannot Register. Network Error");
                 setUser({});
                 setAuthLoading(false);
                 return;
@@ -130,10 +130,14 @@ export const AuthProvider = ({children}) => {
             setStorage();
         }).catch(err => {
             console.log(JSON.stringify(err));
+            console.log("Axios Error:", JSON.stringify(err, null, 2)); // Log the full error object with indentation
+            console.log("Response Data:", err?.response?.data); // Log the response data if available
+            console.log("Status Code:", err?.response?.status); // Log the HTTP status code if available
+            console.log("Headers:", err?.response?.headers); // Log the response headers if available
             console.log(err?.response?.data);
             setAuthError(true);
             setUser();
-            setAuthMessage(err?.response?.data ?? "Error, Cannot Sign In");
+            setAuthMessage(err?.response?.data ?? "Network Error, Cannot Register");
             setAuthLoading(false);
         })
     }
@@ -182,11 +186,14 @@ export const AuthProvider = ({children}) => {
             setStorage();
         }).catch(err => {
             console.log(JSON.stringify(err));
+            console.log("Axios Error:", JSON.stringify(err, null, 2)); // Log the full error object with indentation
+            console.log("Response Data:", err?.response?.data); // Log the response data if available
+            console.log("Status Code:", err?.response?.status); // Log the HTTP status code if available
+            console.log("Headers:", err?.response?.headers); // Log the response headers if available
             setAuthError(true);
             setUser();
-            setAuthMessage(JSON.stringify(err) ?? "Error, Cannot Sign In");
             setAuthLoading(false);
-            setAuthMessage(err?.response?.data ?? "Error, Cannot Sign In");
+            setAuthMessage(err?.response?.data ?? "Network Error, Cannot Register User.");
         })
     }
 
