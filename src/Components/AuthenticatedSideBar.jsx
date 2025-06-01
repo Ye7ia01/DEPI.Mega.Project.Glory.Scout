@@ -36,7 +36,7 @@ export const AuthenticatedSideBar = ({collapsed, setCollapsed}) => {
     // State to manage the visibility of the sidebar
     const [visible, setVisible] = useState(true)
     // State to manage the active page
-    const [activePage, setActivePage] = useState('players')
+    const [activePage, setActivePage] = useState('home')
     console.log("Active Page : ",activePage)
 
     return (
