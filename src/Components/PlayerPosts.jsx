@@ -292,7 +292,7 @@ const PlayerPosts = ({ isEditable, playerId, onDataLoaded }) => {
                             padding: "6px 10px",
                           },
                         }}
-                        onClick={() => navigate("/upload", { state: { post } })}
+                        onClick={() => navigate("/home/edit", { state: { post } })}
                       >
                         Update Post
                       </Button>
