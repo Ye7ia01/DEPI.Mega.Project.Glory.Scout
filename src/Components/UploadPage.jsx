@@ -20,7 +20,8 @@ const UploadPage = () => {
   const { user } = useContext(AuthContext);
   const token = user?.token;
 
-  const MAX_VIDEO_SIZE_MB = 10;
+  const MAX_VIDEO_SIZE_MB = 35;
+  const maxSizeInBytes = MAX_VIDEO_SIZE_MB * 1024 * 1024;
 
   useEffect(() => {
     if (!token) {
@@ -28,7 +29,7 @@ const UploadPage = () => {
     }
   }, [token, navigate]);
 
-  // استخراج userId من التوكن
+
   let userId = null;
   try {
     const payload = JSON.parse(atob(token.split(".")[1]));
@@ -39,7 +40,6 @@ const UploadPage = () => {
 
   const post = location.state?.post;
   const isEditing = !!post;
-//  console.log(post.id);
 
   const [file, setFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
@@ -74,98 +74,95 @@ const UploadPage = () => {
     setPreviewUrl(selectedFile ? URL.createObjectURL(selectedFile) : null);
   };
 
- const handleSubmit = async () => {
-  if (!description.trim()) {
-    setSnackbar({
-      open: true,
-      message: "Description is required.",
-      severity: "warning",
-    });
-    return;
-  }
-
-  setLoading(true);
-
-  try {
-    let res;
-
-    if (isEditing) {
-      // تعديل البوست - إرسال الوصف فقط في JSON
-      res = await axios.put(
-        `https://f5f8-156-207-133-154.ngrok-free.app/api/Post/Upate-post/${post.id}`,
-        { description }, // إرسال JSON
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-    } else {
-      // إنشاء بوست جديد
-     if (file && file.type.startsWith("video/") && file.size > maxSizeInBytes) {
-  setSnackbar({
-    open: true,
-    message: `File is too large. Max allowed size is ${MAX_VEDIO_SIZE_MB}MB.`,
-    severity: "error",
-  });
-        setDescription("");
-        setFile(null);
-        setPreviewUrl(null);
-        setLoading(false);
-        return;
-      }
-
-      const formData = new FormData();
-      formData.append("UserId", userId);
-      formData.append("Description", description);
-      if (file) {
-        formData.append("file", file);
-      }
-
-      res = await axios.post(
-        `https://f5f8-156-207-133-154.ngrok-free.app/api/UserProfile/create-post`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-    }
-
-    if (res.status === 200) {
-      setFile(null);
-      setPreviewUrl(null);
-      setDescription("");
+  const handleSubmit = async () => {
+    if (!description.trim()) {
       setSnackbar({
         open: true,
-        message: isEditing
-          ? "Post updated successfully!"
-          : "Post created successfully!",
-        severity: "success",
+        message: "Description is required.",
+        severity: "warning",
       });
-
-      setTimeout(
-        () => navigate("/home/player", { state: { newPostAdded: true } }),
-        2000
-      );
-    } else {
-      throw new Error("Unexpected response");
+      return;
     }
-  } catch (err) {
-    console.error(err);
-    setSnackbar({
-      open: true,
-      message: "Server error. Please try again later.",
-      severity: "error",
-    });
-  } finally {
-    setLoading(false);
-  }
-};
 
+    setLoading(true);
+
+    try {
+      let res;
+
+      if (isEditing) {
+        res = await axios.put(
+          `https://f5f8-156-207-133-154.ngrok-free.app/api/Post/Upate-post/${post.id}`,
+          { description },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+      } else {
+        if (file && file.type.startsWith("video/") && file.size > maxSizeInBytes) {
+          setSnackbar({
+            open: true,
+            message: `File is too large. Max allowed size is ${MAX_VIDEO_SIZE_MB}MB.`,
+            severity: "error",
+          });
+          setDescription("");
+          setFile(null);
+          setPreviewUrl(null);
+          setLoading(false);
+          return;
+        }
+
+        const formData = new FormData();
+        formData.append("UserId", userId);
+        formData.append("Description", description);
+        if (file) {
+          formData.append("file", file);
+        }
+
+        res = await axios.post(
+          `https://f5f8-156-207-133-154.ngrok-free.app/api/UserProfile/create-post`,
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+      }
+
+      if (res.status === 200) {
+        setFile(null);
+        setPreviewUrl(null);
+        setDescription("");
+        setSnackbar({
+          open: true,
+          message: isEditing
+            ? "Post updated successfully!"
+            : "Post created successfully!",
+          severity: "success",
+        });
+
+        setTimeout(
+          () => navigate("/home/player", { state: { newPostAdded: true } }),
+          2000
+        );
+      } else {
+        throw new Error("Unexpected response");
+      }
+    } catch (err) {
+      console.error(err);
+      setSnackbar({
+        open: true,
+        message: "Server error. Please try again later.",
+        severity: "error",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const renderPreview = () => {
     if (!previewUrl) return null;
@@ -305,28 +302,3 @@ const UploadPage = () => {
 };
 
 export default UploadPage;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
