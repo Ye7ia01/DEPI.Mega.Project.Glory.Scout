@@ -43,10 +43,11 @@ const PublicCoachProfile = () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        `http://glory-scout.tryasp.net/api/SearchPages/scouts/${id}`,
+        `https://f5f8-156-207-133-154.ngrok-free.app/api/SearchPages/scouts/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
+            'ngrok-skip-browser-warning': 'true', // 👈 Add this header
           },
         }
       );
@@ -73,8 +74,8 @@ const PublicCoachProfile = () => {
 
     try {
       const url = isFollowing
-        ? `http://glory-scout.tryasp.net/api/UserProfile/unfollow/${userId}`
-        : `http://glory-scout.tryasp.net/api/UserProfile/follow/${userId}`;
+        ? `https://f5f8-156-207-133-154.ngrok-free.app/api/UserProfile/unfollow/${userId}`
+        : `https://f5f8-156-207-133-154.ngrok-free.app/api/UserProfile/follow/${userId}`;
       const res = await axios.post(url, null, {
         headers: { Authorization: `Bearer ${token}` },
       });

@@ -10,8 +10,8 @@ const useGetPlayersScouts = (dataType) => {
   const [errorMessage, setErrorMessage] = useState("");
   console.log("Data type in API useGetPlayers: ",dataType)
 
-  const url = dataType == 'players' ? 'http://glory-scout.tryasp.net/api/SearchPages/players' :
-      'http://glory-scout.tryasp.net/api/SearchPages/scouts'
+  const url = dataType == 'players' ? 'https://f5f8-156-207-133-154.ngrok-free.app/api/SearchPages/players' :
+      'https://f5f8-156-207-133-154.ngrok-free.app/api/SearchPages/scouts'
 
   useEffect(() => {
 
@@ -24,6 +24,7 @@ const useGetPlayersScouts = (dataType) => {
      const response = await axios.get(url, {
           headers: {
             Authorization: `Bearer ${user?.token}`,
+            'ngrok-skip-browser-warning': 'true', // 👈 Add this header
           },
         });
         setData(response.data);

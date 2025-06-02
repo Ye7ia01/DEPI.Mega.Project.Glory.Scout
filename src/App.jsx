@@ -68,6 +68,7 @@ function App() {
           {/* <Route index  element={<PlayersCoachesHomeScreen />} /> */}
          <Route path="/home/player/:id" element={<PublicPlayerProfile/>}/>
          <Route path="/home/coach/:id" element={<PublicCoachProfile/>}/>
+        <Route path="/home/edit" element={<UploadPage />} />
         </Route>
         <Route path="/posts/:postId" element={<PostDetails />} />
 
@@ -84,7 +85,7 @@ function App() {
         <Route path="/changepassword" element={<CreateNewPassword />} />
         <Route path="/resetpassword" element={<ResetPassword />} />
         {/* <Route path="/coach-profile" element={<PlayerProfile dataType="coaches" />} /> */}
-        <Route path="/upload" element={<UploadPage />} />
+        {/* <Route path="/upload" element={<UploadPage />} /> */}
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>

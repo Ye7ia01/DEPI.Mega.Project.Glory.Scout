@@ -533,3 +533,7 @@ body,
 .card-font {
   font-family: 'Poppins', sans-serif;
 }
+.dropdownlogout{
+  left: -13% !important;
+  top: 120% !important;
+}

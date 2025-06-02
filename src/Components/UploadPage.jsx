@@ -92,7 +92,7 @@ const UploadPage = () => {
     if (isEditing) {
       // تعديل البوست - إرسال الوصف فقط في JSON
       res = await axios.put(
-        `http://glory-scout.tryasp.net/api/Post/Upate-post/${post.id}`,
+        `https://f5f8-156-207-133-154.ngrok-free.app/api/Post/Upate-post/${post.id}`,
         { description }, // إرسال JSON
         {
           headers: {
@@ -124,7 +124,7 @@ const UploadPage = () => {
       }
 
       res = await axios.post(
-        `http://glory-scout.tryasp.net/api/UserProfile/create-post`,
+        `https://f5f8-156-207-133-154.ngrok-free.app/api/UserProfile/create-post`,
         formData,
         {
           headers: {

@@ -52,11 +52,11 @@ const PlayerPosts = ({ isEditable, playerId, onDataLoaded }) => {
     setLoading(true);
     try {
       const url = isEditable
-        ? `http://glory-scout.tryasp.net/api/UserProfile/get-profile`
-        : `http://glory-scout.tryasp.net/api/SearchPages/get-profile/${playerId}`;
+        ? `https://f5f8-156-207-133-154.ngrok-free.app/api/UserProfile/get-profile`
+        : `https://f5f8-156-207-133-154.ngrok-free.app/api/SearchPages/get-profile/${playerId}`;
 
       const response = await axios.get(url, {
-        headers: { Authorization: `Bearer ${token}` },
+        headers: { Authorization: `Bearer ${token}`, 'ngrok-skip-browser-warning': 'true'}
       });
 
       console.log(playerId, isEditable);
@@ -86,7 +86,7 @@ const PlayerPosts = ({ isEditable, playerId, onDataLoaded }) => {
   const handleDelete = async (postId) => {
     try {
       await axios.delete(
-        `http://glory-scout.tryasp.net/api/UserProfile/delete-post/${postId}`,
+        `https://f5f8-156-207-133-154.ngrok-free.app/api/UserProfile/delete-post/${postId}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }

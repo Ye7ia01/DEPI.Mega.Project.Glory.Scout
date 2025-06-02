@@ -24,10 +24,11 @@ const HomePage = () => {
             if (authenticated && user?.token) {
                 try {
                     setIsLoading(true);
-                    const response = await axios.get('http://glory-scout.tryasp.net/api/HomePage/feed', {
+                    const response = await axios.get('https://f5f8-156-207-133-154.ngrok-free.app/api/HomePage/feed', {
                         headers: {
                             "Authorization": `Bearer ${user.token}`,
-                            "Content-Type": "application/json"
+                            "Content-Type": "application/json",
+                            'ngrok-skip-browser-warning': 'true', // 👈 Add this header
                         }
                     });
                     setIsLoading(false);
@@ -60,7 +61,7 @@ const HomePage = () => {
         if (!authenticated || !user?.token) return;
         console.log("Starting Request")
         try {
-            const response = await axios.post(`http://glory-scout.tryasp.net/api/Post/${postId}/comment`,
+            const response = await axios.post(`https://f5f8-156-207-133-154.ngrok-free.app/api/Post/${postId}/comment`,
                 {
                     commentText: comment.toString()
                 },
@@ -89,11 +90,12 @@ const HomePage = () => {
         if (!authenticated || !user?.token) return;
         console.log("Starting Request")
         try {
-            const response = await axios.get(`http://glory-scout.tryasp.net/api/Post/${postId}`,
+            const response = await axios.get(`https://f5f8-156-207-133-154.ngrok-free.app/api/Post/${postId}`,
                 {
                     headers: {
                         "Authorization": `Bearer ${user.token}`,
-                        "Content-Type": "application/json"
+                        "Content-Type": "application/json",
+                        'ngrok-skip-browser-warning': 'true', // 👈 Add this header
                     }
                 });
             console.log("Response : ", response)
@@ -113,7 +115,7 @@ const HomePage = () => {
         if (!authenticated || !user?.token) return;
 
         try {
-            const url = `http://glory-scout.tryasp.net/api/Post/${postId}/like`;
+            const url = `https://f5f8-156-207-133-154.ngrok-free.app/api/Post/${postId}/like`;
             const method = isLikedByCurrentUser ? 'delete' : 'post';
             await axios({
                 method,

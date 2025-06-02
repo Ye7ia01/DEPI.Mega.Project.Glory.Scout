@@ -51,10 +51,11 @@ const PlayerProfile = () => {
     try {
       // const token = localStorage.getItem("token");
       const res = await axios.get(
-        "http://glory-scout.tryasp.net/api/UserProfile/get-profile",
+        "https://f5f8-156-207-133-154.ngrok-free.app/api/UserProfile/get-profile",
         {
           headers: {
             Authorization: `Bearer ${token}`,
+            'ngrok-skip-browser-warning': 'true', // 👈 Add this header
           },
         }
       );
@@ -87,7 +88,7 @@ const PlayerProfile = () => {
     try {
       // const token = localStorage.getItem("token");
       const res = await axios.put(
-        "http://glory-scout.tryasp.net/api/UserProfile/edit-profile",
+        "https://f5f8-156-207-133-154.ngrok-free.app/api/UserProfile/edit-profile",
         formData,
         {
           headers: {
@@ -225,7 +226,7 @@ const PlayerProfile = () => {
         <Container sx={{ mt: 3 }} style={{marginLeft:"0px"}}>
           {/* Add post button */}
 
-          <Link to="/upload" style={{ textDecoration: "none" }}>
+          <Link to="/home/edit" style={{ textDecoration: "none" }}>
             <Button
               variant="contained"
               sx={{

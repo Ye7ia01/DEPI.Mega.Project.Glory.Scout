@@ -24,10 +24,11 @@ const PostDetails = () => {
       
       try {
         setIsLoading(true);
-        const response = await axios.get(`http://glory-scout.tryasp.net/api/Post/${postId}`, {
+        const response = await axios.get(`https://f5f8-156-207-133-154.ngrok-free.app/api/Post/${postId}`, {
           headers: {
             "Authorization": `Bearer ${user.token}`,
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            'ngrok-skip-browser-warning': 'true', // 👈 Add this header
           }
         });
         if (response.status === 200) {
@@ -50,7 +51,7 @@ const PostDetails = () => {
     if (!authenticated || !user?.token || !post) return;
 
     try {
-      const url = `http://glory-scout.tryasp.net/api/Post/${postId}/like`;
+      const url = `https://f5f8-156-207-133-154.ngrok-free.app/api/Post/${postId}/like`;
       const method = post.isLikedByCurrentUser ? 'delete' : 'post';
       
       await axios({
@@ -81,7 +82,7 @@ const PostDetails = () => {
     
     try {
       const response = await axios.post(
-        `http://glory-scout.tryasp.net/api/Post/${postId}/comment`,
+        `https://f5f8-156-207-133-154.ngrok-free.app/api/Post/${postId}/comment`,
         { commentText: newComment },
         {
           headers: {
@@ -96,10 +97,11 @@ const PostDetails = () => {
         setNewComment("");
         
         // Refresh post details to get updated comments
-        const updatedPostResponse = await axios.get(`http://glory-scout.tryasp.net/api/Post/${postId}`, {
+        const updatedPostResponse = await axios.get(`https://f5f8-156-207-133-154.ngrok-free.app/api/Post/${postId}`, {
           headers: {
             "Authorization": `Bearer ${user.token}`,
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            'ngrok-skip-browser-warning': 'true', // 👈 Add this header
           }
         });
         
@@ -124,7 +126,7 @@ const PostDetails = () => {
     try {
       console.log("Attempting to delete comment ID:", commentId);
       
-      const response = await axios.delete(`http://glory-scout.tryasp.net/api/comments/${commentId}`, {
+      const response = await axios.delete(`https://f5f8-156-207-133-154.ngrok-free.app/api/comments/${commentId}`, {
         headers: {
           "Authorization": `Bearer ${user.token}`,
           "Content-Type": "application/json"

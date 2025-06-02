@@ -265,7 +265,7 @@ export default RegisterPlayers;
 
 //   try {
 //     const response = await axios.post(
-//       "http://glory-scout.tryasp.net/api/Auth/register-player",
+//       "https://f5f8-156-207-133-154.ngrok-free.app/api/Auth/register-player",
 //       formData,
 //       {
 //         headers: {

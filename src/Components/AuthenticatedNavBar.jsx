@@ -164,9 +164,9 @@ export const AuthenticatedNavBar = ({collapsed, setCollapsed}) => {
                                 </div>
                             </Dropdown.Toggle>
 
-                            <Dropdown.Menu>
+                            <Dropdown.Menu className="dropdownlogout">
                                 <Dropdown.Item as={Link} to={user?.role == "player"? "/home/player" : "/home/coach"}>Profile</Dropdown.Item>
-                                <Dropdown.Item href="#" onClick={() => {
+                                <Dropdown.Item href="/" onClick={() => {
                                     logoutAsync();
                                     navigate("/");
                                 }}>Logout</Dropdown.Item>

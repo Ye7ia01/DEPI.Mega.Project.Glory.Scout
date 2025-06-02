@@ -93,9 +93,9 @@ export const AuthProvider = ({children}) => {
         setAuthError(false);
         setAuthMessage(false);
 
-        axios.post('http://glory-scout.tryasp.net/api/Auth/register-player', formData , {
+        axios.post('https://f5f8-156-207-133-154.ngrok-free.app/api/Auth/register-player', formData , {
             headers: {
-                "Content-Type": "multipart/form-data"
+                "Content-Type": "multipart/form-data",
             }
         }).then(res => {
             console.log("Data : ",res)
@@ -149,7 +149,7 @@ export const AuthProvider = ({children}) => {
         setAuthError(false);
         setAuthMessage(false);
 
-        axios.post('http://glory-scout.tryasp.net/api/Auth/register-coach', formData , {
+        axios.post('https://f5f8-156-207-133-154.ngrok-free.app/api/Auth/register-coach', formData , {
             headers: {
                 "Content-Type": "multipart/form-data"
             }
@@ -206,7 +206,7 @@ export const AuthProvider = ({children}) => {
         setAuthError(false);
         setAuthMessage(false);
 
-        axios.post('http://glory-scout.tryasp.net/api/Auth/login', {
+        axios.post('https://f5f8-156-207-133-154.ngrok-free.app/api/Auth/login', {
             email, password
         }, {
             headers: {
