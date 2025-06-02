@@ -238,12 +238,29 @@ const PostDetails = () => {
           </div>
         </div>
 
-        <div className="post-image" style={{ width: "100%" }}>
+        {/* <div className="post-image" style={{ width: "100%" }}>
           <img 
             src={post.postUrl} 
             alt="Post" 
             style={{ width: "100%", maxHeight: "500px", objectFit: "contain" }}
           />
+        </div> */}
+        <div className="post-image" style={{ width: "100%" }}>
+          {post.postUrl?.endsWith('.mp4') || post.postUrl?.endsWith('.webm') ? (
+            <video 
+              controls 
+              style={{ width: "100%", maxHeight: "500px", objectFit: "contain" }}
+            >
+              <source src={post.postUrl} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          ) : (
+            <img 
+              src={post.postUrl} 
+              alt="Post" 
+              style={{ width: "100%", maxHeight: "500px", objectFit: "contain" }}
+            />
+          )}
         </div>
 
         <div className="post-actions" style={{

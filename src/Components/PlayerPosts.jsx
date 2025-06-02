@@ -119,7 +119,7 @@ const PlayerPosts = ({ isEditable, playerId, onDataLoaded }) => {
         <CardMedia
           component="video"
           src={fileUrl}
-          controls
+          controls={false}
           sx={{ width: "100%", maxHeight: 200, objectFit: "cover" }}
         />
       );

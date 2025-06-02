@@ -172,8 +172,22 @@ const HomePage = () => {
                                         <h4>@{e.username}</h4>
                                         <p>{timeAgo}</p>
                                     </div>
-                                    <div className="box-img">
-                                        <img src={e.posrUrl} alt=""/>
+                                   <div className="box-img">
+                                    {e.posrUrl?.endsWith(".mp4") ? (
+                                        <video
+                                        src={e.posrUrl}
+                                        muted={false}
+                                        loop
+                                        controls
+                                         style={{ width: "100%", height: "100%", objectFit: "file" }}
+                                        />
+                                    ) : (
+                                        <img
+                                        src={e.posrUrl}
+                                        alt=""
+                                         style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                                        />
+                                    )}
                                     </div>
                                     <div className="icons">
                                         <div className="cent">
@@ -258,15 +272,32 @@ const HomePage = () => {
                                                     <p>{formatDistanceToNow(new Date(post.createdAt), {addSuffix: true})}</p>
                                                 </div>
 
-                                                <img
-                                                    src={post.postUrl}
-                                                    alt="Post"
-                                                    style={{
-                                                        maxWidth: "100%",
-                                                        maxHeight: "50vh",
-                                                        marginBottom: "1rem",
-                                                    }}
-                                                />
+                                               <div style={{ height: "50vh", marginBottom: "1rem" }}>
+                                                            {post.postUrl?.endsWith(".mp4") ? (
+                                                                <video
+                                                                src={post.postUrl}
+                                                                muted={false}
+                                                                loop
+                                                                controls
+                                                                style={{
+                                                                    width: "100%",
+                                                                    height: "100%",
+                                                                    objectFit: "cover",
+                                                                }}
+                                                                />
+                                                            ) : (
+                                                                <img
+                                                                src={post.postUrl}
+                                                                alt="Post"
+                                                                style={{
+                                                                    width: "100%",
+                                                                    height: "100%",
+                                                                    objectFit: "cover",
+                                                                }}
+                                                                />
+                                                            )}
+                                                            </div>
+
                                                 <hr />
                                                 <div className="comments-section f-flex flex-column justify-content-start p-3">
                                                     <h3 style={{marginBottom:'30px'}}>Comments ({post.comments?.length}) </h3>
